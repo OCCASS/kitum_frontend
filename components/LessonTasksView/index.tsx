@@ -2,7 +2,7 @@
 
 import { post } from "@/lib/fetch";
 import ILesson from "@/types/lesson";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Tasks from "@/components/Tasks";
 import Button from "@/components/ui/Button";
 import Link from "next/link";
@@ -10,17 +10,6 @@ import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 
 export default function LessonTasksView({ data }: { data: ILesson }) {
     const [lesson, setLesson] = useState<ILesson>(data)
-    const [isAllAnswered, setIsAllAnswered] = useState(false)
-
-    useEffect(() => {
-        if (!lesson?.tasks) return
-
-        let result = true
-        for (const task in lesson?.tasks) {
-            result = result && lesson?.tasks[task].answer !== null
-        }
-        setIsAllAnswered(result)
-    }, [lesson])
 
     const complete = async () => {
         const { data, status } = await post<ILesson>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/lessons/${lesson?.id}/complete_tasks/`)
