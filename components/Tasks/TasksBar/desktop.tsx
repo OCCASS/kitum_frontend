@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import TasksBarItem from "./TasksBarItem"
 import { TTasksBarProps } from "."
+import Button from "@/components/ui/Button"
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline"
 
 function ElepsisElement() {
     return <li className="align-middle text-gray-400 text-lg">&hellip;</li>
@@ -11,6 +13,14 @@ export default function DesktopTasksBar({ tasks, selected, setSelected }: TTasks
     const maxTaskCount = Math.min(5, length - 3)
 
     const [content, setContent] = useState<Array<React.ReactNode>>([])
+
+    const next = () => {
+        setSelected(prev => Math.min(prev + 1, length - 1))
+    }
+
+    const prev = () => {
+        setSelected(prev => Math.max(prev - 1, 0))
+    }
 
     useEffect(() => {
         let minTaskLimit, maxTaskLimit;
@@ -43,6 +53,7 @@ export default function DesktopTasksBar({ tasks, selected, setSelected }: TTasks
 
     return (
         <ul className="hidden md:flex m-auto justify-center items-center gap-2 py-2">
+            {selected !== 0 && <Button variant="none" onClick={prev}><ChevronLeftIcon className="size-5 text-gray-400" /></Button>}
             {selected >= maxTaskCount &&
                 <>
                     <TasksBarItem
@@ -69,6 +80,7 @@ export default function DesktopTasksBar({ tasks, selected, setSelected }: TTasks
                 </>
 
             }
+            {selected !== length - 1 && <Button variant="none" onClick={next}><ChevronRightIcon className="size-5 text-gray-400" /></Button>}
         </ul>
     )
 }

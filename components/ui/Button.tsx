@@ -2,7 +2,7 @@ import React, { FC } from "react"
 import { twMerge } from "tailwind-merge"
 
 type TButtonProps = React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> & {
-    variant?: "primary" | "outline" | "gray",
+    variant?: "primary" | "outline" | "gray" | "none",
 }
 
 const defaultClassName = "px-5 py-2 rounded disabled:bg-gray-400/50 disabled:text-gray-600 disabled:cursor-not-allowed"
@@ -16,6 +16,8 @@ const Button: FC<TButtonProps> = ({ className, disabled, variant = "primary", ..
             variantStyles = "bg-transparent border border-gray-300"
         else if (variant === "gray")
             variantStyles = "bg-gray-300"
+        else if (variant === "none")
+            variantStyles = "disabled:bg-transparent p-0"
 
         return twMerge(defaultClassName, variantStyles, className)
     }

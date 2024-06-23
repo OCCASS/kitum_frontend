@@ -17,11 +17,15 @@ export default function Tasks({ tasks, disabled, answerTask, skipTask, className
     const [currentTask, setCurrentTask] = useState<ITask>(tasks[0])
     const [currentAnswer, setCurrentAnswer] = useState("")
 
+    const nextTask = () => {
+        setCurrentTaskIndex(prev => Math.min(prev + 1, tasks.length - 1))
+    }
+
     useEffect(() => {
         const task = tasks[currentTaskIndex]
         setCurrentTask(task)
         setCurrentAnswer(task.answer ?? "")
-    }, [currentTaskIndex])
+    }, [currentTaskIndex, tasks])
 
     return (
         <div className={twMerge("space-y-3 max-w-prose", className)}>
@@ -38,6 +42,8 @@ export default function Tasks({ tasks, disabled, answerTask, skipTask, className
                 setAnswer={setCurrentAnswer}
                 answerAction={answerTask}
                 skipAction={skipTask}
+                nextTask={nextTask}
+                isLast={currentTaskIndex === tasks.length - 1}
             />
         </div>
     )

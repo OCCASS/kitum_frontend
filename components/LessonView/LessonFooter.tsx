@@ -16,9 +16,9 @@ export default function LessonFooter({ lesson, complete, skip }: TLessonFooterPr
     }
 
     return (
-        <div className="space-x-2">
-            <Button onClick={complete}>Complete</Button>
-            <Button onClick={skip} className="bg-red">Skip</Button>
+        <div className="space-x-2 flex justify-end">
+            <Button onClick={skip} variant="gray">Пропустить</Button>
+            <Button onClick={complete}>Завершить</Button>
         </div>
     )
 

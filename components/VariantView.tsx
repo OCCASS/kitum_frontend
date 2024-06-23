@@ -5,6 +5,8 @@ import { post } from "@/lib/fetch"
 import IVariant from "@/types/variant"
 import { useState } from "react"
 import Tasks from "@/components/Tasks"
+import Link from "next/link"
+import { ArrowLeftIcon } from "@heroicons/react/24/outline"
 
 export default function VariantView({ data }: { data: IVariant }) {
     const [variant, setVariant] = useState<IVariant>(data)
@@ -34,10 +36,11 @@ export default function VariantView({ data }: { data: IVariant }) {
     }
 
     return (
-        <div className="space-y-3">
-            <div className="w-full flex justify-between items-center">
+        <div className="space-y-3 max-w-prose m-auto">
+            <Link href="/variants" className="flex gap-2 items-center"><ArrowLeftIcon className="size-5" />Назад к вариантам</Link>
+            <div className="w-full flex justify-between md:items-center flex-col md:flex-row gap-3 md:gap-0">
                 <h1>{variant.title}</h1>
-                {variant.isStarted && <Button onClick={complete} disabled={variant.isCompleted} variant="outline" className="text-sm">Complete</Button>}
+                {(variant.isStarted && !variant.isCompleted) && <Button onClick={complete} disabled={variant.isCompleted} variant="outline" className="md:text-sm">Завершить</Button>}
             </div>
             {
                 variant.isStarted ?
