@@ -4,9 +4,10 @@
 
 @layer base {
   :root {
-    --bg-primary: rgb(243 244 246 / 0.8);
+    --bg-primary: rgb(250 250 250);
     --bg-secondary: rgb(255, 255, 255);
     --bg-tertiary: rgb(229 231 235 / 0.8);
+    --bg-codeblock: #f5f2f0;
     --text-primary: rgb(0, 0, 0);
   }
 
@@ -14,6 +15,7 @@
     --bg-primary: #3f3f3f;
     --bg-secondary: #282828;
     --bg-tertiary: #575757;
+    --bg-codeblock: #f5f2f0;
     --text-primary: rgb(255, 255, 255);
   }
 

@@ -30,6 +30,7 @@ const config: Config = {
             "bg_primary": "var(--bg-primary)",
             "bg_secondary": "var(--bg-secondary)",
             "bg_tertiary": "var(--bg-tertiary)",
+            "bg_codeblock": "var(--bg-codeblock)",
             "text_primary": "var(--text-primary)",
             "red": "#DC2626",
             "green": "#16A34A"
