@@ -2,14 +2,13 @@
 
 import { cookies } from "next/headers"
 
-export async function get<T>(url: string, ...params: any) {
+export async function get<T>(url: string) {
     const access = cookies().get("access")?.value
     const requestOptions = {
         method: "GET",
         headers: {
             Authorization: `Bearer ${access}`
-        },
-        ...params
+        }
     }
     const response = await fetch(url, requestOptions)
     const data: T = await response.json()
