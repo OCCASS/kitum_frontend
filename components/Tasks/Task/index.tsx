@@ -39,7 +39,7 @@ function TaskViewFooter({ task, answer, disabled, answerAction, skipAction, next
                 :
                 <>
                     <Button onClick={() => answerAction(task.id, answer)} disabled={disabled}>Ответить</Button>
-                    <Button onClick={() => skipAction(task.id)} variant="gray" disabled={disabled}>Пропустить</Button>
+                    {!task.isSkipped && <Button onClick={() => skipAction(task.id)} variant="gray" disabled={disabled}>Пропустить</Button>}
                 </>
             }
         </div>
