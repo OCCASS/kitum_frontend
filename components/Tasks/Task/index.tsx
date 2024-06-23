@@ -4,6 +4,7 @@ import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import { Dispatch, SetStateAction } from "react";
 import MarkdownView from "@/components/Markdown";
+import { twMerge } from "tailwind-merge";
 
 
 type TTaskProps = {
@@ -18,7 +19,7 @@ type TTaskProps = {
     isLast: boolean
 }
 
-type TTaskViewFooterProps = {
+type TTaskViewButtonsProps = {
     task: ITask
     disabled: boolean
     answer: string
@@ -28,9 +29,70 @@ type TTaskViewFooterProps = {
     isLast: boolean
 }
 
-function TaskViewFooter({ task, answer, disabled, answerAction, skipAction, nextTask, isLast }: TTaskViewFooterProps) {
+export default function Task({ number, task, disabled, answer, setAnswer, answerAction, skipAction, nextTask, isLast }: TTaskProps) {
     return (
-        <div className="flex gap-3 justify-start flex-row-reverse md:flex-row">
+        <div className="space-y-3">
+            <h2>Задание №{number}</h2>
+            {/* Content */}
+            <MarkdownView content={task.content} />
+            {task.files.length > 0 && <TaskFiles files={task.files} />}
+            <div className={twMerge("w-full flex flex-col gap-3 md:flex-row", task.type === "T" && "md:flex-col")}>
+                <TaskViewInput task={task} answer={answer} setAnswer={setAnswer} disabled={disabled} />
+                <TaskViewButtons
+                    task={task}
+                    answer={answer}
+                    disabled={disabled}
+                    answerAction={answerAction}
+                    skipAction={skipAction}
+                    nextTask={nextTask}
+                    isLast={isLast}
+                />
+            </div>
+        </div>
+    )
+
+}
+
+function TaskViewInput(
+    { task, answer, setAnswer, disabled }: { task: ITask, answer: string, setAnswer: Dispatch<SetStateAction<string>>, disabled: boolean }
+) {
+    if (task.type === "A") {
+        return <Input placeholder="Введите ответ" className="flex-1" value={answer} onChange={(e) => setAnswer(e.target.value)} disabled={disabled} />
+    }
+
+    return (
+        <table className="border-collapse flex-1">
+            <thead>
+                <tr>
+                    <th className="border border-gray-300 font-normal py-1"></th>
+                    <th className="border border-gray-300 font-normal py-1">1</th>
+                    <th className="border border-gray-300 font-normal py-1">2</th>
+                </tr>
+            </thead>
+            <tbody>
+                {
+                    new Array(10).fill(0).map(
+                        (_, index) => (
+                            <tr>
+                                <th className="border border-gray-300 font-normal text-gray-400 px-2">{index + 1}</th>
+                                <td className="border border-gray-300">
+                                    <Input variant="none" className="px-2 py-1" disabled={disabled} />
+                                </td>
+                                <td className="border border-gray-300">
+                                    <Input variant="none" className="px-2 py-1" disabled={disabled} />
+                                </td>
+                            </tr>
+                        )
+                    )
+                }
+            </tbody>
+        </table >
+    )
+}
+
+function TaskViewButtons({ task, answer, disabled, answerAction, skipAction, nextTask, isLast }: TTaskViewButtonsProps) {
+    return (
+        <div className={twMerge("flex gap-3 justify-start flex-row-reverse md:flex-row", task.type === "T" && "md:justify-end")}>
             {task.answer ?
                 <>
                     <Button onClick={nextTask} variant="gray" disabled={disabled || isLast}>Дальше</Button>
@@ -44,29 +106,5 @@ function TaskViewFooter({ task, answer, disabled, answerAction, skipAction, next
             }
         </div>
     )
-}
-
-export default function Task({ number, task, disabled, answer, setAnswer, answerAction, skipAction, nextTask, isLast }: TTaskProps) {
-    return (
-        <div className="space-y-3">
-            <h2>Задание №{number}</h2>
-            {/* Content */}
-            <MarkdownView content={task.content} />
-            {task.files.length > 0 && <TaskFiles files={task.files} />}
-            <div className="w-full flex flex-col gap-3 md:flex-row md:gap-10 ">
-                <Input placeholder="Ответ" className="flex-1" value={answer} onChange={(e) => setAnswer(e.target.value)} disabled={disabled} />
-                <TaskViewFooter
-                    task={task}
-                    answer={answer}
-                    disabled={disabled}
-                    answerAction={answerAction}
-                    skipAction={skipAction}
-                    nextTask={nextTask}
-                    isLast={isLast}
-                />
-            </div>
-        </div>
-    )
-
 }
 

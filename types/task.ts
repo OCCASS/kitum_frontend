@@ -9,6 +9,7 @@ export default interface ITask {
     isCorrect: boolean
     isSkipped: boolean
     answer: string | null
+    type: "A" | "T"
     files: ITaskFile[]
 }
 
