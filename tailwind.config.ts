@@ -33,7 +33,7 @@ const config: Config = {
             "bg_codeblock": "var(--bg-codeblock)",
             "text_primary": "var(--text-primary)",
             "red": "#DC2626",
-            "green": "#16A34A"
+            "green": "#16A34A",
         },
         extend: {
             transitionProperty: {
@@ -41,6 +41,9 @@ const config: Config = {
             },
             flex: {
                 "auto-0": "0 0 auto"
+            },
+            spacing: {
+                "header_height": "var(--header-height)",
             }
         },
     },

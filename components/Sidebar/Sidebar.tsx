@@ -23,7 +23,7 @@ const Sidebar = ({ show, close }: ISidebarProps) => {
     useOutsideClick(ref, close)
 
     return (
-        <aside className={`${show ? "visible h-full " : "invisible h-0"} overflow-hidden transition-all duration-300 md:h-full md:visible md:transition-none w-full md:w-[256px] fixed top-16 bottom-0 start-0 z-[60] end-auto shadow bg-bg_secondary`} ref={ref}>
+        <aside className={`${show ? "visible h-full " : "invisible h-0"} overflow-hidden transition-all duration-300 md:h-full md:visible md:transition-none w-full md:w-[256px] fixed top-header_height bottom-0 start-0 z-[60] end-auto shadow bg-bg_secondary`} ref={ref}>
             <nav className="pt-6 px-3 w-full flex flex-col flex-wrap">
                 <ul className="space-y-1.5">
                     {sidebarItems.map((item, index) => <SidebarItem key={index} {...item} close={close} />)}

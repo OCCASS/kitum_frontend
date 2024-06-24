@@ -14,8 +14,8 @@ export default function RootLayout({
     return (
         <>
             <Layout />
-            <main className="w-full h-full md:ps-64">
-                <div className="m-auto h-full max-w-[1200px] p-4 sm:p-6">
+            <main className="w-full h-full-without-header md:ps-64">
+                <div className="m-auto h-full max-w-[1200px] p-4 sm:p-6 overflow-auto">
                     {children}
                 </div>
             </main>

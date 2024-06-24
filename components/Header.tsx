@@ -14,7 +14,7 @@ export default function Header({ toggleSidebar, showSidebar }: THeaderProps) {
     const { user } = useUser()
 
     return (
-        <header className="sticky h-16 top-0 inset-x-0 flex z-[48] w-full py-2.5 sm:py-4 border-b border-gray-200  bg-bg_secondary">
+        <header className="sticky h-header_height top-0 inset-x-0 flex z-[48] w-full py-2.5 sm:py-4 border-b border-gray-200  bg-bg_secondary">
             <nav className="w-full flex items-center ms-auto justify-between px-4 sm:px-6">
                 <Logo />
                 <div className="space-x-5 flex items-center">
