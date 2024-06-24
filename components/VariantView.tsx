@@ -4,7 +4,7 @@ import Button from "@/components/ui/Button"
 import { post } from "@/lib/fetch"
 import IVariant from "@/types/variant"
 import { useState } from "react"
-import Tasks from "@/components/Tasks"
+import TasksView from "@/components/TasksView"
 import Link from "next/link"
 import { ArrowLeftIcon } from "@heroicons/react/24/outline"
 
@@ -44,7 +44,7 @@ export default function VariantView({ data }: { data: IVariant }) {
             </div>
             {
                 variant.isStarted ?
-                    <Tasks
+                    <TasksView
                         tasks={variant.tasks}
                         disabled={variant.isCompleted || !variant.isStarted}
                         answerTask={answer}

@@ -3,7 +3,7 @@
 import { post } from "@/lib/fetch";
 import ILesson from "@/types/lesson";
 import { useState } from "react";
-import Tasks from "@/components/Tasks";
+import TasksView from "@/components/TasksView";
 import Button from "@/components/ui/Button";
 import Link from "next/link";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
@@ -35,7 +35,7 @@ export default function LessonTasksView({ data }: { data: ILesson }) {
                 {!lesson.isTasksCompleted && <Button onClick={complete} disabled={lesson.isTasksCompleted} variant="outline" className="md:text-sm">Завершить</Button>}
             </div>
             {/* Content */}
-            <Tasks
+            <TasksView
                 tasks={lesson?.tasks ?? []}
                 disabled={lesson.isTasksCompleted}
                 answerTask={answer}

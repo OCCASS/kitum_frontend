@@ -5,9 +5,10 @@ import Button from "@/components/ui/Button";
 import { Dispatch, SetStateAction } from "react";
 import MarkdownView from "@/components/Markdown";
 import { twMerge } from "tailwind-merge";
+import { removeTrailingEmptyStrings } from "@/utils/array";
 
 
-type TTaskProps = {
+type TTaskViewProps = {
     number: number
     task: ITask
     disabled: boolean
@@ -29,7 +30,14 @@ type TTaskViewButtonsProps = {
     isLast: boolean
 }
 
-export default function Task({ number, task, disabled, answer, setAnswer, answerAction, skipAction, nextTask, isLast }: TTaskProps) {
+type TTaskViewInputProps = {
+    task: ITask
+    answer: TTaskAnswer
+    setAnswer: Dispatch<SetStateAction<TTaskAnswer>>
+    disabled: boolean
+}
+
+export default function TaskView({ number, task, disabled, answer, setAnswer, answerAction, skipAction, nextTask, isLast }: TTaskViewProps) {
     return (
         <div className="space-y-3">
             <h2>Задание №{number}</h2>
@@ -53,78 +61,54 @@ export default function Task({ number, task, disabled, answer, setAnswer, answer
 
 }
 
-function TaskViewInput(
-    { task, answer, setAnswer, disabled }: { task: ITask, answer: TTaskAnswer, setAnswer: Dispatch<SetStateAction<TTaskAnswer>>, disabled: boolean }
-) {
+function TaskViewInput({ task, answer, disabled, setAnswer }: TTaskViewInputProps) {
     if (task.type === "A") {
-        return <Input placeholder="Введите ответ" className="flex-1" value={answer} onChange={(e) => setAnswer([e.target.value])} disabled={disabled} />
-    }
-
-    const removeTrailingEmptyStrings = (arr: string[]): string[] => {
-        let filteredArray = [...arr];
-
-        while (filteredArray.length > 0 && filteredArray[filteredArray.length - 1] === '') {
-            filteredArray.pop();
-        }
-
-        return filteredArray;
+        return <Input placeholder="Введите ответ" className="flex-1" value={answer} onChange={(e) => setAnswer([e.target.value])} disabled={disabled} variant="gray" />
     }
 
     const answerFromTable = (colIndex: number, rowIndex: number, newAnswer: string) => {
-        const index = rowIndex * 2 + colIndex
-        if (answer.length === index) {
-            setAnswer(prev => {
-                return [...prev, newAnswer]
-            })
-        } else if (answer.length < index + 1) {
-            setAnswer(prev => {
-                prev.push()
-                return [...prev, ...new Array(index - answer.length).fill(""), newAnswer]
-            })
-        } else {
-            setAnswer(prev => {
-                const copyPrev = [...prev]
-                copyPrev[index] = newAnswer
-                return removeTrailingEmptyStrings(copyPrev)
-            })
-        }
+        const index = rowIndex * 2 + colIndex; // 2d table with 2 cols index to 1d array index
+
+        setAnswer(prev => {
+            let updatedAnswer = [...prev];
+
+            if (index >= updatedAnswer.length) {
+                updatedAnswer = [...updatedAnswer, ...new Array(index - updatedAnswer.length).fill(""), newAnswer];
+            } else {
+                updatedAnswer[index] = newAnswer;
+            }
+
+            return removeTrailingEmptyStrings(updatedAnswer);
+        });
     }
 
     return (
         <table className="border-collapse flex-1">
             <thead>
                 <tr>
-                    <th className="border border-gray-300 font-normal py-1"></th>
-                    <th className="border border-gray-300 font-normal py-1">1</th>
-                    <th className="border border-gray-300 font-normal py-1">2</th>
+                    <th scope="col" className="border border-gray-300 font-normal py-1"></th>
+                    <th scope="col" className="border border-gray-300 font-normal py-1">1</th>
+                    <th scope="col" className="border border-gray-300 font-normal py-1">2</th>
                 </tr>
             </thead>
             <tbody>
                 {
-                    new Array(10).fill(0).map(
-                        (_, index) => (
-                            <tr key={index}>
-                                <th className="border border-gray-300 font-normal text-gray-400 px-2">{index + 1}</th>
-                                <td className="border border-gray-300">
+                    Array.from({ length: 10 }, (_, index) => (
+                        <tr key={index}>
+                            <th className="border border-gray-300 font-normal text-gray-400 px-2">{index + 1}</th>
+                            {[0, 1].map(colIndex => (
+                                <td key={colIndex} className="border border-gray-300">
                                     <Input
                                         variant="none"
                                         className="px-2 py-1"
                                         disabled={disabled}
-                                        value={answer[index * 2] ?? ""}
-                                        onChange={e => answerFromTable(0, index, e.target.value)}
+                                        value={answer[index * 2 + colIndex] ?? ""}
+                                        onChange={e => answerFromTable(colIndex, index, e.target.value)}
                                     />
                                 </td>
-                                <td className="border border-gray-300">
-                                    <Input
-                                        variant="none"
-                                        className="px-2 py-1"
-                                        disabled={disabled}
-                                        value={answer[index * 2 + 1] ?? ""}
-                                        onChange={e => answerFromTable(1, index, e.target.value)}
-                                    />
-                                </td>
-                            </tr>
-                        )
+                            ))}
+                        </tr>
+                    )
                     )
                 }
             </tbody>

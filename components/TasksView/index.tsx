@@ -1,10 +1,10 @@
 import ITask, { TTaskAnswer } from "@/types/task"
 import TasksBar from "./TasksBar"
 import { useEffect, useState } from "react"
-import Task from "./Task"
+import TaskView from "./TaskView"
 import { twMerge } from "tailwind-merge"
 
-type TTasksProps = {
+type TTasksViewProps = {
     tasks: ITask[]
     disabled: boolean
     answerTask: (taskId: string, answer: TTaskAnswer) => void
@@ -12,7 +12,7 @@ type TTasksProps = {
     className?: string
 }
 
-export default function Tasks({ tasks, disabled, answerTask, skipTask, className }: TTasksProps) {
+export default function TasksView({ tasks, disabled, answerTask, skipTask, className }: TTasksViewProps) {
     const [currentTaskIndex, setCurrentTaskIndex] = useState(0)
     const [currentTask, setCurrentTask] = useState<ITask>(tasks[0])
     const [currentAnswer, setCurrentAnswer] = useState<TTaskAnswer>([])
@@ -34,7 +34,7 @@ export default function Tasks({ tasks, disabled, answerTask, skipTask, className
                 selected={currentTaskIndex}
                 setSelected={setCurrentTaskIndex}
             />
-            <Task
+            <TaskView
                 number={currentTaskIndex + 1}
                 task={currentTask}
                 disabled={disabled}
