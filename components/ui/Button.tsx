@@ -13,7 +13,7 @@ const Button: FC<TButtonProps> = ({ className, disabled, variant = "primary", ..
         if (variant === "primary")
             variantStyles = "bg-black text-white"
         else if (variant === "outline")
-            variantStyles = "bg-transparent border border-gray-300"
+            variantStyles = "bg-transparent border border-gray-300 hover:bg-gray-100"
         else if (variant === "gray")
             variantStyles = "bg-gray-300"
         else if (variant === "none")

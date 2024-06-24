@@ -19,3 +19,11 @@ export function formattedDate(date: Date) {
     const month = rjust(date.getMonth().toString(), 2, "0")
     return `${day}.${month}.${date.getFullYear()}`
 }
+
+export function getDaysInMonth(year: number, month: number) {
+    return new Date(year, month + 1, 0).getDate();
+};
+
+export function getFirstDayOfMonth(year: number, month: number) {
+    return (new Date(year, month, 1).getDay() + 6) % 7; // Adjust to make Monday the first day
+};
