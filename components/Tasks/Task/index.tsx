@@ -1,4 +1,4 @@
-import ITask from "@/types/task";
+import ITask, { TTaskAnswer } from "@/types/task";
 import TaskFiles from "./TaskFiles";
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
@@ -11,9 +11,9 @@ type TTaskProps = {
     number: number
     task: ITask
     disabled: boolean
-    answer: string
-    setAnswer: Dispatch<SetStateAction<string>>
-    answerAction: (taskId: string, answer: string) => void
+    answer: TTaskAnswer
+    setAnswer: Dispatch<SetStateAction<TTaskAnswer>>
+    answerAction: (taskId: string, answer: TTaskAnswer) => void
     skipAction: (taskId: string) => void
     nextTask: () => void
     isLast: boolean
@@ -22,8 +22,8 @@ type TTaskProps = {
 type TTaskViewButtonsProps = {
     task: ITask
     disabled: boolean
-    answer: string
-    answerAction: (taskId: string, answer: string) => void
+    answer: TTaskAnswer
+    answerAction: (taskId: string, answer: TTaskAnswer) => void
     skipAction: (taskId: string) => void
     nextTask: () => void
     isLast: boolean
@@ -54,10 +54,40 @@ export default function Task({ number, task, disabled, answer, setAnswer, answer
 }
 
 function TaskViewInput(
-    { task, answer, setAnswer, disabled }: { task: ITask, answer: string, setAnswer: Dispatch<SetStateAction<string>>, disabled: boolean }
+    { task, answer, setAnswer, disabled }: { task: ITask, answer: TTaskAnswer, setAnswer: Dispatch<SetStateAction<TTaskAnswer>>, disabled: boolean }
 ) {
     if (task.type === "A") {
-        return <Input placeholder="Введите ответ" className="flex-1" value={answer} onChange={(e) => setAnswer(e.target.value)} disabled={disabled} />
+        return <Input placeholder="Введите ответ" className="flex-1" value={answer} onChange={(e) => setAnswer([e.target.value])} disabled={disabled} />
+    }
+
+    const removeTrailingEmptyStrings = (arr: string[]): string[] => {
+        let filteredArray = [...arr];
+
+        while (filteredArray.length > 0 && filteredArray[filteredArray.length - 1] === '') {
+            filteredArray.pop();
+        }
+
+        return filteredArray;
+    }
+
+    const answerFromTable = (colIndex: number, rowIndex: number, newAnswer: string) => {
+        const index = rowIndex * 2 + colIndex
+        if (answer.length === index) {
+            setAnswer(prev => {
+                return [...prev, newAnswer]
+            })
+        } else if (answer.length < index + 1) {
+            setAnswer(prev => {
+                prev.push()
+                return [...prev, ...new Array(index - answer.length).fill(""), newAnswer]
+            })
+        } else {
+            setAnswer(prev => {
+                const copyPrev = [...prev]
+                copyPrev[index] = newAnswer
+                return removeTrailingEmptyStrings(copyPrev)
+            })
+        }
     }
 
     return (
@@ -73,13 +103,25 @@ function TaskViewInput(
                 {
                     new Array(10).fill(0).map(
                         (_, index) => (
-                            <tr>
+                            <tr key={index}>
                                 <th className="border border-gray-300 font-normal text-gray-400 px-2">{index + 1}</th>
                                 <td className="border border-gray-300">
-                                    <Input variant="none" className="px-2 py-1" disabled={disabled} />
+                                    <Input
+                                        variant="none"
+                                        className="px-2 py-1"
+                                        disabled={disabled}
+                                        value={answer[index * 2] ?? ""}
+                                        onChange={e => answerFromTable(0, index, e.target.value)}
+                                    />
                                 </td>
                                 <td className="border border-gray-300">
-                                    <Input variant="none" className="px-2 py-1" disabled={disabled} />
+                                    <Input
+                                        variant="none"
+                                        className="px-2 py-1"
+                                        disabled={disabled}
+                                        value={answer[index * 2 + 1] ?? ""}
+                                        onChange={e => answerFromTable(1, index, e.target.value)}
+                                    />
                                 </td>
                             </tr>
                         )

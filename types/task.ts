@@ -1,5 +1,8 @@
 import ITaskFile from "./task_file"
 
+
+export type TTaskAnswer = Array<string>
+
 export default interface ITask {
     id: string
     content: string
@@ -8,7 +11,7 @@ export default interface ITask {
     createdAt: string
     isCorrect: boolean
     isSkipped: boolean
-    answer: string | null
+    answer: TTaskAnswer | null
     type: "A" | "T"
     files: ITaskFile[]
 }
