@@ -7,6 +7,7 @@ import TasksView from "@/components/TasksView";
 import Button from "@/components/ui/Button";
 import Link from "next/link";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
+import {TTaskAnswer} from "@/types/task";
 
 export default function LessonTasksView({ data }: { data: ILesson }) {
     const [lesson, setLesson] = useState<ILesson>(data)
@@ -21,7 +22,7 @@ export default function LessonTasksView({ data }: { data: ILesson }) {
         if (status === 200) setLesson(data)
     }
 
-    const answer = async (taskId: string, answer: string) => {
+    const answer = async (taskId: string, answer: TTaskAnswer) => {
         const { data, status } = await post<ILesson>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/lessons/${lesson?.id}/${taskId}/answer/`, { answer })
         if (status === 200) setLesson(data)
     }

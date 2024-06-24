@@ -1,6 +1,6 @@
-import { ButtonSkeleton, H1Skeleton, PSkeleton } from "../Skeleton"
+import { ButtonSkeleton, H1Skeleton } from "../Skeleton"
 
-function SekeletonItem() {
+function SkeletonItem() {
     return (
         <article className="card animate-pulse space-y-3">
             <H1Skeleton className="w-60" />
@@ -11,8 +11,8 @@ function SekeletonItem() {
 
 export default function VariantsFeedSkeleton() {
     return <div className="feed">
-        <SekeletonItem />
-        <SekeletonItem />
-        <SekeletonItem />
+        <SkeletonItem />
+        <SkeletonItem />
+        <SkeletonItem />
     </div>
 }

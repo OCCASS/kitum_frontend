@@ -1,5 +1,5 @@
 import IUser from "@/types/user";
-import { useCallback, useRef, useState } from "react";
+import {ReactNode, useCallback, useRef, useState} from "react";
 import { ArrowRightEndOnRectangleIcon, MoonIcon, DocumentIcon, CheckCircleIcon, BellAlertIcon, SunIcon } from "@heroicons/react/24/outline";
 import { signout } from "@/app/actions";
 import Image from "next/image";
@@ -28,7 +28,7 @@ function UserProfileImage({ src }: { src: string }) {
 }
 
 
-function UserProfileDropdownItem({ children, onClick, href }: { children: React.ReactNode, onClick?: () => void, href?: string }) {
+function UserProfileDropdownItem({ children, onClick, href }: { children: ReactNode, onClick?: () => void, href?: string }) {
     const baseClassName = "px-3 py-2 hover:bg-bg_tertiary rounded cursor-pointer"
 
     if (href) {
@@ -70,7 +70,7 @@ function UserProfileDropdown(
             <div className="w-full px-6 pt-6 flex gap-2 items-center">
                 <UserProfileImage src={user.avatar} key="profile-image" />
                 <Link href="/me">
-                    <p>{user.firstName}{" "}{user.lastName}</p>
+                    <p>{user.firstName}{" "}{user.lastName}</p§>
                 </Link>
             </div>
             {/* Content */}

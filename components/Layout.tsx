@@ -26,7 +26,7 @@ const Layout = () => {
 
     return (
         <>
-            <Header toggleSideber={toggleSidebar} showSidebar={showSidebar} />
+            <Header toggleSidebar={toggleSidebar} showSidebar={showSidebar} />
             <Sidebar close={closeSidebar} show={showSidebar} />
         </>
     )

@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import SidebarItem from "./SidebarItem";
+import SidebarItem from "./Item";
 import { AcademicCapIcon, CalendarDaysIcon, ChatBubbleLeftEllipsisIcon, DevicePhoneMobileIcon, DocumentDuplicateIcon, DocumentTextIcon, HomeIcon } from "@heroicons/react/24/outline";
 import useOutsideClick from "@/lib/hooks/useOutsideClick";
 

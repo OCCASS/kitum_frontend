@@ -1,4 +1,4 @@
-export default function LessonViewSkeleton() {
+export default function LessonViewSekeleton() {
     return (
         <div className="space-y-3 max-w-prose m-auto">
             <div className="h-6 w-60 bg-gray-200 animate-pulse"></div>

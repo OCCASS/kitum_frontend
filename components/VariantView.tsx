@@ -7,6 +7,7 @@ import { useState } from "react"
 import TasksView from "@/components/TasksView"
 import Link from "next/link"
 import { ArrowLeftIcon } from "@heroicons/react/24/outline"
+import {TTaskAnswer} from "@/types/task";
 
 export default function VariantView({ data }: { data: IVariant }) {
     const [variant, setVariant] = useState<IVariant>(data)
@@ -25,7 +26,7 @@ export default function VariantView({ data }: { data: IVariant }) {
         }
     }
 
-    const answer = async (taskId: string, answer: string) => {
+    const answer = async (taskId: string, answer: TTaskAnswer) => {
         const { data, status } = await post<IVariant>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/variants/${variant?.id}/${taskId}/answer/`, { answer })
         if (status === 200) setVariant(data)
     }

@@ -6,11 +6,11 @@ import { useUser } from "@/lib/providers/user";
 
 
 type THeaderProps = {
-    toggleSideber: () => void
+    toggleSidebar: () => void
     showSidebar: boolean
 }
 
-export default function Header({ toggleSideber, showSidebar }: THeaderProps) {
+export default function Header({ toggleSidebar, showSidebar }: THeaderProps) {
     const { user } = useUser()
 
     return (
@@ -21,8 +21,8 @@ export default function Header({ toggleSideber, showSidebar }: THeaderProps) {
                     {user ? <UserProfile user={user} /> : <LinkButton href="/signin">Login</LinkButton>}
                     {
                         showSidebar ?
-                            <XMarkIcon onClick={toggleSideber} className="size-6 cursor-pointer block md:hidden" /> :
-                            <Bars2Icon onClick={toggleSideber} className="size-6 cursor-pointer block md:hidden" />
+                            <XMarkIcon onClick={toggleSidebar} className="size-6 cursor-pointer block md:hidden" /> :
+                            <Bars2Icon onClick={toggleSidebar} className="size-6 cursor-pointer block md:hidden" />
                     }
                 </div>
             </nav>

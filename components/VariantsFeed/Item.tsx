@@ -7,7 +7,7 @@ type TVariantItemProps = {
     variant: IVariant
 }
 
-const VariantItem = ({ variant }: TVariantItemProps) => {
+export default function VariantsFeedItem({ variant }: TVariantItemProps) {
     const startedAt = new Date(Date.parse(variant.startedAt))
 
     return (
@@ -35,5 +35,3 @@ const VariantItem = ({ variant }: TVariantItemProps) => {
         </article>
     )
 }
-
-export default VariantItem;

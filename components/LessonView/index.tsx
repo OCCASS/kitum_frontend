@@ -1,7 +1,7 @@
 "use client"
 
 import ILesson from "@/types/lesson";
-import LessonFooter from "./LessonFooter";
+import LessonViewFooter from "./Footer";
 import { useState } from "react";
 import { post } from "@/lib/fetch";
 import Link from "next/link";
@@ -26,7 +26,7 @@ export default function LessonView({ data }: { data: ILesson }) {
             <Link href="/lessons" className="flex gap-2 items-center"><ArrowLeftIcon className="size-5" />Назад к урокам</Link>
             <h1>{lesson.title}</h1>
             <MarkdownView content={lesson.content} />
-            <LessonFooter lesson={lesson} complete={complete} skip={skip} />
+            <LessonViewFooter lesson={lesson} complete={complete} skip={skip} />
         </div>
     )
 }

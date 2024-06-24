@@ -7,8 +7,8 @@ import { twMerge } from "tailwind-merge"
 type TTasksViewProps = {
     tasks: ITask[]
     disabled: boolean
-    answerTask: (taskId: string, answer: TTaskAnswer) => void
-    skipTask: (taskId: string) => void
+    answerTask: (taskId: string, answer: TTaskAnswer) => Promise<void>
+    skipTask: (taskId: string) => Promise<void>
     className?: string
 }
 

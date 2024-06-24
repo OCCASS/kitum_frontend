@@ -9,7 +9,7 @@ type TSidebarItemProps = {
     close: () => void
 }
 
-const SidebarItem = ({ name, path, icon, close }: TSidebarItemProps) => {
+export default function SidebarItem({ name, path, icon, close }: TSidebarItemProps) {
     const pathname = usePathname()
 
     return (
@@ -26,5 +26,3 @@ const SidebarItem = ({ name, path, icon, close }: TSidebarItemProps) => {
     )
 
 }
-
-export default SidebarItem;

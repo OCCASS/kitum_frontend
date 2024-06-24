@@ -1,6 +1,6 @@
 import { ButtonSkeleton, H1Skeleton, PSkeleton } from "../Skeleton"
 
-function SekeletonItem() {
+function SkeletonItem() {
     return (
         <article className="card space-y-3">
             <H1Skeleton className="w-60" />
@@ -12,8 +12,8 @@ function SekeletonItem() {
 
 export default function LessonsFeedSkeleton() {
     return <div className="feed">
-        <SekeletonItem />
-        <SekeletonItem />
-        <SekeletonItem />
+        <SkeletonItem />
+        <SkeletonItem />
+        <SkeletonItem />
     </div>
 }

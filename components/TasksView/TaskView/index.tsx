@@ -13,8 +13,8 @@ type TTaskViewProps = {
     disabled: boolean
     answer: TTaskAnswer
     setAnswer: Dispatch<SetStateAction<TTaskAnswer>>
-    answerAction: (taskId: string, answer: TTaskAnswer) => void
-    skipAction: (taskId: string) => void
+    answerAction: (taskId: string, answer: TTaskAnswer) => Promise<void>
+    skipAction: (taskId: string) => Promise<void>
     nextTask: () => void
     isLast: boolean
 }
