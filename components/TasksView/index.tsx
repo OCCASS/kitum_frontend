@@ -1,5 +1,5 @@
 import ITask, { TTaskAnswer } from "@/types/task"
-import TasksBar from "./TasksBar"
+import TasksPaginator from "./TasksPaginator"
 import { useEffect, useState } from "react"
 import TaskView from "./TaskView"
 import { twMerge } from "tailwind-merge"
@@ -29,7 +29,7 @@ export default function TasksView({ tasks, disabled, answerTask, skipTask, class
 
     return (
         <div className={twMerge("space-y-3 max-w-prose", className)}>
-            <TasksBar
+            <TasksPaginator
                 tasks={tasks}
                 selected={currentTaskIndex}
                 setSelected={setCurrentTaskIndex}
