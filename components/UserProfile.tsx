@@ -70,7 +70,7 @@ function UserProfileDropdown(
             <div className="w-full px-6 pt-6 flex gap-2 items-center">
                 <UserProfileImage src={user.avatar} key="profile-image" />
                 <Link href="/me">
-                    <p>{user.firstName}{" "}{user.lastName}</p§>
+                    <p>{user.firstName}{" "}{user.lastName}</p>
                 </Link>
             </div>
             {/* Content */}
