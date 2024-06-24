@@ -1,8 +1,9 @@
-import {ReactNode, useCallback, useEffect, useState} from "react"
+import { Dispatch, ReactNode, SetStateAction, useCallback, useEffect, useState } from "react"
 import TasksBarItem from "./Item"
-import { TTasksBarProps } from "."
 import Button from "@/components/ui/Button"
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline"
+import { TTasksPaginatorProps } from "."
+import ITask from "@/types/task"
 
 function EllipsisElement() {
     return <li className="align-middle text-gray-400 text-lg">&hellip;</li>
@@ -28,23 +29,8 @@ function calculateTaskLimits(length: number, selected: number, maxTaskCount: num
     }
 }
 
-function generateContent(minTaskLimit, maxTaskLimit, tasks, selected, setSelected) {
-    const content = [];
-    for (let index = minTaskLimit; index <= maxTaskLimit; index++) {
-        content.push(
-            <TasksBarItem
-                key={index}
-                index={index}
-                isCorrect={tasks[index].isCorrect}
-                isSelected={index === selected}
-                onClick={setSelected}
-            />
-        );
-    }
-    return content;
-};
 
-export default function DesktopPaginator({ tasks, selected, setSelected }: TTasksBarProps) {
+export default function DesktopPaginator({ tasks, selected, setSelected }: TTasksPaginatorProps) {
     const length = tasks.length
     const maxTaskCount = Math.min(5, length - 3)
 
@@ -58,9 +44,25 @@ export default function DesktopPaginator({ tasks, selected, setSelected }: TTask
         setSelected(prev => Math.max(prev - 1, 0))
     }, [setSelected])
 
+    const generateContent = useCallback((minTaskLimit: number, maxTaskLimit: number) => {
+        const content = [];
+        for (let index = minTaskLimit; index <= maxTaskLimit; index++) {
+            content.push(
+                <TasksBarItem
+                    key={index}
+                    index={index}
+                    isCorrect={tasks[index].isCorrect}
+                    isSelected={index === selected}
+                    onClick={setSelected}
+                />
+            );
+        }
+        return content;
+    }, [tasks, setSelected])
+
     useEffect(() => {
-        const {minTaskLimit, maxTaskLimit} = calculateTaskLimits(length, selected, maxTaskCount)
-        setContent(generateContent(minTaskLimit, maxTaskLimit, tasks, selected, setSelected))
+        const { minTaskLimit, maxTaskLimit } = calculateTaskLimits(length, selected, maxTaskCount)
+        setContent(generateContent(minTaskLimit, maxTaskLimit))
     }, [length, maxTaskCount, selected, setSelected, tasks])
 
     return (

@@ -30,6 +30,7 @@ export default function TaskView({ number, task, disabled, answer, setAnswer, an
                 <TaskViewInput task={task} answer={answer} setAnswer={setAnswer} disabled={disabled} />
                 <TaskViewButtons
                     task={task}
+                    setAnswer={setAnswer}
                     answer={answer}
                     disabled={disabled}
                     answerAction={answerAction}

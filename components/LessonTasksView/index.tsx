@@ -7,7 +7,7 @@ import TasksView from "@/components/TasksView";
 import Button from "@/components/ui/Button";
 import Link from "next/link";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
-import {TTaskAnswer} from "@/types/task";
+import { TTaskAnswer } from "@/types/task";
 
 export default function LessonTasksView({ data }: { data: ILesson }) {
     const [lesson, setLesson] = useState<ILesson>(data)

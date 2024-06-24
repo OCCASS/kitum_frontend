@@ -1,7 +1,7 @@
-import ITask, {TTaskAnswer} from "@/types/task";
-import {Dispatch, SetStateAction} from "react";
+import ITask, { TTaskAnswer } from "@/types/task";
+import { Dispatch, SetStateAction, ClipboardEvent } from "react";
 import Input from "@/components/ui/Input";
-import {removeTrailingEmptyStrings} from "@/utils/array";
+import { removeTrailingEmptyStrings } from "@/utils/array";
 
 type TTaskViewInputProps = {
     task: ITask
@@ -31,37 +31,57 @@ export default function TaskViewInput({ task, answer, disabled, setAnswer }: TTa
         });
     }
 
+
+
+    const onTablePaste = (e: ClipboardEvent<HTMLInputElement>) => {
+        /*
+         * Cols separated by spaces, rows separated by "\n"
+         * This code trnasforms string to 1D array
+        */
+
+        const data = e.clipboardData.getData("text")
+        const lines = data.split("\n")
+        const flattenedArray = lines.flatMap(line => line.split(" "))
+
+        if (flattenedArray.length > 1) {
+            e.preventDefault()
+            const filteredArray = flattenedArray.filter(item => item.trim() !== "")
+            setAnswer(filteredArray)
+        }
+    }
+
     return (
         <table className="border-collapse flex-1">
             <thead>
-            <tr>
-                <th scope="col" className="border border-gray-300 font-normal py-1"></th>
-                <th scope="col" className="border border-gray-300 font-normal py-1">1</th>
-                <th scope="col" className="border border-gray-300 font-normal py-1">2</th>
-            </tr>
+                <tr>
+                    <th scope="col" className="border border-gray-300 font-normal py-1"></th>
+                    <th scope="col" className="border border-gray-300 font-normal py-1">1</th>
+                    <th scope="col" className="border border-gray-300 font-normal py-1">2</th>
+                </tr>
             </thead>
             <tbody>
-            {
-                Array.from({ length: 10 }, (_, index) => (
+                {
+                    Array.from({ length: 10 }, (_, index) => (
                         <tr key={index}>
                             <th className="border border-gray-300 font-normal text-gray-400 px-2">{index + 1}</th>
                             {[0, 1].map(colIndex => (
                                 <td key={colIndex} className="border border-gray-300">
                                     <Input
                                         variant="none"
-                                        className="px-2 py-1"
+                                        className="px-2 py-1 w-full"
                                         disabled={disabled}
                                         value={answer[index * 2 + colIndex] ?? ""}
                                         onChange={e => answerFromTable(colIndex, index, e.target.value)}
+                                        onPaste={onTablePaste}
                                     />
                                 </td>
                             ))}
                         </tr>
                     )
-                )
-            }
+                    )
+                }
             </tbody>
-        </table >
+        </table>
     )
 }
 
