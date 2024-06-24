@@ -1,9 +1,8 @@
-import { Dispatch, ReactNode, SetStateAction, useCallback, useEffect, useState } from "react"
+import { ReactNode, useCallback, useEffect, useState } from "react"
 import TasksBarItem from "./Item"
 import Button from "@/components/ui/Button"
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline"
 import { TTasksPaginatorProps } from "."
-import ITask from "@/types/task"
 
 function EllipsisElement() {
     return <li className="align-middle text-gray-400 text-lg">&hellip;</li>
@@ -44,10 +43,10 @@ export default function DesktopPaginator({ tasks, selected, setSelected }: TTask
         setSelected(prev => Math.max(prev - 1, 0))
     }, [setSelected])
 
-    const generateContent = useCallback((minTaskLimit: number, maxTaskLimit: number) => {
-        const content = [];
+    const generateContent = (minTaskLimit: number, maxTaskLimit: number) => {
+        const newContent = [];
         for (let index = minTaskLimit; index <= maxTaskLimit; index++) {
-            content.push(
+            newContent.push(
                 <TasksBarItem
                     key={index}
                     index={index}
@@ -57,8 +56,8 @@ export default function DesktopPaginator({ tasks, selected, setSelected }: TTask
                 />
             );
         }
-        return content;
-    }, [tasks, setSelected])
+        return newContent;
+    }
 
     useEffect(() => {
         const { minTaskLimit, maxTaskLimit } = calculateTaskLimits(length, selected, maxTaskCount)
