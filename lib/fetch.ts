@@ -30,3 +30,17 @@ export async function post<T>(url: string, body?: any, ...params: any) {
     const data: T = await response.json()
     return { data, status: response.status }
 }
+
+export async function postFormData<T>(url: string, body: FormData) {
+    const access = cookies().get("access")?.value
+    const requestOptions = {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${access}`,
+        },
+        body: body
+    }
+    const response = await fetch(url, requestOptions)
+    const data: T = await response.json()
+    return { data, status: response.status }
+}
