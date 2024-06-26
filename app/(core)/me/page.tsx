@@ -1,12 +1,12 @@
 "use client"
 
-import Button from "@/components/ui/Button"
 import Input from "@/components/ui/Input"
 import Image from "next/image"
 import { useEffect } from "react"
 import { useFormState } from "react-dom"
 import { editUser } from "./actions"
 import { useUser } from "@/lib/providers/user"
+import SubmitButton from "@/components/ui/SubmitButton"
 
 export default function Me() {
     const { user, setUser } = useUser()
@@ -26,7 +26,7 @@ export default function Me() {
                 <form action={action} className="space-y-3">
                     <Input placeholder="Имя" defaultValue={user?.firstName} className="block" name="firstName" />
                     <Input placeholder="Фамилия" defaultValue={user?.lastName} className="block" name="lastName" />
-                    <Button type="submit">Изменить</Button>
+                    <SubmitButton>Изменить</SubmitButton>
                 </form>
             </section>
             <section id="subscribtion">

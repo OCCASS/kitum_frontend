@@ -5,6 +5,7 @@ import signup from "./actions"
 import Button from "@/components/ui/Button"
 import Input from "@/components/ui/Input"
 import Link from "next/link"
+import SubmitButton from "@/components/ui/SubmitButton"
 
 const SignUp = () => {
     const [state, action] = useFormState(signup, { message: "" })
@@ -21,7 +22,7 @@ const SignUp = () => {
                         <Input type="password" placeholder="Пароль" name="password" />
                     </div>
                     <div className="space-y-2 flex flex-col">
-                        <Button type="submit" className="w-full">Создать аккаунт</Button>
+                        <SubmitButton className="w-full">Создать аккаунт</SubmitButton>
                         <p className="text-center">Уже есть аккаунт? <Link href="/signin" className="text-blue-500">Войти</Link></p>
                     </div>
                 </form>

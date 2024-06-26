@@ -2,11 +2,11 @@
 
 import { useFormState } from "react-dom"
 import signin from "./actions"
-import Button from "@/components/ui/Button"
 import Input from "@/components/ui/Input"
 import Link from "next/link"
 import { redirect, useSearchParams } from "next/navigation"
 import { useUser } from "@/lib/providers/user"
+import SubmitButton from "@/components/ui/SubmitButton"
 
 const SignIn = () => {
     const searchParms = useSearchParams()
@@ -34,7 +34,7 @@ const SignIn = () => {
                         <Link href="/reset_password" className="block text-right">Забыл пароль?</Link>
                     </div>
                     <div className="space-y-2 flex flex-col">
-                        <Button type="submit" className="px-10">Войти</Button>
+                        <SubmitButton className="px-10">Войти</SubmitButton>
                         <p className="text-center">Нет аккаунта? <Link href="/signup" className="text-blue-500">Давай создадим!</Link></p>
                     </div>
                 </form>
