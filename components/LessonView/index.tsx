@@ -6,7 +6,10 @@ import { useState } from "react";
 import { post } from "@/lib/fetch";
 import Link from "next/link";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
-import MarkdownView from "../Markdown";
+import dynamic from "next/dynamic";
+
+
+const MarkdownView = dynamic(() => import("@/components/Markdown"), { ssr: false })
 
 export default function LessonView({ data }: { data: ILesson }) {
     const [lesson, setLesson] = useState<ILesson>(data)

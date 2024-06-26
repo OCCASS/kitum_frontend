@@ -1,10 +1,10 @@
 import ITask, { TTaskAnswer } from "@/types/task";
 import TaskFiles from "./TaskFiles";
 import { Dispatch, SetStateAction } from "react";
-import MarkdownView from "@/components/Markdown";
 import { twMerge } from "tailwind-merge";
 import TaskViewButtons from "@/components/TasksView/TaskView/Buttons";
 import TaskViewInput from "@/components/TasksView/TaskView/Input";
+import dynamic from "next/dynamic";
 
 
 type TTaskViewProps = {
@@ -18,6 +18,8 @@ type TTaskViewProps = {
     nextTask: () => void
     isLast: boolean
 }
+
+const MarkdownView = dynamic(() => import("@/components/Markdown"), { ssr: false })
 
 export default function TaskView({ number, task, disabled, answer, setAnswer, answerAction, skipAction, nextTask, isLast }: TTaskViewProps) {
     return (
