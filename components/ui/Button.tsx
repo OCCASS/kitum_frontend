@@ -1,7 +1,7 @@
 import React, { FC } from "react"
 import { twMerge } from "tailwind-merge"
 
-type TButtonProps = React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> & {
+export type TButtonProps = React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> & {
     variant?: "primary" | "outline" | "gray" | "none",
 }
 
