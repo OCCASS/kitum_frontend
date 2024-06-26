@@ -1,5 +1,5 @@
 import IUser from "@/types/user";
-import {ReactNode, useCallback, useRef, useState} from "react";
+import { ReactNode, useCallback, useRef, useState } from "react";
 import { ArrowRightEndOnRectangleIcon, MoonIcon, DocumentIcon, CheckCircleIcon, BellAlertIcon, SunIcon } from "@heroicons/react/24/outline";
 import { signout } from "@/app/actions";
 import Image from "next/image";
@@ -23,8 +23,8 @@ export default function UserProfile({ user }: { user: IUser }) {
     )
 }
 
-function UserProfileImage({ src }: { src: string }) {
-    return <Image src={src} alt="Аватарка" width="42" height="42" className="rounded-full object-cover" />
+export function UserProfileImage({ src }: { src: string }) {
+    return <Image src={src} alt="Аватарка" width="42" height="42" className="rounded-full object-cover size-12" />
 }
 
 
