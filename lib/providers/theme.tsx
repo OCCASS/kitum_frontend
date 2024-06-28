@@ -6,7 +6,7 @@ import ThemeContext from "@/lib/context/theme"
 
 
 function loadTheme(): ThemeType {
-    return (typeof window !== "undefined" && localStorage.getItem("theme") as ThemeType) || "dark"
+    return (typeof window !== "undefined" && localStorage.getItem("theme") as ThemeType) || "light"
 }
 
 export default function ThemeProvider({ children }: { children: React.ReactNode }) {
