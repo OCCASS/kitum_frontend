@@ -6,5 +6,8 @@ import SubscriptionsFeedItem from "./Item";
 
 export default async function SubscriptionsFeed() {
     const { data: subscriptions } = await get<ISubscription[]>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/subscriptions/my/`)
-    return <div className="feed">{subscriptions.map(item => <SubscriptionsFeedItem key={item.id} subscription={item} />)}</div>
+    return <div className="feed">{
+        subscriptions.length > 0 ? subscriptions.map(item => <SubscriptionsFeedItem key={item.id} subscription={item} />) :
+            <p className="text-gray-500">Список подписок пуст!</p>
+    }</div>
 }
