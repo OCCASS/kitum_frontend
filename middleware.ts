@@ -10,7 +10,7 @@ function signinResponse(req: NextRequest): NextResponse {
 }
 
 export default async function middleware(req: NextRequest) {
-    const publicRoutes = ["/signin", "/signup", "/reset_password", "/reset_password/check"]
+    const publicRoutes = ["/signin", "/signup", "/reset_password", "/reset_password/check", "/confirm_mail"]
     const currentPath = req.nextUrl.pathname
     const isProtectedRoute = !publicRoutes.includes(currentPath)
 
