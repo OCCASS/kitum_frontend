@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import SidebarItem from "./Item";
 import { AcademicCapIcon, CalendarDaysIcon, ChatBubbleLeftEllipsisIcon, DevicePhoneMobileIcon, DocumentDuplicateIcon, DocumentTextIcon, HomeIcon } from "@heroicons/react/24/outline";
+import { AcademicCapIcon as AcademicCapIconSolid, CalendarDaysIcon as CalendarDaysIconSolid, ChatBubbleLeftEllipsisIcon as ChatBubbleLeftEllipsisIconSolid, DevicePhoneMobileIcon as DevicePhoneMobileIconSolid, DocumentDuplicateIcon as DocumentDuplicateIconSolid, DocumentTextIcon as DocumentTextIconSolid, HomeIcon as HomeIconSolid } from "@heroicons/react/24/solid";
 import useOutsideClick from "@/lib/hooks/useOutsideClick";
 
 type ISidebarProps = {
@@ -9,13 +10,13 @@ type ISidebarProps = {
 }
 
 const sidebarItems = [
-    { name: "Главная", path: "/", icon: <HomeIcon className="size-6" /> },
-    { name: "Уроки", path: "/lessons", icon: <AcademicCapIcon className="size-6" /> },
-    { name: "Домашняя работа", path: "/homework", icon: <DocumentDuplicateIcon className="size-6" />, },
-    { name: "Варианты", path: "/variants", icon: <DocumentTextIcon className="size-6" /> },
-    { name: "Расписание", path: "/schedule", icon: <CalendarDaysIcon className="size-6" /> },
-    { name: "Reels", path: "/reels", icon: <DevicePhoneMobileIcon className="size-6" /> },
-    { name: "Контакты", path: "/contacts", icon: <ChatBubbleLeftEllipsisIcon className="size-6" /> },
+    { name: "Главная", path: "/", icon: { default: <HomeIcon className="size-6" />, selected: <HomeIconSolid className="size-6" /> } },
+    { name: "Уроки", path: "/lessons", icon: { default: <AcademicCapIcon className="size-6" />, selected: <AcademicCapIconSolid className="size-6" /> } },
+    { name: "Домашняя работа", path: "/homework", icon: { default: <DocumentDuplicateIcon className="size-6" />, selected: <DocumentDuplicateIconSolid className="size-6" /> } },
+    { name: "Варианты", path: "/variants", icon: { default: <DocumentTextIcon className="size-6" />, selected: <DocumentTextIconSolid className="size-6" /> } },
+    { name: "Расписание", path: "/schedule", icon: { default: <CalendarDaysIcon className="size-6" />, selected: <CalendarDaysIconSolid className="size-6" /> } },
+    { name: "Reels", path: "/reels", icon: { default: <DevicePhoneMobileIcon className="size-6" />, selected: <DevicePhoneMobileIconSolid className="size-6" /> } },
+    { name: "Контакты", path: "/contacts", icon: { default: <ChatBubbleLeftEllipsisIcon className="size-6" />, selected: <ChatBubbleLeftEllipsisIconSolid className="size-6" /> } },
 ]
 
 const Sidebar = ({ show, close }: ISidebarProps) => {
