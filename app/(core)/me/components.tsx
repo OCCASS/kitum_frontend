@@ -25,7 +25,7 @@ export function EditUserForm() {
 
     return (
         <form action={action} className="flex gap-3 flex-col md:flex-row">
-            <div className="flex gap-3">
+            <div className="flex gap-2 md:gap-3 flex-col md:flex-row">
                 <Input placeholder="Имя" defaultValue={user?.firstName} className="flex-1" name="firstName" />
                 <Input placeholder="Фамилия" defaultValue={user?.lastName} className="flex-1" name="lastName" />
             </div>
