@@ -7,7 +7,7 @@ function rjust(str: string, length: number, char: string = " ") {
 
 export function formattedDatetime(date: Date) {
     const day = rjust(date.getDate().toString(), 2, "0")
-    const month = rjust(date.getMonth().toString(), 2, "0")
+    const month = rjust((date.getMonth() + 1).toString(), 2, "0")
     const hours = rjust(date.getHours().toString(), 2, "0")
     const minutes = rjust(date.getMinutes().toString(), 2, "0")
     const seconds = rjust(date.getSeconds().toString(), 2, "0")
@@ -16,7 +16,7 @@ export function formattedDatetime(date: Date) {
 
 export function formattedDate(date: Date) {
     const day = rjust(date.getDate().toString(), 2, "0")
-    const month = rjust(date.getMonth().toString(), 2, "0")
+    const month = rjust((date.getMonth() + 1).toString(), 2, "0")
     return `${day}.${month}.${date.getFullYear()}`
 }
 
