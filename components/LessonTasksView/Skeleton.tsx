@@ -1,6 +1,6 @@
 import { ButtonSkeleton, H1Skeleton, H2Skeleton, PSkeleton } from "../Skeleton";
 
-export default function LessonTasksSkeleton() {
+export default function LessonTasksViewSkeleton() {
     return <div className="space-y-5 max-w-prose m-auto">
         <H1Skeleton className="h-8 w-60" />
         <div className="flex gap-4 justify-start md:justify-center">

@@ -1,6 +1,6 @@
 import HomeworkCardSkeleton from "../HomeworkCard/Skeleton"
 
-export default function HomeworkFeedSkeleton() {
+export default function HomeworksFeedSkeleton() {
     return <div className="feed">
         <HomeworkCardSkeleton />
         <HomeworkCardSkeleton />

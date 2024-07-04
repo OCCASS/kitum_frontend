@@ -3,7 +3,7 @@
 import { Suspense } from "react"
 import SubscriptionsFeed from "@/components/SubscriptionsFeed"
 import { EditUserAvatarForm, EditUserForm, Greeting } from "./components"
-import SubscriptionsFeedSkeleton from "@/components/SubscriptionsFeed/SubscriptionsFeedSkeleton"
+import SubscriptionsFeedSkeleton from "@/components/SubscriptionsFeed/Skeleton"
 
 export default async function Me() {
     return (
@@ -15,7 +15,7 @@ export default async function Me() {
             <section>
                 <EditUserForm />
             </section>
-            <section id="subscribtion">
+            <section id="subscription">
                 <h1 className="mb-5">Текущая подписка</h1>
                 <Suspense fallback={<SubscriptionsFeedSkeleton />}>
                     <SubscriptionsFeed />

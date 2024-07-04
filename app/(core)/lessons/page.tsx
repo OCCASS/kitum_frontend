@@ -1,10 +1,6 @@
 import LessonsFeed from "@/components/LessonsFeed";
-import LessonsFeedSkeleton from "@/components/LessonsFeed/LessonsFeedSkeleton";
+import LessonsFeedSkeleton from "@/components/LessonsFeed/Skeleton";
 import { Suspense } from "react";
-
-
-export const dynamic = "force-dynamic"
-export const revalidate = 0
 
 export default async function Lessons() {
     return (

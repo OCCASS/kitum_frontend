@@ -1,5 +1,5 @@
 import VariantsFeed from "@/components/VariantsFeed"
-import VariantsFeedSkeleton from "@/components/VariantsFeed/VariantsFeedSkeleton"
+import VariantsFeedSkeleton from "@/components/VariantsFeed/Skeleton"
 import { Suspense } from "react"
 
 export default async function Variants() {
