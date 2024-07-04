@@ -1,25 +1,25 @@
 import ILesson from "@/types/lesson";
 import { formattedDate } from "@/utils/date";
 import Link from "next/link";
-import LinkButton from "../ui/LinkButton";
+import LinkButton from "@/components/ui/LinkButton";
 import { ArrowPathIcon, CheckBadgeIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
-function LessonItemStatusBar({ lesson }: { lesson: ILesson }) {
+function LessonCardStatusBar({ lesson }: { lesson: ILesson }) {
     const defaultClassName = "flex items-center gap-1"
     if (lesson.isClosed) return <p className={`${defaultClassName} text-gray-500/50`}><XMarkIcon className="size-5" /> Урок закрыт</p>
     if (lesson.isSkipped) return <p className={`${defaultClassName} text-orange-500`}><ArrowPathIcon className="size-5" /> Урок пропущен</p>
     if (lesson.isTasksCompleted) return <p className={`${defaultClassName} text-green`}><CheckBadgeIcon className="size-5" /> Урок пройден</p>
 }
 
-export default function LessonsFeedItem({ lesson }: { lesson: ILesson }) {
+export default function LessonCard({ lesson }: { lesson: ILesson }) {
     const createdAt = new Date(Date.parse(lesson.createdAt))
     const disabled = lesson.isClosed
 
     return (
-        <article className={`card flex flex-col gap-3 ${disabled && "pointer-events-none"}`}>
+        <article className={`card flex flex-col gap-3 ${disabled && "pointer-events-none"} min-w-80`}>
             {/* Content */}
             <div className="flex-1 space-y-1">
-                <LessonItemStatusBar lesson={lesson} />
+                <LessonCardStatusBar lesson={lesson} />
                 <h2 className={`line-clamp-2 ${disabled && "text-gray-500/50"}`}><Link href={`/lessons/${lesson.id}`}>{lesson.title}</Link></h2>
                 {lesson.isTasksCompleted && <p>Результат выполнения: 54</p>}
             </div>

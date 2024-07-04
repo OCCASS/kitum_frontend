@@ -32,7 +32,7 @@
 
 @layer components {
   .card {
-    @apply rounded-md py-3 px-4 border border-gray-200 shadow-sm;
+    @apply rounded-md py-3 px-4 border border-gray-200 shadow-sm min-w-80;
   }
 
   .feed {
