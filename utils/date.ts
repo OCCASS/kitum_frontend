@@ -10,8 +10,7 @@ export function formattedDatetime(date: Date) {
     const month = rjust((date.getMonth() + 1).toString(), 2, "0")
     const hours = rjust(date.getHours().toString(), 2, "0")
     const minutes = rjust(date.getMinutes().toString(), 2, "0")
-    const seconds = rjust(date.getSeconds().toString(), 2, "0")
-    return `${day}.${month}.${date.getFullYear()} ${hours}:${minutes}:${seconds}`
+    return `${day}.${month}.${date.getFullYear()} ${hours}:${minutes}`
 }
 
 export function formattedDate(date: Date) {
