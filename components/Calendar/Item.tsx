@@ -13,7 +13,7 @@ const calendarTableItem = cva("group border py-1 px-2 cursor-pointer", {
 
         },
         isHoliday: {
-            true: "bg-[#e7ffe3] hover:bg-[#e7ffe3]",
+            true: "bg-holiday-table-item-bg hover:bg-holiday-table-item-bg",
             false: null
         }
     }
@@ -26,25 +26,25 @@ const calendarTableItemHeader = cva("text-center", {
             secondary: "text-gray-400 group-hover:text-black"
         },
         isHoliday: {
-            true: "text-[#2cc612]",
+            true: "text-holiday-table-item-text",
             false: null
         }
     },
     compoundVariants: [{
         variant: "secondary",
         isHoliday: true,
-        class: "text-[#89d97c]"
+        class: "text-holiday-table-item-text-secondary"
     }]
 })
 
 const calendarTableItemEvent = cva("flex items-center gap-1 rounded px-2 py-0.5 text-sm", {
     variants: {
         type: {
-            lesson: "bg-[#b7d5ff]",
-            homework: "bg-[#f5feac]"
+            lesson: "bg-lesson-event-bg",
+            homework: "bg-homework-event-bg"
         },
         isCompleted: {
-            true: "bg-gray-300 text-gray-500",
+            true: "bg-completed-event-bg text-gray-500",
             false: null
         }
     }
@@ -53,7 +53,7 @@ const calendarTableItemEvent = cva("flex items-center gap-1 rounded px-2 py-0.5 
 export default function CalendarTableItem({ day, variant, isHoliday, events }: { day: number, variant: "primary" | "secondary", isHoliday: boolean, events: IEvent[] }) {
     return (
         <td className={cn(calendarTableItem({ variant, isHoliday }))}>
-            <div className={twMerge("flex flex-col h-14 md:h-20", !isHoliday && "inner-bottom-shadow")}>
+            <div className={twMerge("flex flex-col h-14 md:h-20", !isHoliday && events.length === 0 && "inner-bottom-shadow")}>
                 {/* Header */}
                 <div className={cn(calendarTableItemHeader({ variant, isHoliday }))}>{day}</div>
                 {/* Content */}
