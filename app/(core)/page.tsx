@@ -1,10 +1,12 @@
+"use server"
+
 import HomeworkSlider from "@/components/HomeworkSlider";
 import HomeworkSliderSkeleton from "@/components/HomeworkSlider/Skeleton";
 import NotCompletedLessonsSlider from "@/components/NotCompletedLessonsSlider";
 import NotCompletedLessonsSliderSkeleton from "@/components/NotCompletedLessonsSlider/Skeleton";
 import { Suspense } from "react";
 
-export default function Home() {
+export default async function Home() {
     return (
         <div className="space-y-8">
             <section className="space-y-3">
