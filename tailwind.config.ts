@@ -21,7 +21,6 @@ const config: Config = {
             black,
             white,
             transparent,
-            blue,
             // red,
             gray,
             // green,
@@ -33,6 +32,7 @@ const config: Config = {
             "bg_codeblock": "var(--bg-codeblock)",
             "text_primary": "var(--text-primary)",
             "red": "#DC2626",
+            "blue": "#3285ff",
             "green": "#16A34A",
         },
         extend: {
@@ -43,7 +43,7 @@ const config: Config = {
                 "auto-0": "0 0 auto"
             },
             spacing: {
-                "header_height": "var(--header-height)",
+                "header_height": "64px",
             }
         },
     },

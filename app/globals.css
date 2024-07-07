@@ -4,8 +4,6 @@
 
 @layer base {
   :root {
-    --header-height: 64px;
-
     --bg-primary: rgb(250 250 250);
     --bg-secondary: rgb(255, 255, 255);
     --bg-tertiary: rgb(229 231 235 / 0.8);
@@ -43,5 +41,20 @@
 @layer utilities {
   .h-full-without-header {
     height: calc(100vh - var(--header-height));
+  }
+
+  .inner-bottom-shadow {
+    position: relative;
+  }
+
+  .inner-bottom-shadow::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    box-shadow: inset 0 -10px 8px rgba(255, 255, 255, 0.5);
+    pointer-events: none;
   }
 }
