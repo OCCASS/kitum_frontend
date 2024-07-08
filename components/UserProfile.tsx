@@ -2,10 +2,10 @@ import IUser from "@/types/user";
 import { ReactNode, useCallback, useRef, useState } from "react";
 import { ArrowRightEndOnRectangleIcon, MoonIcon, DocumentIcon, CheckCircleIcon, BellAlertIcon, SunIcon } from "@heroicons/react/24/outline";
 import { signout } from "@/app/actions";
-import Image from "next/image";
 import useOutsideClick from "@/lib/hooks/useOutsideClick";
 import Link from "next/link";
 import { useTheme } from "@/lib/providers/theme";
+import UserProfileImage from "./ui/UserProfileImage";
 
 
 export default function UserProfile({ user }: { user: IUser }) {
@@ -16,17 +16,12 @@ export default function UserProfile({ user }: { user: IUser }) {
     return (
         <div className="relative">
             <div className="flex gap-2 items-center cursor-pointer" onClick={() => setShowDropdown(prev => !prev)}>
-                <UserProfileImage src={user.avatar} key="profile-image" />
+                <UserProfileImage className="size-12" user={user} key="profile-image" />
                 <UserProfileDropdown user={user} show={showDropdown} close={closeDropdown} />
             </div>
         </div>
     )
 }
-
-export function UserProfileImage({ src }: { src: string }) {
-    return <Image src={src} alt="Аватарка" width="42" height="42" className="rounded-full object-cover size-12" />
-}
-
 
 function UserProfileDropdownItem({ children, onClick, href }: { children: ReactNode, onClick?: () => void, href?: string }) {
     const baseClassName = "px-3 py-2 hover:bg-bg_tertiary rounded cursor-pointer"
@@ -68,7 +63,7 @@ function UserProfileDropdown(
         <div className={`${show ? "visible opacity-100" : "invisible opacity-0"} transition-all absolute top-[110%] space-y-4 right-0 bg-bg_secondary rounded drop-shadow w-max`} ref={ref}>
             {/* Header */}
             <div className="w-full px-6 pt-6 flex gap-2 items-center">
-                <UserProfileImage src={user.avatar} key="profile-image" />
+                <UserProfileImage user={user} key="profile-image" className="size-12" />
                 <Link href="/me">
                     <p>{user.firstName}{" "}{user.lastName}</p>
                 </Link>

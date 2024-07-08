@@ -2,7 +2,7 @@ import Link from "next/link";
 import IEvent from "@/types/event";
 import { cva } from "class-variance-authority";
 import cn from "@/utils/cn";
-import { AcademicCapIcon, DocumentDuplicateIcon } from "@heroicons/react/16/solid";
+import { AcademicCapIcon, DocumentDuplicateIcon, CheckIcon } from "@heroicons/react/16/solid";
 import { twMerge } from "tailwind-merge";
 
 const calendarTableItem = cva("group border py-1 px-2 cursor-pointer", {
@@ -71,11 +71,11 @@ function CalendarTableItemEvent({ event }: { event: IEvent }) {
     let href = ""
     switch (event.type) {
         case "lesson":
-            icon = <AcademicCapIcon className="size-4" />
+            icon = event.isCompleted ? <CheckIcon className="size-4" /> : <AcademicCapIcon className="size-4" />
             href = event.isAvailable ? `/lessons/${event.id}` : ""
             break
         case "homework":
-            icon = <DocumentDuplicateIcon className="size-4" />
+            icon = event.isCompleted ? <CheckIcon className="size-4" /> : <DocumentDuplicateIcon className="size-4" />
             href = event.isAvailable ? `/lessons/${event.id}/tasks` : ""
             break
         default:

@@ -9,6 +9,7 @@ import SubmitButton from "@/components/ui/SubmitButton"
 import Image from "next/image"
 import Button from "@/components/ui/Button"
 import { CameraIcon } from "@heroicons/react/24/outline"
+import UserProfileImage from "@/components/ui/UserProfileImage"
 
 export function Greeting() {
     const { user } = useUser()
@@ -57,10 +58,12 @@ export function EditUserAvatarForm() {
         setFile(file)
     }
 
+    if (!user) return "Loading..."
+
     return (
         <>
             <div className="relative w-fit">
-                <Image src={user?.avatar ?? ""} alt="Аватарка" width="100" height="100" className="rounded-full object-cover size-24" />
+                <UserProfileImage user={user} className="size-24" />
                 <Button variant="none" className="bg-gray-200 p-3 rounded-full absolute right-0 bottom-0 transform translate-x-1/3 translate-y-1/3" onClick={openFileInput}>
                     <CameraIcon className="size-5" strokeWidth="2" />
                 </Button>

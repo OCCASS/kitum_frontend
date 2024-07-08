@@ -19,6 +19,11 @@ const nextConfig = {
                 protocol: "http",
                 hostname: "192.168.0.158",
                 pathname: "/media/**"
+            },
+            {
+                protocol: "https",
+                hostname: "dropify.ru",
+                pathname: "/media/**"
             }
         ]
     }
