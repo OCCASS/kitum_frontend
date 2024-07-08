@@ -16,7 +16,7 @@ export default async function Me() {
                 <EditUserForm />
             </section>
             <section id="subscription">
-                <h1 className="mb-5">Текущая подписка</h1>
+                <h1 className="mb-5">Текущие подписки</h1>
                 <Suspense fallback={<SubscriptionsFeedSkeleton />}>
                     <SubscriptionsFeed />
                 </Suspense>
