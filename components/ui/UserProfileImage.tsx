@@ -2,9 +2,9 @@ import IUser from "@/types/user";
 import Image from "next/image";
 import { twMerge } from "tailwind-merge";
 
-export default function UserProfileImage({ user, className }: { user: IUser, className?: string }) {
+export default function UserProfileImage({ user, src, className }: { user: IUser, src?: string, className?: string }) {
     return <Image
-        src={user.avatar}
+        src={src ? src : user.avatar}
         alt={user.firstName.charAt(0) + user.lastName.charAt(0)}
         width="128"
         height="128"
