@@ -38,7 +38,7 @@ const config: Config = {
             "lesson-event-bg": "rgba(183, 213, 255, 0.7)",
             "homework-event-bg": "rgba(245, 254, 172, 0.7)",
             "completed-event-bg": "rgba(209, 213, 219, 0.7)",
-            "holiday-table-item-bg": "rgb(231, 255, 227)",
+            "holiday-table-item-bg": "rgb(var(--holiday-table-item-bg))",
             "holiday-table-item-text": "rgb(44, 198, 18)",
             "holiday-table-item-text-secondary": "rgb(137, 217, 124)",
         },

@@ -9,6 +9,8 @@
     --bg-tertiary: rgb(229 231 235 / 0.8);
     --bg-codeblock: #f5f2f0;
     --text-primary: rgb(0, 0, 0);
+
+    --holiday-table-item-bg: 231, 255, 227;
   }
 
   :root[class~="dark"] {
@@ -43,18 +45,27 @@
     height: calc(100vh - var(--header-height));
   }
 
-  .inner-bottom-shadow {
+  .inner-bottom-shadow,
+  .inner-bottom-shadow-holiday-table-item-bg {
     position: relative;
   }
 
-  .inner-bottom-shadow::before {
+  .inner-bottom-shadow::before,
+  .inner-bottom-shadow-holiday-table-item-bg::before {
     content: "";
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    box-shadow: inset 0 -10px 8px rgba(255, 255, 255, 0.5);
     pointer-events: none;
+  }
+
+  .inner-bottom-shadow::before {
+    box-shadow: inset 0 -10px 8px rgba(255, 255, 255, 0.5);
+  }
+
+  .inner-bottom-shadow-holiday-table-item-bg:before {
+    box-shadow: inset 0 -10px 8px rgba(var(--holiday-table-item-bg), 0.5);
   }
 }

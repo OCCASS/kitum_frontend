@@ -53,7 +53,10 @@ const calendarTableItemEvent = cva("flex items-center gap-1 rounded px-2 py-0.5 
 export default function CalendarTableItem({ day, variant, isHoliday, events }: { day: number, variant: "primary" | "secondary", isHoliday: boolean, events: IEvent[] }) {
     return (
         <td className={cn(calendarTableItem({ variant, isHoliday }))}>
-            <div className={twMerge("flex flex-col h-14 md:h-20", !isHoliday && events.length === 0 && "inner-bottom-shadow")}>
+            <div className={twMerge(
+                "flex flex-col h-14 md:h-20",
+                events.length > 0 && (isHoliday ? "inner-bottom-shadow-holiday-table-item-bg" : "inner-bottom-shadow"),
+            )}>
                 {/* Header */}
                 <div className={cn(calendarTableItemHeader({ variant, isHoliday }))}>{day}</div>
                 {/* Content */}
