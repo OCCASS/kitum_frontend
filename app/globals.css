@@ -3,69 +3,113 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --bg-primary: rgb(250 250 250);
-    --bg-secondary: rgb(255, 255, 255);
-    --bg-tertiary: rgb(229 231 235 / 0.8);
-    --bg-codeblock: #f5f2f0;
-    --text-primary: rgb(0, 0, 0);
+    :root {
+        --bg-primary: rgb(250 250 250);
+        --bg-secondary: rgb(255, 255, 255);
+        --bg-tertiary: rgb(229 231 235 / 0.8);
+        --bg-codeblock: #f5f2f0;
+        --primary-border-color: #e5e7eb;
+        --text-primary: rgb(0, 0, 0);
+        --skeleton-bg: rgb(209, 213, 219);
 
-    --holiday-table-item-bg: 231, 255, 227;
-  }
+        /* Calendar colors */
+        --primary-table-item-bg: rgb(255, 255, 255);
+        --secondary-table-item-bg: rgba(243, 244, 246, 0.3);
+        --secondary-table-item-text-hover: rgb(0, 0, 0);
+        --secondary-table-item-bg-hover: rgb(243, 244, 246);
+        --holiday-table-item-bg: 231, 255, 227;
+        --holiday-table-item-text: rgb(44, 198, 18);
+        --homework-event-bg: rgb(245, 254, 172);
+        --lesson-event-bg: rgba(183, 213, 255, 0.7);
+        --completed-event-bg: rgba(209, 213, 219, 0.7);
+        --completed-event-text: rgb(107, 114, 128);
 
-  :root[class~="dark"] {
-    --bg-primary: #3f3f3f;
-    --bg-secondary: #282828;
-    --bg-tertiary: #575757;
-    --bg-codeblock: #f5f2f0;
-    --text-primary: rgb(255, 255, 255);
-  }
+        /* Edit avatar form */
+        --camera-button-bg: rgb(229, 231, 235);
 
-  h1 {
-    @apply text-3xl font-bold;
-  }
+        /* UI */
+        --button-outline-hover-bg: rgb(243, 244, 246);
+        --button-gray-bg: rgb(209, 213, 219);
+        --button-disabled-bg: rgb(203, 206, 212);
+        --button-disabled-text: rgb(93, 102, 115);
+    }
 
-  h2 {
-    @apply text-xl font-semibold;
-  }
+    :root[class~="dark"] {
+        --bg-primary: #1f1f1f;
+        --bg-secondary: #121212;
+        --bg-tertiary: rgb(39, 40, 42);
+        --bg-codeblock: #f5f2f0;
+        --primary-border-color: #414143;
+        --text-primary: rgb(255, 255, 255);
+        --skeleton-bg: rgb(44, 46, 48);
+
+        /* Calendar colors */
+        --primary-table-item-bg: rgb(18, 18, 18);
+        --secondary-table-item-bg: rgba(35, 35, 37, 0.3);
+        --secondary-table-item-text-hover: rgb(255, 255, 255);
+        --secondary-table-item-bg-hover: rgb(243, 244, 246);
+        --holiday-table-item-bg: 18, 36, 17;
+        --holiday-table-item-text: rgb(5, 94, 7);
+        --homework-event-bg: rgb(30, 36, 0);
+        --lesson-event-bg: rgba(30, 64, 97, 0.7);
+        --completed-event-bg: rgba(56, 60, 64, 0.7);
+        --completed-event-text: #9097a6;
+
+        /* Edit avatar form */
+        --camera-button-bg: rgb(44, 45, 48);
+
+        /* UI */
+        --button-outline-hover-bg: rgb(35, 35, 37);
+        --button-gray-bg: rgb(56, 60, 64);
+        --button-disabled-bg: rgb(94, 97, 103);
+        --button-disabled-text: rgb(167, 177, 192);
+    }
+
+    h1 {
+        @apply text-3xl font-bold;
+    }
+
+    h2 {
+        @apply text-xl font-semibold;
+    }
 }
 
 @layer components {
-  .card {
-    @apply rounded-md py-3 px-4 border border-gray-200 shadow-sm min-w-80;
-  }
+    .card {
+        @apply rounded-md py-3 px-4 border border-primary-border-color shadow-sm min-w-80;
+    }
 
-  .feed {
-    @apply grid gap-3 grid-cols-1 md:grid-cols-2 xl:grid-cols-3;
-  }
+    .feed {
+        @apply grid gap-3 grid-cols-1 md:grid-cols-2 xl:grid-cols-3;
+    }
 }
 
 @layer utilities {
-  .h-full-without-header {
-    height: calc(100vh - var(--header-height));
-  }
+    .h-full-without-header {
+        height: calc(100vh - var(--header-height));
+    }
 
-  .inner-bottom-shadow,
-  .inner-bottom-shadow-holiday-table-item-bg {
-    position: relative;
-  }
+    .inner-bottom-shadow,
+    .inner-bottom-shadow-holiday-table-item-bg {
+        position: relative;
+    }
 
-  .inner-bottom-shadow::before,
-  .inner-bottom-shadow-holiday-table-item-bg::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    pointer-events: none;
-  }
+    .inner-bottom-shadow::before,
+    .inner-bottom-shadow-holiday-table-item-bg::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        pointer-events: none;
+    }
 
-  .inner-bottom-shadow::before {
-    box-shadow: inset 0 -10px 8px rgba(255, 255, 255, 0.5);
-  }
+    .inner-bottom-shadow::before {
+        box-shadow: inset 0 -10px 8px rgba(255, 255, 255, 0.5);
+    }
 
-  .inner-bottom-shadow-holiday-table-item-bg:before {
-    box-shadow: inset 0 -10px 8px rgba(var(--holiday-table-item-bg), 0.5);
-  }
+    .inner-bottom-shadow-holiday-table-item-bg:before {
+        box-shadow: inset 0 -10px 8px rgba(var(--holiday-table-item-bg), 0.5);
+    }
 }

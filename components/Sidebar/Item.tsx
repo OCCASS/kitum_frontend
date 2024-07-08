@@ -14,7 +14,7 @@ export default function SidebarItem({ name, path, icon, close }: TSidebarItemPro
     const selected = path === pathname
 
     return (
-        <li className={`px-3 py-2 ${selected ? "bg-bg_tertiary" : ""} hover:bg-bg_tertiary rounded`}>
+        <li className={`px-3 py-2 ${selected ? "bg-tertiary-bg" : ""} hover:bg-tertiary-bg rounded`}>
             <Link
                 href={path}
                 className={`flex items-center gap-x-3.5`}

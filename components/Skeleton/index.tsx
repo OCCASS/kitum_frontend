@@ -1,6 +1,6 @@
 import { twMerge } from "tailwind-merge"
 
-const baseClassName = "bg-gray-300 animate-pulse rounded"
+const baseClassName = "bg-skeleton-bg animate-pulse rounded"
 
 export function H1Skeleton({ className }: { className?: string }) {
     const cn = () => {

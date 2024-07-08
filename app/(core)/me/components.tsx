@@ -72,7 +72,7 @@ export function EditUserAvatarForm() {
         <>
             <div className="relative w-fit">
                 <UserProfileImage user={user} src={image} className="size-24" />
-                <Button variant="none" className="bg-gray-200 p-3 rounded-full absolute right-0 bottom-0 transform translate-x-1/3 translate-y-1/3" onClick={openFileInput}>
+                <Button variant="none" className="bg-camera-button-bg p-3 rounded-full absolute right-0 bottom-0 transform translate-x-1/3 translate-y-1/3" onClick={openFileInput}>
                     <CameraIcon className="size-5" strokeWidth="2" />
                 </Button>
             </div>

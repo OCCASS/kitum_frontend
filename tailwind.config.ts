@@ -1,5 +1,5 @@
-import type { Config } from "tailwindcss";
-import { black, white, transparent, gray, blue, orange } from "tailwindcss/colors"
+import type {Config} from "tailwindcss";
+import {black, gray, orange, transparent, white} from "tailwindcss/colors"
 import plugin from "@tailwindcss/typography"
 
 const config: Config = {
@@ -21,26 +21,40 @@ const config: Config = {
             black,
             white,
             transparent,
-            // red,
             gray,
-            // green,
             orange,
-            primary: "#318CE7",
-            "bg_primary": "var(--bg-primary)",
-            "bg_secondary": "var(--bg-secondary)",
-            "bg_tertiary": "var(--bg-tertiary)",
-            "bg_codeblock": "var(--bg-codeblock)",
-            "text_primary": "var(--text-primary)",
+            "primary-bg": "var(--bg-primary)",
+            "secondary-bg": "var(--bg-secondary)",
+            "tertiary-bg": "var(--bg-tertiary)",
+            "codeblock-bg": "var(--bg-codeblock)",
+            "primary-text": "var(--text-primary)",
+            "primary-border-color": "var(--primary-border-color)",
+            "skeleton-bg": "var(--skeleton-bg)",
+
             "red": "#DC2626",
             "blue": "#3285ff",
             "green": "#16A34A",
-            // Calendar complnent
-            "lesson-event-bg": "rgba(183, 213, 255, 0.7)",
-            "homework-event-bg": "rgba(245, 254, 172, 0.7)",
-            "completed-event-bg": "rgba(209, 213, 219, 0.7)",
+
+            // Calendar colors
+            "primary-table-item-bg": "var(--primary-table-item-bg)",
+            "secondary-table-item-bg": "var(--secondary-table-item-bg)",
+            "secondary-table-item-text-hover": "var(--secondary-table-item-text-hover)",
+            "lesson-event-bg": "var(--lesson-event-bg)",
+            "homework-event-bg": "var(--homework-event-bg)",
+            "completed-event-bg": "var(--completed-event-bg)",
+            "completed-event-text": "var(--completed-event-text)",
             "holiday-table-item-bg": "rgb(var(--holiday-table-item-bg))",
-            "holiday-table-item-text": "rgb(44, 198, 18)",
+            "holiday-table-item-text": "var(--holiday-table-item-text)",
             "holiday-table-item-text-secondary": "rgb(137, 217, 124)",
+
+            // Edit avatar form
+            "camera-button-bg": "var(--camera-button-bg)",
+
+            // UI
+            "button-outline-hover-bg": "var(--button-outline-hover-bg)",
+            "button-gray-bg": "var(--button-gray-bg)",
+            "button-disabled-bg": "var(--button-disabled-bg)",
+            "button-disabled-text": "var(--button-disabled-text)",
         },
         extend: {
             transitionProperty: {

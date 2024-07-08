@@ -25,7 +25,7 @@ export default function MarkdownView({ content, className }: { content: string, 
                 return <Image src={src} alt={alt} width="600" height="300" />
             }
         }}
-        className={twMerge("prose prose-stone dark:prose-invert prose-img:rounded prose-img:w-full prose-pre:bg-bg_codeblock", className)}
+        className={twMerge("prose prose-stone dark:prose-invert prose-img:rounded prose-img:w-full prose-pre:bg-codeblock-bg", className)}
     >
         {content}
     </Markdown>

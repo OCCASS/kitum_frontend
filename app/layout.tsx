@@ -8,7 +8,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" className="h-screen">
-            <body className="h-full bg-bg_primary text-text_primary">
+            <body className="h-full bg-primary-bg text-primary-text">
                 <Providers>
                     {children}
                 </Providers>

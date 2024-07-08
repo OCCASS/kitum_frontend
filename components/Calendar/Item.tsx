@@ -5,11 +5,11 @@ import cn from "@/utils/cn";
 import { AcademicCapIcon, DocumentDuplicateIcon, CheckIcon } from "@heroicons/react/16/solid";
 import { twMerge } from "tailwind-merge";
 
-const calendarTableItem = cva("group border py-1 px-2 cursor-pointer", {
+const calendarTableItem = cva("group border border-primary-border-color py-1 px-2 cursor-pointer", {
     variants: {
         variant: {
-            primary: "bg-white hover:bg-gray-100",
-            secondary: "bg-gray-100/30 hover:bg-gray-100"
+            primary: "bg-primary-table-item-bg hover:bg-secondary-table-item-bg",
+            secondary: "bg-secondary-table-item-bg hover:bg-secondary-table-item-bg-hover"
 
         },
         isHoliday: {
@@ -23,7 +23,7 @@ const calendarTableItemHeader = cva("text-center", {
     variants: {
         variant: {
             primary: "group-hover:text-gray-400",
-            secondary: "text-gray-400 group-hover:text-black"
+            secondary: "text-gray-400 group-hover:text-secondary-table-item-text-hover"
         },
         isHoliday: {
             true: "text-holiday-table-item-text",
@@ -44,7 +44,7 @@ const calendarTableItemEvent = cva("flex items-center gap-1 rounded px-2 py-0.5 
             homework: "bg-homework-event-bg"
         },
         isCompleted: {
-            true: "bg-completed-event-bg text-gray-500",
+            true: "bg-completed-event-bg text-completed-event-text",
             false: null
         }
     }

@@ -12,7 +12,7 @@ const linkButton = cva("px-5 py-2 rounded inline-block", {
     variants: {
         variant: {
             primary: "bg-black text-white",
-            outline: "bg-transparent border border-gray-300"
+            outline: "bg-transparent border border-primary-border-color hover:bg-button-outline-hover-bg"
         }
     },
     defaultVariants: {
@@ -21,5 +21,5 @@ const linkButton = cva("px-5 py-2 rounded inline-block", {
 })
 
 export default function LinkButton({ children, className, variant, ...props }: TLinkButtonProps) {
-    return <Link className={cn(linkButton({ className, variant }))} {...props} type="button" >{children}</Link>
+    return <Link className={cn(linkButton({ className, variant }))} {...props} type="button">{children}</Link>
 }

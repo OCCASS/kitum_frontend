@@ -24,7 +24,7 @@ export default function UserProfile({ user }: { user: IUser }) {
 }
 
 function UserProfileDropdownItem({ children, onClick, href }: { children: ReactNode, onClick?: () => void, href?: string }) {
-    const baseClassName = "px-3 py-2 hover:bg-bg_tertiary rounded cursor-pointer"
+    const baseClassName = "px-3 py-2 hover:bg-tertiary-bg rounded cursor-pointer"
 
     if (href) {
         return <li className={baseClassName} onClick={onClick}>
@@ -60,7 +60,7 @@ function UserProfileDropdown(
     }
 
     return (
-        <div className={`${show ? "visible opacity-100" : "invisible opacity-0"} transition-all absolute top-[110%] space-y-4 right-0 bg-bg_secondary rounded drop-shadow w-max`} ref={ref}>
+        <div className={`${show ? "visible opacity-100" : "invisible opacity-0"} transition-all absolute top-[110%] space-y-4 right-0 bg-secondary-bg rounded drop-shadow w-max`} ref={ref}>
             {/* Header */}
             <div className="w-full px-6 pt-6 flex gap-2 items-center">
                 <UserProfileImage user={user} key="profile-image" className="size-12" />
