@@ -3,7 +3,7 @@ import TasksBarItem from "./Item"
 
 export default function MobilePaginator({ tasks, selected, setSelected }: TTasksPaginatorProps) {
     return (
-        <ul className="flex md:hidden gap-2 py-2 overflow-y-auto">
+        <ul className="flex md:hidden gap-2 py-2 overflow-y-auto inner-right-shadow">
             {tasks.map((task, index) => <TasksBarItem
                 key={index}
                 index={index}
@@ -14,4 +14,3 @@ export default function MobilePaginator({ tasks, selected, setSelected }: TTasks
         </ul>
     )
 }
-
