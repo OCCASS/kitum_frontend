@@ -1,9 +1,10 @@
 import { Suspense } from "react";
 import NewPassword from "./component";
+import LoadingView from "@/components/LoadingView";
 
 export default function NewPasswordPage() {
     return (
-        <Suspense fallback={<div>Loading in suspense...</div>}>
+        <Suspense fallback={<LoadingView/>}>
             <NewPassword />
         </Suspense>
     )
