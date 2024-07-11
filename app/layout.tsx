@@ -1,5 +1,6 @@
 import "@/app/globals.css";
 import { Providers } from "@/app/providers";
+import CookiesConset from "@/components/CookiesConset";
 
 export default function RootLayout({
     children,
@@ -8,10 +9,11 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" className="h-screen">
-            <body className="h-full bg-primary-bg text-primary-text">
+            <body className="h-full bg-primary-bg text-primary-text relative">
                 <Providers>
                     {children}
                 </Providers>
+                <CookiesConset />
             </body>
         </html>
     )

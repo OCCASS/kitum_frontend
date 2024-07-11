@@ -1,5 +1,5 @@
-import type {Config} from "tailwindcss";
-import {black, gray, orange, transparent, white} from "tailwindcss/colors"
+import type { Config } from "tailwindcss";
+import { black, gray, orange, transparent, white } from "tailwindcss/colors"
 import plugin from "@tailwindcss/typography"
 
 const config: Config = {
@@ -65,6 +65,9 @@ const config: Config = {
             },
             spacing: {
                 "header_height": "64px",
+            },
+            boxShadow: {
+                "top": "0px -1px 3px 0px rgba(0, 0, 0, 0.1)"
             }
         },
     },
