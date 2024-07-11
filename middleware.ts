@@ -3,7 +3,7 @@ import { verifySession } from "@/lib/session"
 import { refresh } from "@/app/actions"
 
 function signinResponse(req: NextRequest): NextResponse {
-    const response = NextResponse.redirect(new URL(`/signin?redirect_to=${encodeURIComponent(req.url)}`, req.nextUrl))
+    const response = NextResponse.redirect(new URL(`/signin?redirect_to=${encodeURIComponent(process.env.NEXT_PUBLIC_ROOT_URL + req.nextUrl.pathname)}`, req.nextUrl))
     response.cookies.set("access", "", { maxAge: -1 })
     response.cookies.set("refresh", "", { maxAge: -1 })
     return response
