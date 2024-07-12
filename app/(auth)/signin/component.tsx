@@ -25,28 +25,26 @@ const SignIn = () => {
     const [state, action] = useFormState(signinWrapper, { success: false, message: "", user: undefined })
 
     return (
-        <div className="w-full h-full flex justify-center items-center">
-            <div className="space-y-10">
-                <h1 className="text-4xl md:text-5xl">Привет,<br />С возвращением!</h1>
-                <form action={action} className="space-y-5 flex flex-col">
-                    <Input type="email" placeholder="Почта" name="email" />
-                    <div className="space-y-1">
-                        <Input type="password" placeholder="Пароль" name="password" className="w-full" />
-                        <Link href="/reset_password" className="block text-right">Забыл пароль?</Link>
-                    </div>
-                    {
-                        state.message &&
-                        <section className="flex gap-2 items-center justify-center text-center text-red border border-red py-2 rounded bg-error-bg">
-                            <ExclamationCircleIcon className="size-6" />
-                            {state.message}
-                        </section>
-                    }
-                    <div className="space-y-2 flex flex-col">
-                        <SubmitButton className="px-10">Войти</SubmitButton>
-                        <p className="text-center">Нет аккаунта? <Link href="/signup" className="text-blue-500">Давай создадим!</Link></p>
-                    </div>
-                </form>
-            </div>
+        <div className="space-y-10">
+            <h1 className="text-4xl md:text-5xl">Привет,<br />С возвращением!</h1>
+            <form action={action} className="space-y-5 flex flex-col">
+                <Input type="email" placeholder="Почта" name="email" />
+                <div className="space-y-1">
+                    <Input type="password" placeholder="Пароль" name="password" className="w-full" />
+                    <Link href="/reset_password" className="block text-right">Забыл пароль?</Link>
+                </div>
+                {
+                    state.message &&
+                    <section className="flex gap-2 items-center justify-center text-center text-red border border-red py-2 rounded bg-error-bg">
+                        <ExclamationCircleIcon className="size-6" />
+                        {state.message}
+                    </section>
+                }
+                <div className="space-y-2 flex flex-col">
+                    <SubmitButton className="px-10">Войти</SubmitButton>
+                    <p className="text-center">Нет аккаунта? <Link href="/signup" className="text-blue-500">Давай создадим!</Link></p>
+                </div>
+            </form>
         </div>
     )
 }

@@ -11,8 +11,10 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <main className="w-full h-full p-3">
-            {children}
+        <main className="w-full h-full p-3 flex items-center justify-center">
+            <div className="w-full" style={{ maxWidth: "500px", alignSelf: "safe center" }}>
+                {children}
+            </div>
         </main>
     );
 }

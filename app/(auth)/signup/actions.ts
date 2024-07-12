@@ -17,11 +17,15 @@ export default async function signup(prevState: any, formData: FormData) {
             "Content-Type": "application/json"
         }
     })
+    const data = await response.json()
     if (response.ok) {
-        const { access, refresh } = await response.json()
+        const { access, refresh } = data
         await createSession(access, refresh)
         redirect("/")
     }
-    return { message: "Registration failed." }
+    return {
+        message: "Registration failed.",
+        email: data?.email ?? "",
+        password: data?.password ?? ""
+    }
 }
-
