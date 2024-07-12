@@ -18,12 +18,19 @@ export async function decode(token: string) {
     }
 }
 
+export async function getTokenCookie(token: string) {
+    const decodedToken = await decode(token)
+    if (!decodedToken) throw "token is invalid"
+    return { ...cookieConfig, expires: decodedToken.exp * 1000 }
+}
+
 export async function createSession(access: string, refresh: string) {
-    const decodedAccess = await decode(access)
-    const decodedRefresh = await decode(refresh)
-    if (!decodedAccess || !decodedRefresh) return // TODO: add expception
-    cookies().set("access", access, { ...cookieConfig, expires: decodedAccess.exp * 1000 })
-    cookies().set("refresh", refresh, { ...cookieConfig, expires: decodedRefresh.exp * 1000 })
+    try {
+        cookies().set("access", access, await getTokenCookie(access))
+        cookies().set("refresh", refresh, await getTokenCookie(refresh))
+    } catch {
+        return
+    }
 }
 
 function verifyToken(name: string): boolean {

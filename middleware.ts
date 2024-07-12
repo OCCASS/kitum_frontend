@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { verifySession } from "@/lib/session"
+import { getTokenCookie, verifySession } from "@/lib/session"
 import { refresh } from "@/app/actions"
 
 function signinResponse(req: NextRequest): NextResponse {
@@ -23,10 +23,14 @@ export default async function middleware(req: NextRequest) {
         if (!accessVerified && refreshVerified) {
             const tokens = await refresh()
             if (!tokens) return signinResponse(req)
-            const response = NextResponse.next()
-            response.cookies.set("access", tokens.access, { httpOnly: true, secure: true, path: "/" })
-            response.cookies.set("refresh", tokens.refresh, { httpOnly: true, secure: true, path: "/" })
-            return response
+            try {
+                const response = NextResponse.next()
+                response.cookies.set("access", tokens.access, await getTokenCookie(tokens.access))
+                response.cookies.set("refresh", tokens.refresh, await getTokenCookie(tokens.refresh))
+                return response
+            } catch {
+                return signinResponse(req)
+            }
         }
 
         return NextResponse.next()
