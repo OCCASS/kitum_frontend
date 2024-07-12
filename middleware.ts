@@ -10,10 +10,12 @@ function signinResponse(req: NextRequest): NextResponse {
 }
 
 export default async function middleware(req: NextRequest) {
-    const publicRoutes = ["/signin", "/signup", "/reset_password", "/reset_password/check", "/confirm_mail"]
+    const onlyPublicRoutes = ["/signin", "/signup", "/reset_password", "/reset_password/check", "/confirm_mail"]
+    const publicRoutes: Array<string> = []
     const currentPath = req.nextUrl.pathname
-    const isProtectedRoute = !publicRoutes.includes(currentPath)
+    const isProtectedRoute = !([...onlyPublicRoutes, ...publicRoutes]).includes(currentPath)
 
+    const { accessVerified, refreshVerified } = verifySession()
     if (isProtectedRoute) {
         const { accessVerified, refreshVerified } = verifySession()
         if (!accessVerified || !refreshVerified) {
@@ -34,6 +36,10 @@ export default async function middleware(req: NextRequest) {
         }
 
         return NextResponse.next()
+    } else if (onlyPublicRoutes.includes(currentPath)) {
+        if (accessVerified && refreshVerified) {
+            return NextResponse.redirect(new URL(req.nextUrl.origin))
+        }
     }
 
     return NextResponse.next()
