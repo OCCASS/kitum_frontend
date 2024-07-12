@@ -15,7 +15,7 @@ export default async function middleware(req: NextRequest) {
     const isProtectedRoute = !publicRoutes.includes(currentPath)
 
     if (isProtectedRoute) {
-        const { accessVerified, refreshVerified } = await verifySession()
+        const { accessVerified, refreshVerified } = verifySession()
         if (!accessVerified || !refreshVerified) {
             return signinResponse(req)
         }

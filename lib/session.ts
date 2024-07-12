@@ -4,7 +4,6 @@ import { cookies } from "next/headers";
 const cookieConfig = {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    path: "/"
 }
 
 type DecodedCookie = {
@@ -20,22 +19,21 @@ export async function decode(token: string) {
 }
 
 export async function createSession(access: string, refresh: string) {
-    cookies().set("access", access, cookieConfig)
-    cookies().set("refresh", refresh, cookieConfig)
+    const decodedAccess = await decode(access)
+    const decodedRefresh = await decode(refresh)
+    if (!decodedAccess || !decodedRefresh) return // TODO: add expception
+    cookies().set("access", access, { ...cookieConfig, expires: decodedAccess.exp * 1000 })
+    cookies().set("refresh", refresh, { ...cookieConfig, expires: decodedRefresh.exp * 1000 })
 }
 
-async function verifyToken(name: string): Promise<boolean> {
-    const cookie = cookies().get(name)?.value
-    if (!cookie) return false
-    const decodedCookie = await decode(cookie)
-    if (!decodedCookie) return false
-    return decodedCookie.exp * 1000 > Date.now()
+function verifyToken(name: string): boolean {
+    return cookies().has(name)
 }
 
-export async function verifySession() {
+export function verifySession() {
     return {
-        accessVerified: await verifyToken("access"),
-        refreshVerified: await verifyToken("refresh"),
+        accessVerified: verifyToken("access"),
+        refreshVerified: verifyToken("refresh"),
     }
 }
 

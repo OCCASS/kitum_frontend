@@ -18,4 +18,3 @@ export default async function signin(prevState: any, formData: FormData) {
     }
     return { success: false, message: "Login failed.", user: undefined }
 }
-
