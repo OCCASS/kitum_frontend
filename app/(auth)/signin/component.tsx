@@ -7,6 +7,7 @@ import Link from "next/link"
 import { redirect, useSearchParams } from "next/navigation"
 import { useUser } from "@/lib/providers/user"
 import SubmitButton from "@/components/ui/SubmitButton"
+import { ExclamationCircleIcon } from "@heroicons/react/24/outline"
 
 const SignIn = () => {
     const searchParms = useSearchParams()
@@ -33,6 +34,13 @@ const SignIn = () => {
                         <Input type="password" placeholder="Пароль" name="password" className="w-full" />
                         <Link href="/reset_password" className="block text-right">Забыл пароль?</Link>
                     </div>
+                    {
+                        state.message &&
+                        <section className="flex gap-2 items-center justify-center text-center text-red border border-red py-2 rounded bg-error-bg">
+                            <ExclamationCircleIcon className="size-6" />
+                            {state.message}
+                        </section>
+                    }
                     <div className="space-y-2 flex flex-col">
                         <SubmitButton className="px-10">Войти</SubmitButton>
                         <p className="text-center">Нет аккаунта? <Link href="/signup" className="text-blue-500">Давай создадим!</Link></p>

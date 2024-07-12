@@ -16,5 +16,5 @@ export default async function signin(prevState: any, formData: FormData) {
         await createSession(access, refresh)
         return { success: true, message: "", user: user }
     }
-    return { success: false, message: "Login failed.", user: undefined }
+    return { success: false, message: "Неверная почта или пароль.", user: undefined }
 }

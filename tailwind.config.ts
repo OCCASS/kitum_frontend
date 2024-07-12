@@ -24,6 +24,7 @@ const config: Config = {
             gray,
             orange,
             "primary-bg": "var(--bg-primary)",
+            "error-bg": "rgba(220, 38, 38, 0.2)",
             "secondary-bg": "var(--bg-secondary)",
             "tertiary-bg": "var(--bg-tertiary)",
             "codeblock-bg": "var(--bg-codeblock)",
@@ -31,7 +32,7 @@ const config: Config = {
             "primary-border-color": "var(--primary-border-color)",
             "skeleton-bg": "var(--skeleton-bg)",
 
-            "red": "#DC2626",
+            "red": "rgb(220, 38, 38)",
             "blue": "#3285ff",
             "green": "#16A34A",
 
