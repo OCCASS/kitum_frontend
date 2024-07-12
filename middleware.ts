@@ -34,7 +34,6 @@ export default async function middleware(req: NextRequest) {
                 return signinResponse(req)
             }
         }
-
         return NextResponse.next()
     } else if (onlyPublicRoutes.includes(currentPath)) {
         if (accessVerified && refreshVerified) {
