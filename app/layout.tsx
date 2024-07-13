@@ -8,7 +8,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" className="h-screen">
+        <html lang="en" className="h-dvh">
             <body className="h-full bg-primary-bg text-primary-text relative">
                 <Providers>
                     {children}
