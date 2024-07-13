@@ -1,10 +1,4 @@
-import type { Metadata } from "next";
 import Layout from "@/components/Layout";
-
-export const metadata: Metadata = {
-    title: "KITUM – онлайн школа",
-    description: "Онлайн школа подготвки ЕГЭ по информатике",
-};
 
 export default function RootLayout({
     children,
