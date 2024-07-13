@@ -15,7 +15,7 @@ export default function UserProfile({ user }: { user: IUser }) {
 
     return (
         <div className="relative">
-            <div className="flex gap-2 items-center cursor-pointer" onClick={() => setShowDropdown(true)}>
+            <div className="flex gap-2 items-center cursor-pointer" onClick={() => setShowDropdown(prev => !prev)}>
                 <UserProfileImage className="size-12" user={user} key="profile-image" />
                 <ChevronDownIcon className={`size-4 transition-transform ${showDropdown ? "rotate-180" : ""}`} />
                 <UserProfileDropdown user={user} show={showDropdown} close={closeDropdown} />
