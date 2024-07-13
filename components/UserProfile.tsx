@@ -1,6 +1,6 @@
 import IUser from "@/types/user";
 import { ReactNode, useCallback, useRef, useState } from "react";
-import { ArrowRightEndOnRectangleIcon, MoonIcon, DocumentIcon, CheckCircleIcon, BellAlertIcon, SunIcon } from "@heroicons/react/24/outline";
+import { ArrowRightEndOnRectangleIcon, MoonIcon, DocumentIcon, CheckCircleIcon, BellAlertIcon, SunIcon, ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 import { signout } from "@/app/actions";
 import useOutsideClick from "@/lib/hooks/useOutsideClick";
 import Link from "next/link";
@@ -17,6 +17,7 @@ export default function UserProfile({ user }: { user: IUser }) {
         <div className="relative">
             <div className="flex gap-2 items-center cursor-pointer" onClick={() => setShowDropdown(prev => !prev)}>
                 <UserProfileImage className="size-12" user={user} key="profile-image" />
+                {showDropdown ? <ChevronUpIcon className="size-4" /> : <ChevronDownIcon className="size-4" />}
                 <UserProfileDropdown user={user} show={showDropdown} close={closeDropdown} />
             </div>
         </div>
