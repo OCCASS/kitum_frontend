@@ -82,9 +82,33 @@
   .feed {
     @apply grid gap-3 grid-cols-1 md:grid-cols-2 xl:grid-cols-3;
   }
+
+  .popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100% - 16px);
+    z-index: 110;
+
+    @apply px-6 py-5 rounded-lg md:max-w-96;
+  }
 }
 
 @layer utilities {
+  .overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 100;
+    user-select: none;
+    overflow: hidden;
+    cursor: default;
+  }
+
   .h-full-without-header {
     height: calc(100vh - var(--header-height));
   }

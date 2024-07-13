@@ -98,6 +98,7 @@ export default function Calendar({ holidays }: { holidays: IHoliday[] }) {
                 <CalendarTableItem
                     key={key}
                     day={day}
+                    month={month}
                     variant={variant}
                     isHoliday={isHoliday(day, month)}
                     events={getEventsAt(day, month, year)}
@@ -127,7 +128,7 @@ export default function Calendar({ holidays }: { holidays: IHoliday[] }) {
     return (
         <>
             <div className="w-full px-2 flex justify-between items-center gap-5">
-                <div></div>
+                <div className="hidden md:block"></div>
                 <div className="flex gap-5">
                     <Button variant="none" onClick={handlePreviousMonth}>
                         <ChevronLeftIcon className="size-5 text-gray-400 transition-transform hover:scale-110" />
