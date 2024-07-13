@@ -1,10 +1,10 @@
 "use client"
 
-import React, { useState } from "react";
+import React, {ReactNode, useState} from "react";
 import Header from "./Header";
-import Sidebar from "./Sidebar/Sidebar";
+import Sidebar from "@/components/Sidebar/Sidebar";
 
-const Layout = () => {
+const Layout = ({children}: { children: ReactNode }) => {
     const [showSidebar, setShowSidebar] = useState(false)
 
     const closeSidebar = () => {
@@ -16,8 +16,7 @@ const Layout = () => {
         setShowSidebar(prev => {
             if (prev) {
                 document.body.classList.remove("overflow-hidden")
-            }
-            else {
+            } else {
                 document.body.classList.add("overflow-hidden")
             }
             return !prev
@@ -26,8 +25,11 @@ const Layout = () => {
 
     return (
         <>
-            <Header toggleSidebar={toggleSidebar} showSidebar={showSidebar} />
-            <Sidebar close={closeSidebar} show={showSidebar} />
+            <Header toggleSidebar={toggleSidebar} showSidebar={showSidebar}/>
+            <Sidebar close={closeSidebar} show={showSidebar}/>
+            <main className="w-full h-full-without-header md:ps-64">
+                {children}
+            </main>
         </>
     )
 }

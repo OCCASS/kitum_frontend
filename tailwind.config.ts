@@ -65,7 +65,7 @@ const config: Config = {
                 "auto-0": "0 0 auto"
             },
             spacing: {
-                "header_height": "64px",
+                "header_height": "var(--header-height)",
             },
             boxShadow: {
                 "top": "0px -1px 3px 0px rgba(0, 0, 0, 0.1)"
