@@ -1,4 +1,4 @@
-import {ButtonSkeleton, H1Skeleton, PSkeleton} from "@/components/Skeleton";
+import {ButtonSkeleton, H1Skeleton, H2Skeleton, PSkeleton} from "@/components/Skeleton";
 
 export default function VariantSkeleton() {
     return (
