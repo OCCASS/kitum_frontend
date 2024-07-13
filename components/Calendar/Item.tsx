@@ -4,14 +4,14 @@ import { cva } from "class-variance-authority";
 import cn from "@/utils/cn";
 import { AcademicCapIcon, DocumentDuplicateIcon, CheckIcon } from "@heroicons/react/16/solid";
 import { twMerge } from "tailwind-merge";
-import { EllipsisHorizontalIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { FolderOpenIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Button from "../ui/Button";
 import { useState } from "react";
 
 const MONTHS = ["Января", "Февраля", "Марта", "Апреля", "Мая", "Июня", "Июля", "Августа", "Сентября", "Октября", "Ноября", "Декабря"]
 const EVENT_TYPE_NAME = { "lesson": "Урок", "homework": "Домашняя работа" }
 
-const calendarTableItem = cva("group border border-primary-border-color py-1 px-2 cursor-pointer", {
+const calendarTableItem = cva("group border border-primary-border-color md:py-1 px-2 cursor-pointer", {
     variants: {
         variant: {
             primary: "bg-primary-table-item-bg hover:bg-secondary-table-item-bg",
@@ -30,6 +30,24 @@ const calendarTableItemHeader = cva("text-center", {
         variant: {
             primary: "group-hover:text-gray-400",
             secondary: "text-gray-400 group-hover:text-secondary-table-item-text-hover"
+        },
+        isHoliday: {
+            true: "text-holiday-table-item-text",
+            false: null
+        }
+    },
+    compoundVariants: [{
+        variant: "secondary",
+        isHoliday: true,
+        class: "text-holiday-table-item-text-secondary"
+    }]
+})
+
+const calendarTableItemMobileButton = cva("size-5", {
+    variants: {
+        variant: {
+            primary: "",
+            secondary: "text-gray-400"
         },
         isHoliday: {
             true: "text-holiday-table-item-text",
@@ -68,11 +86,9 @@ function DetailPopup({ day, month, events, show, close }: { day: number, month: 
         }
     }
 
-    if (!show) return null
-
     return (
-        <div className="overlay" onClick={close}>
-            <div className="popup bg-secondary-bg space-y-5">
+        <div className={`${show ? "visible opacity-100" : "invisible opacity-0"} transition-all overlay`} onClick={close}>
+            <div className={`popup bg-secondary-bg space-y-5`}>
                 {/* Header */}
                 <div className="flex items-center justify-between">
                     <h2>{day} {MONTHS.at(month)}</h2>
@@ -114,7 +130,7 @@ export default function CalendarTableItem({ day, month, variant, isHoliday, even
             <div
                 className={twMerge(
                     "flex flex-col h-14 md:h-20",
-                    events.length > 0 && (isHoliday ? "inner-bottom-shadow-holiday-table-item-bg" : "inner-bottom-shadow"),
+                    events.length > 0 && (isHoliday ? "md:inner-bottom-shadow-holiday-table-item-bg" : "md:inner-bottom-shadow"),
                 )}
                 onClick={onClick}
             >
@@ -127,8 +143,8 @@ export default function CalendarTableItem({ day, month, variant, isHoliday, even
                     {/* Mobile */}
                     {
                         events.length > 0 &&
-                        <div className="flex md:hidden items-center justify-center">
-                            <EllipsisHorizontalIcon className="size-6" />
+                        <div className="flex md:hidden items-center justify-center h-full">
+                            <FolderOpenIcon className={cn(calendarTableItemMobileButton({ variant, isHoliday }))} />
                         </div>
                     }
                 </div>
