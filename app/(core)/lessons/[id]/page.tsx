@@ -1,12 +1,15 @@
-import LessonView from "@/components/LessonView"
-import { get } from "@/lib/fetch"
-import ILesson from "@/types/lesson"
+import Lesson from "./components";
+import {Suspense} from "react";
+import LessonViewSkeleton from "@/components/LessonView/Skeleton";
 
 type TLessonProps = {
     params: { id: string }
 }
 
-export default async function Lesson({ params }: TLessonProps) {
-    const { data: lesson } = await get<ILesson>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/lessons/${params.id}/`)
-    return <LessonView data={lesson} />
+export default async function Page({params}: TLessonProps) {
+    return (
+        <Suspense fallback={<LessonViewSkeleton/>}>
+            <Lesson id={params.id}/>
+        </Suspense>
+    )
 }

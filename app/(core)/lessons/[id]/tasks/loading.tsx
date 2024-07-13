@@ -1,5 +1,5 @@
-import LoadingView from "@/components/LoadingView";
+import LessonTasksSkeleton from "./components/LessonTasksSkeleton";
 
 export default function Loading() {
-    return <LoadingView/>
+    return <LessonTasksSkeleton/>
 }

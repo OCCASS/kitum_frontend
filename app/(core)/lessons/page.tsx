@@ -1,13 +1,13 @@
-import LessonsFeed from "@/components/LessonsFeed";
-import LessonsFeedSkeleton from "@/components/LessonsFeed/Skeleton";
+import Lessons from "./components/Lessons";
+import LessonsSkeleton from "./components/LessonsSkeleton";
 import { Suspense } from "react";
 
-export default async function Lessons() {
+export default async function Page() {
     return (
         <div className="space-y-3">
             <h1>Уроки</h1>
-            <Suspense fallback={<LessonsFeedSkeleton />}>
-                <LessonsFeed />
+            <Suspense fallback={<LessonsSkeleton />}>
+                <Lessons />
             </Suspense>
         </div>
     )

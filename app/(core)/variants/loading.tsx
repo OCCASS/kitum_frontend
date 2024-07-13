@@ -1,5 +1,5 @@
-import LoadingView from "@/components/LoadingView";
+import VariantsSkeleton from "./components/VariantsSkeleton";
 
 export default function Loading() {
-    return <LoadingView/>
+    return <VariantsSkeleton/>
 }

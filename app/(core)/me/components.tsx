@@ -9,8 +9,6 @@ import SubmitButton from "@/components/ui/SubmitButton"
 import Button from "@/components/ui/Button"
 import { CameraIcon } from "@heroicons/react/24/outline"
 import UserProfileImage from "@/components/ui/UserProfileImage"
-import Spinner from "@/components/ui/Spinner"
-import { twMerge } from "tailwind-merge"
 
 export function Greeting() {
     const { user } = useUser()

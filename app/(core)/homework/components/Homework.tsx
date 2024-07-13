@@ -2,9 +2,9 @@
 
 import { get } from "@/lib/fetch";
 import ILesson from "@/types/lesson";
-import HomeworkCard from "../HomeworkCard";
+import HomeworkCard from "@/components/HomeworkCard";
 
-export default async function HomeworksFeed() {
+export default async function Homework() {
     const { data: lessons } = await get<ILesson[]>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/lessons/homework/`)
 
     if (lessons.length === 0) {
