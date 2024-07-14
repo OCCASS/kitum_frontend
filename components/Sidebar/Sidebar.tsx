@@ -15,7 +15,6 @@ const sidebarItems = [
     { name: "Домашняя работа", path: "/homework", icon: { default: <DocumentDuplicateIcon className="size-6" />, selected: <DocumentDuplicateIconSolid className="size-6" /> } },
     { name: "Варианты", path: "/variants", icon: { default: <DocumentTextIcon className="size-6" />, selected: <DocumentTextIconSolid className="size-6" /> } },
     { name: "Расписание", path: "/schedule", icon: { default: <CalendarDaysIcon className="size-6" />, selected: <CalendarDaysIconSolid className="size-6" /> } },
-    { name: "Reels", path: "/reels", icon: { default: <DevicePhoneMobileIcon className="size-6" />, selected: <DevicePhoneMobileIconSolid className="size-6" /> } },
     { name: "Контакты", path: "/contacts", icon: { default: <ChatBubbleLeftEllipsisIcon className="size-6" />, selected: <ChatBubbleLeftEllipsisIconSolid className="size-6" /> } },
 ]
 
