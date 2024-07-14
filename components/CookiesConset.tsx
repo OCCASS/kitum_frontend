@@ -6,7 +6,7 @@ import Button from "./ui/Button"
 
 
 export default function CookiesConset() {
-    const [showConset, setShowConset] = useState<boolean>(true)
+    const [showConset, setShowConset] = useState<boolean>(false)
 
     useEffect(() => {
         setShowConset(localStorage.getItem("cookiesConset") !== "true")
