@@ -52,6 +52,8 @@ const config: Config = {
             "camera-button-bg": "var(--camera-button-bg)",
 
             // UI
+            "button-primary-bg": "var(--button-primary-bg)",
+            "button-primary-text": "var(--button-primary-text)",
             "button-outline-hover-bg": "var(--button-outline-hover-bg)",
             "button-gray-bg": "var(--button-gray-bg)",
             "button-disabled-bg": "var(--button-disabled-bg)",

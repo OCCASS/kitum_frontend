@@ -11,7 +11,7 @@ type TLinkButtonProps = LinkProps & {
 const linkButton = cva("px-5 py-2 rounded inline-block", {
     variants: {
         variant: {
-            primary: "bg-black text-white",
+            primary: "bg-button-primary-bg text-button-primary-text",
             outline: "bg-transparent border border-primary-border-color hover:bg-button-outline-hover-bg"
         }
     },

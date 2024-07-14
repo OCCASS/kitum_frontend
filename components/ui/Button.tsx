@@ -10,7 +10,7 @@ const defaultClassName = "px-5 py-2 rounded disabled:bg-button-disabled-bg disab
 const button = cva(defaultClassName, {
     variants: {
         variant: {
-            primary: "bg-black text-white",
+            primary: "bg-button-primary-bg text-button-primary-text",
             outline: "bg-transparent border border-primary-border-color hover:bg-button-outline-hover-bg",
             gray: "bg-button-gray-bg",
             none: "disabled:bg-transparent p-0"

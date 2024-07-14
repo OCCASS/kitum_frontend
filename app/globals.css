@@ -30,6 +30,8 @@
     --camera-button-bg: rgb(229, 231, 235);
 
     /* UI */
+    --button-primary-bg: rgb(0, 0, 0);
+    --button-primary-text: rgb(255, 255, 255);
     --button-outline-hover-bg: rgb(243, 244, 246);
     --button-gray-bg: rgb(209, 213, 219);
     --button-disabled-bg: rgb(203, 206, 212);
@@ -61,6 +63,8 @@
     --camera-button-bg: rgb(44, 45, 48);
 
     /* UI */
+    --button-primary-bg: rgb(255, 255, 255);
+    --button-primary-text: rgb(0, 0, 0);
     --button-outline-hover-bg: rgb(35, 35, 37);
     --button-gray-bg: rgb(56, 60, 64);
     --button-disabled-bg: rgb(94, 97, 103);
