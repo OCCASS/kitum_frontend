@@ -7,7 +7,7 @@ type TInputProps = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputEl
     innerRef?: Ref<HTMLInputElement>
 }
 
-const defaultClassName = "bg-secondary-bg  px-3 py-2 rounded outline-none disabled:cursor-not-allowed disabled:text-gray-600"
+const defaultClassName = "bg-secondary-bg px-3 py-2 rounded outline-none disabled:cursor-not-allowed disabled:text-gray-600"
 const input = cva(defaultClassName, {
     variants: {
         variant: {
