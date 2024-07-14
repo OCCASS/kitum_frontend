@@ -1,10 +1,10 @@
 "use client"
 
-import React, {ReactNode, useState} from "react";
+import React, { ReactNode, useState } from "react";
 import Header from "./Header";
-import Sidebar from "@/components/Sidebar/Sidebar";
+import Sidebar from "./Sidebar";
 
-const Layout = ({children}: { children: ReactNode }) => {
+const Layout = ({ children }: { children: ReactNode }) => {
     const [showSidebar, setShowSidebar] = useState(false)
 
     const closeSidebar = () => {
@@ -25,8 +25,8 @@ const Layout = ({children}: { children: ReactNode }) => {
 
     return (
         <>
-            <Header toggleSidebar={toggleSidebar} showSidebar={showSidebar}/>
-            <Sidebar close={closeSidebar} show={showSidebar}/>
+            <Header toggleSidebar={toggleSidebar} showSidebar={showSidebar} />
+            <Sidebar close={closeSidebar} show={showSidebar} />
             <main className="w-full h-full-without-header md:ps-64">
                 {children}
             </main>
