@@ -1,5 +1,11 @@
-import LoadingView from "@/components/LoadingView";
+import CalendarSkeleton from "@/components/Calendar/Skeleton";
 
 export default function Loading() {
-    return <LoadingView/>
+    return (
+        <div className="space-y-3">
+            <h1>Расписание</h1>
+            <CalendarSkeleton />
+        </div>
+    )
+
 }
