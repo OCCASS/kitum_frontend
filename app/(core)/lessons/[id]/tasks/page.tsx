@@ -1,4 +1,4 @@
-import {Suspense} from "react"
+import { Suspense } from "react"
 import LessonTasks from "./components/LessonTasks";
 import LessonTasksSkeleton from "./components/LessonTasksSkeleton";
 
