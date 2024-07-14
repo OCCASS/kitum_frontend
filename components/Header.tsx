@@ -1,3 +1,5 @@
+"use client"
+
 import Logo from "./ui/Logo";
 import { Bars2Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import UserProfile from "./UserProfile";
