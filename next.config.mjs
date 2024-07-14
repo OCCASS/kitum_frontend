@@ -1,13 +1,17 @@
 import withBundleAnalyzer from "@next/bundle-analyzer"
+import withMdx from "@next/mdx"
 
 
 const bundleAnalyzer = withBundleAnalyzer({
     enabled: process.env.ANALYZE === 'true',
 })
 
+const mdx = withMdx()
+
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
+    pageExtensions: ["js", "jsx", "ts", "tsx", "mdx"],
     images: {
         remotePatterns: [
             {
@@ -29,4 +33,4 @@ const nextConfig = {
     }
 }
 
-export default bundleAnalyzer(nextConfig);
+export default mdx(bundleAnalyzer(nextConfig));
