@@ -11,7 +11,7 @@ export default function SignUp() {
 
     return (
         <div className="space-y-10">
-            <h1 className="text-5xl">Привет,<br />Добро пожаловать!</h1>
+            <h1 className="text-4xl md:text-5xl">Привет,<br />Добро пожаловать!</h1>
             <form action={action} className="space-y-10">
                 <div className="flex flex-col gap-4">
                     <Input type="text" placeholder="Имя" name="firstName" />
