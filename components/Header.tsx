@@ -1,10 +1,9 @@
-"use client"
-
 import Logo from "./ui/Logo";
 import { Bars2Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import UserProfile from "./UserProfile";
 import LinkButton from "./ui/LinkButton";
 import { useUser } from "@/lib/providers/user";
+import Link from "next/link";
 
 
 type THeaderProps = {
@@ -18,7 +17,7 @@ export default function Header({ toggleSidebar, showSidebar }: THeaderProps) {
     return (
         <header className="sticky h-header_height top-0 inset-x-0 flex z-[48] w-full py-2.5 sm:py-4 border-b border-primary-border-color bg-secondary-bg">
             <nav className="w-full flex items-center ms-auto justify-between px-4 sm:px-6">
-                <Logo />
+                <Link href="/"><Logo /></Link>
                 <div className="space-x-5 flex items-center">
                     {user ? <UserProfile user={user} /> : <LinkButton href="/signin">Login</LinkButton>}
                     {
