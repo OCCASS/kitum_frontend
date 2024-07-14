@@ -89,7 +89,7 @@ function UserProfileDropdown(
                     <DocumentIcon className="size-6" />
                     Документы
                 </UserProfileDropdownItem>
-                <UserProfileDropdownItem href="/me/#subscription">
+                <UserProfileDropdownItem href="/me/#subscriptions">
                     <CheckCircleIcon className="size-6" />
                     Подписка
                 </UserProfileDropdownItem>
