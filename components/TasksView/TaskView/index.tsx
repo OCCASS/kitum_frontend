@@ -43,6 +43,4 @@ export default function TaskView({ number, task, disabled, answer, setAnswer, an
             </div>
         </div>
     )
-
 }
-
