@@ -2,7 +2,8 @@ import ITask, { TTaskAnswer } from "@/types/task";
 import { twMerge } from "tailwind-merge";
 import Button from "@/components/ui/Button";
 import { TrashIcon } from "@heroicons/react/24/outline";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
+import LoadingButton from "@/components/ui/LoadingButton";
 
 type TTaskViewButtonsProps = {
     task: ITask
@@ -15,10 +16,10 @@ type TTaskViewButtonsProps = {
     nextTask: () => void
 }
 
-function ClearButton({ className, disabled, onClick }: { className: string, disabled: boolean, onClick: () => void }) {
+function ClearButton({ disabled, onClick }: { disabled: boolean, onClick: () => void }) {
     return <Button
         variant="outline"
-        className={twMerge("py-2 px-2", className)}
+        className="py-2 px-2"
         disabled={disabled}
         title="Очистить таблицу"
         area-label="Очистить таблицу ответов"
@@ -40,11 +41,21 @@ export default function TaskViewButtons(
         setAnswer
     }: TTaskViewButtonsProps
 ) {
+    const [isLoading, setIsLoading] = useState(false)
+
+    const actionWrapper = async (action: any, ...args: any) => {
+        if (!isLoading) {
+            setIsLoading(true)
+            await action(...args)
+            setIsLoading(false)
+        }
+    }
+
     return (
         <div className={twMerge("flex gap-3 justify-start flex-row-reverse md:flex-row", task.type === "T" && "justify-between flex-row")}>
+            {task.type === "T" && <ClearButton disabled={disabled} onClick={() => setAnswer([])} />}
             {task.answer ?
                 <>
-                    <ClearButton disabled={disabled} onClick={() => setAnswer([])} className={task.type === "T" ? "block" : "hidden"} />
                     <div className="space-x-3">
                         <Button
                             variant="gray"
@@ -53,42 +64,44 @@ export default function TaskViewButtons(
                             area-label="Следующнее задание"
                             onClick={nextTask}
                         >
-                            Дальше
+                            Далее
                         </Button>
-                        <Button
+                        <LoadingButton
                             disabled={disabled}
                             title="Ответить на задание"
                             area-label="Ответить на задание"
-                            onClick={() => answerAction(task.id, answer)}
+                            onClick={() => actionWrapper(answerAction, task.id, answer)}
+                            isLoading={isLoading}
                         >
                             Ответить
-                        </Button>
+                        </LoadingButton>
                     </div>
                 </>
                 :
                 <>
-                    <ClearButton disabled={disabled} onClick={() => setAnswer([])} className={task.type === "T" ? "block" : "hidden"} />
                     <div className="space-x-3">
-                        <Button
+                        <LoadingButton
                             disabled={disabled}
                             title="Ответить на задание"
                             area-label="Ответить на задание"
-                            onClick={() => answerAction(task.id, answer)}
+                            onClick={() => actionWrapper(answerAction, task.id, answer)}
+                            isLoading={isLoading}
                         >
                             Ответить
-                        </Button>
+                        </LoadingButton>
                         {
                             !task.isSkipped
                             &&
-                            <Button
+                            <LoadingButton
                                 disabled={disabled}
                                 variant="gray"
                                 title="Пропустить задание"
                                 area-label="Пропустить задание"
-                                onClick={() => skipAction(task.id)}
+                                onClick={() => actionWrapper(skipAction, task.id)}
+                                isLoading={isLoading}
                             >
                                 Пропустить
-                            </Button>
+                            </LoadingButton>
                         }
                     </div>
                 </>
@@ -96,4 +109,3 @@ export default function TaskViewButtons(
         </div>
     )
 }
-
