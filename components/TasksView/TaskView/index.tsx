@@ -1,9 +1,10 @@
 import ITask, { TTaskAnswer } from "@/types/task";
 import Files from "./Files";
-import { Dispatch, SetStateAction, Suspense, lazy } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { twMerge } from "tailwind-merge";
 import Buttons from "./Buttons"
 import TaskViewInput from "@/components/TasksView/TaskView/Input";
+import dynamic from "next/dynamic";
 import { MarkdownViewSkeleton } from "@/components/Markdown";
 
 type TTaskViewProps = {
@@ -18,16 +19,16 @@ type TTaskViewProps = {
     isLast: boolean
 }
 
-const MarkdownView = lazy(() => import("@/components/Markdown"))
+const DynamicMarkdownView = dynamic(() => import("@/components/Markdown"), {
+    ssr: false, loading: () => <MarkdownViewSkeleton />
+})
 
 export default function TaskView({ n, task, disabled, answer, setAnswer, answerAction, skipAction, nextTask, isLast }: TTaskViewProps) {
     return (
         <div className="space-y-3">
             <h2>Задание №{n}</h2>
             {/* Content */}
-            <Suspense fallback={<MarkdownViewSkeleton />}>
-                <MarkdownView content={task.content} />
-            </Suspense>
+            <DynamicMarkdownView content={task.content} />
             {task.files.length > 0 && <Files files={task.files} />}
             <div className={twMerge("w-full flex flex-col gap-3 md:flex-row", task.type === "T" && "md:flex-col")}>
                 <TaskViewInput task={task} answer={answer} setAnswer={setAnswer} disabled={disabled} />

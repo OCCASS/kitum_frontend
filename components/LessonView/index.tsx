@@ -7,9 +7,12 @@ import { post } from "@/lib/fetch";
 import Link from "next/link";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import dynamic from "next/dynamic";
+import { MarkdownViewSkeleton } from "@/components/Markdown";
 
 
-const MarkdownView = dynamic(() => import("@/components/Markdown"), { ssr: false })
+const DynamicMarkdownView = dynamic(() => import("@/components/Markdown"), {
+    ssr: false, loading: () => <MarkdownViewSkeleton />
+})
 
 export default function LessonView({ data }: { data: ILesson }) {
     const [lesson, setLesson] = useState<ILesson>(data)
@@ -28,7 +31,7 @@ export default function LessonView({ data }: { data: ILesson }) {
         <div className="space-y-2 max-w-prose m-auto">
             <Link href="/lessons" className="flex gap-2 items-center"><ArrowLeftIcon className="size-5" />Назад к урокам</Link>
             <h1>{lesson.title}</h1>
-            <MarkdownView content={lesson.content} />
+            <DynamicMarkdownView content={lesson.content} />
             <LessonViewFooter lesson={lesson} complete={complete} skip={skip} />
         </div>
     )
