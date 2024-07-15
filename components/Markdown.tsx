@@ -35,7 +35,7 @@ export default function MarkdownView({ content, className }: { content: string, 
 
 export function MarkdownViewSkeleton() {
     return (
-        <div className="space-y-1">
+        <div className="space-y-2">
             <PSkeleton className="w-96" />
             <PSkeleton className="w-80" />
             <PSkeleton className="w-96" />
