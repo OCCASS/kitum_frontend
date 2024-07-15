@@ -3,6 +3,7 @@ import remarkGfm from "remark-gfm";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import Image from "next/image";
 import { twMerge } from "tailwind-merge";
+import { PSkeleton } from "./Skeleton";
 
 export default function MarkdownView({ content, className }: { content: string, className?: string }) {
     return <Markdown
@@ -29,4 +30,17 @@ export default function MarkdownView({ content, className }: { content: string, 
     >
         {content}
     </Markdown>
+}
+
+
+export function MarkdownViewSkeleton() {
+    return (
+        <div className="space-y-1">
+            <PSkeleton className="w-96" />
+            <PSkeleton className="w-80" />
+            <PSkeleton className="w-96" />
+            <PSkeleton className="w-64" />
+            <PSkeleton className="w-80" />
+        </div>
+    )
 }

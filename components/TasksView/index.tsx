@@ -35,7 +35,7 @@ export default function TasksView({ tasks, disabled, answerTask, skipTask, class
                 setSelected={setCurrentTaskIndex}
             />
             <TaskView
-                number={currentTaskIndex + 1}
+                n={currentTaskIndex + 1}
                 task={currentTask}
                 disabled={disabled}
                 answer={currentAnswer}

@@ -1,14 +1,13 @@
 import ITask, { TTaskAnswer } from "@/types/task";
-import TaskFiles from "./TaskFiles";
-import { Dispatch, SetStateAction } from "react";
+import Files from "./Files";
+import { Dispatch, SetStateAction, Suspense, lazy } from "react";
 import { twMerge } from "tailwind-merge";
-import TaskViewButtons from "@/components/TasksView/TaskView/Buttons";
+import Buttons from "./Buttons"
 import TaskViewInput from "@/components/TasksView/TaskView/Input";
-import dynamic from "next/dynamic";
-
+import { MarkdownViewSkeleton } from "@/components/Markdown";
 
 type TTaskViewProps = {
-    number: number
+    n: number
     task: ITask
     disabled: boolean
     answer: TTaskAnswer
@@ -19,18 +18,20 @@ type TTaskViewProps = {
     isLast: boolean
 }
 
-const MarkdownView = dynamic(() => import("@/components/Markdown"), { ssr: false })
+const MarkdownView = lazy(() => import("@/components/Markdown"))
 
-export default function TaskView({ number, task, disabled, answer, setAnswer, answerAction, skipAction, nextTask, isLast }: TTaskViewProps) {
+export default function TaskView({ n, task, disabled, answer, setAnswer, answerAction, skipAction, nextTask, isLast }: TTaskViewProps) {
     return (
         <div className="space-y-3">
-            <h2>Задание №{number}</h2>
+            <h2>Задание №{n}</h2>
             {/* Content */}
-            <MarkdownView content={task.content} />
-            {task.files.length > 0 && <TaskFiles files={task.files} />}
+            <Suspense fallback={<MarkdownViewSkeleton />}>
+                <MarkdownView content={task.content} />
+            </Suspense>
+            {task.files.length > 0 && <Files files={task.files} />}
             <div className={twMerge("w-full flex flex-col gap-3 md:flex-row", task.type === "T" && "md:flex-col")}>
                 <TaskViewInput task={task} answer={answer} setAnswer={setAnswer} disabled={disabled} />
-                <TaskViewButtons
+                <Buttons
                     task={task}
                     setAnswer={setAnswer}
                     answer={answer}
