@@ -16,7 +16,7 @@ export default function UserProfile({ user }: { user: IUser }) {
     return (
         <div className="relative">
             <div className="flex gap-2 items-center cursor-pointer" onClick={() => setShowDropdown(prev => !prev)}>
-                <UserProfileImage size={12} user={user} key="profile-image" />
+                <UserProfileImage size={48} user={user} key="profile-image" />
                 <ChevronDownIcon className={`size-4 transition-transform ${showDropdown ? "rotate-180" : ""}`} />
                 <UserProfileDropdown user={user} show={showDropdown} close={closeDropdown} />
             </div>
@@ -64,7 +64,7 @@ function UserProfileDropdown(
         <div className={`${show ? "visible opacity-100" : "invisible opacity-0"} transition-all absolute top-[110%] space-y-4 right-0 bg-secondary-bg rounded drop-shadow w-max`} ref={ref}>
             {/* Header */}
             <div className="w-full px-6 pt-6 flex gap-2 items-center">
-                <UserProfileImage user={user} key="profile-image" size={12} />
+                <UserProfileImage user={user} key="profile-image" size={48} />
                 <Link href="/me">
                     <p>{user.firstName}{" "}{user.lastName}</p>
                 </Link>

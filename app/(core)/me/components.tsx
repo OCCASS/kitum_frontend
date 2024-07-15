@@ -72,7 +72,7 @@ export function EditUserAvatarForm() {
                 <UserProfileImage
                     user={user}
                     src={image ?? ""}
-                    size={24}
+                    size={96}
                 />
                 <Button variant="none" className="bg-camera-button-bg p-3 rounded-full absolute right-0 bottom-0 transform translate-x-1/3 translate-y-1/3" onClick={openFileInput}>
                     <CameraIcon className="size-5" strokeWidth="2" />
