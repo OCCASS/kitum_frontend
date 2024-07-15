@@ -76,8 +76,12 @@ export function EditUserAvatarForm() {
             </div>
             <form action={editUserAvatarAction}>
                 <Input type="file" name="avatar" className="hidden" accept="image/*" innerRef={fileInputRef} onChange={onFileChange} />
-                {file && <SubmitButton variant="outline" className="text-sm mr-3">Изменить</SubmitButton>}
-                {file && <Button className="text-sm" onClick={reset}>Отменить</Button>}
+                {
+                    file && <div className="flex flex-col md:flex-row gap-2">
+                        <SubmitButton variant="outline" className="text-sm">Изменить</SubmitButton>
+                        <Button className="text-sm" onClick={reset}>Отменить</Button>
+                    </div>
+                }
             </form>
         </>
     )
