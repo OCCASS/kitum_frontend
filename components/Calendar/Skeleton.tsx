@@ -30,11 +30,11 @@ export default function CalendarSkeleton() {
                     {
                         Array.from(
                             { length: 4 },
-                            (item) => (
-                                <tr key={`row-${item}`}>{
+                            (_, index) => (
+                                <tr key={`row-${index}`}>{
                                     Array.from(
                                         { length: 7 },
-                                        item1 => <td key={`col-${item1}`}><ButtonSkeleton className="rounded-none w-full h-14 md:h-20" /></td>
+                                        (_, index) => <td key={`col-${index}`}><ButtonSkeleton className="rounded-none w-full h-14 md:h-20" /></td>
                                     )
                                 }</tr>
                             )
