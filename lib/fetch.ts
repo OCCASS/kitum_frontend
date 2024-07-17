@@ -1,6 +1,25 @@
 "use server"
 
 import { cookies } from "next/headers"
+import { createSession, deleteSession } from "./session"
+import { refresh } from "@/app/actions"
+
+
+async function signout() {
+    await deleteSession()
+}
+
+
+async function interceptor(r: Response) {
+    if (r.status === 401) await signout()
+    else if (r.status === 403) {
+        const tokens = await refresh()
+        if (!tokens) await signout()
+        await createSession(tokens.access, tokens.refresh)
+        return r
+    }
+    return r
+}
 
 export async function get<T>(url: string) {
     const access = cookies().get("access")?.value
@@ -10,9 +29,10 @@ export async function get<T>(url: string) {
             Authorization: `Bearer ${access}`
         }
     }
-    const response = await fetch(url, requestOptions)
+    const response = await interceptor(await fetch(url, requestOptions))
     const data: T = await response.json()
-    return { data, status: response.status }
+    if (data) return { data, status: response.status }
+    return { data: undefined, status: response.status }
 }
 
 export async function post<T>(url: string, body?: any, ...params: any) {
@@ -26,7 +46,7 @@ export async function post<T>(url: string, body?: any, ...params: any) {
         body: JSON.stringify(body),
         ...params
     }
-    const response = await fetch(url, requestOptions)
+    const response = await interceptor(await fetch(url, requestOptions))
     const data: T = await response.json()
     return { data, status: response.status }
 }
