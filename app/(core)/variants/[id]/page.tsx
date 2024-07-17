@@ -1,16 +1,14 @@
-import {Suspense} from "react";
-import Variant from "./components/Variant";
-import VariantSkeleton from "./components/VariantSkeleton";
+"use server"
+
+import VariantView from "@/components/VariantView"
+import { get } from "@/lib/fetch"
+import IVariant from "@/types/variant"
 
 type TVariantProps = {
     params: { id: string }
 }
 
-export default async function Page({params}: TVariantProps) {
-    return (
-        <Suspense fallback={<VariantSkeleton/>}>
-            <Variant id={params.id}/>
-        </Suspense>
-    )
+export default async function Page({ params }: TVariantProps) {
+    const { data: variant } = await get<IVariant>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/variants/${params.id}/`)
+    return <VariantView data={variant} />
 }
-

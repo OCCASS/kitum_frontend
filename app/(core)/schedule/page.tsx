@@ -1,7 +1,6 @@
 "use server"
 
 import Calendar from "@/components/Calendar";
-import CalendarSkeleton from "@/components/Calendar/Skeleton";
 import { get } from "@/lib/fetch";
 import IHoliday from "@/types/holiday";
 
