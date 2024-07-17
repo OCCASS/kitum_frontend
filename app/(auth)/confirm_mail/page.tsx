@@ -1,6 +1,6 @@
 "use server"
 
-import { RedirectType, redirect } from "next/navigation"
+import Link from "next/link"
 
 export default async function ConfirmMail({ searchParams }: { searchParams: { t: string } }) {
     const response = await fetch(
@@ -15,7 +15,10 @@ export default async function ConfirmMail({ searchParams }: { searchParams: { t:
         }
     )
 
-    if (response.status === 200) redirect("/signin", RedirectType.replace)
+    if (response.status === 200) return <>
+        <p>Адрес почты подтвержден!</p>
+        <p>Для входа в аккаунт можете перейти на страницу <Link href="/signin">входа</Link></p>
+    </>
 
-    return <p>Token is invalid or expired</p>
+    return <p>Токен не валидный или просрочен!</p>
 }
