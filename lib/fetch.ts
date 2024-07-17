@@ -11,7 +11,10 @@ async function signout() {
 
 
 async function interceptor(r: Response) {
-    if (r.status === 401) await signout()
+    if (r.status === 401) {
+        await signout()
+        return r
+    }
     else if (r.status === 403) {
         const tokens = await refresh()
         if (!tokens) await signout()
@@ -31,8 +34,7 @@ export async function get<T>(url: string) {
     }
     const response = await interceptor(await fetch(url, requestOptions))
     const data: T = await response.json()
-    if (data) return { data, status: response.status }
-    return { data: undefined, status: response.status }
+    return { data, status: response.status }
 }
 
 export async function post<T>(url: string, body?: any, ...params: any) {
@@ -60,7 +62,7 @@ export async function postFormData<T>(url: string, body: FormData) {
         },
         body: body
     }
-    const response = await fetch(url, requestOptions)
+    const response = await interceptor(await fetch(url, requestOptions))
     const data: T = await response.json()
     return { data, status: response.status }
 }
