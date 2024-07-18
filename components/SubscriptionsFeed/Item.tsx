@@ -1,7 +1,7 @@
-import ISubscription from "@/types/subscription";
+import IUserSubscription from "@/types/user_subscription";
 import { formattedDate } from "@/utils/date";
 
-export default function SubscriptionsFeedItem({ subscription }: { subscription: ISubscription }) {
+export default function SubscriptionsFeedItem({ subscription }: { subscription: IUserSubscription }) {
     const activeBefore: Date = new Date(Date.parse(subscription.activeBefore))
 
     return (
