@@ -6,7 +6,7 @@ export type TButtonProps = React.DetailedHTMLProps<React.ButtonHTMLAttributes<HT
     variant?: "primary" | "outline" | "gray" | "none",
 }
 
-const defaultClassName = "px-5 py-2 rounded disabled:bg-button-disabled-bg disabled:text-button-disabled-text disabled:cursor-not-allowed"
+const defaultClassName = "px-5 py-2 rounded disabled:bg-button-disabled-bg disabled:text-button-disabled-text disabled:cursor-not-allowed active:opacity-[0.85]"
 const button = cva(defaultClassName, {
     variants: {
         variant: {
