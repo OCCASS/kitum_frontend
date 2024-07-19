@@ -2,15 +2,16 @@
 
 import ISubscription from "@/types/subscription";
 import Button from "@/components/ui/Button";
-import {post} from "@/lib/fetch";
+import { post } from "@/lib/fetch";
 
-export default function Subscription({subscription}: {subscription: ISubscription}) {
+export default function Subscription({ subscription }: { subscription: ISubscription }) {
     const onClick = async () => {
-        const {data} = await post<{confirmationUrl: string}>(
+        const { data } = await post<{ confirmationUrl: string }>(
             `${process.env.NEXT_PUBLIC_API_BASE_URL}/subscriptions/${subscription.id}/order/`,
-            {returnUrl: "http://localhost:3000/", description: subscription.title}
+            { returnUrl: process.env.NEXT_PUBLIC_ROOT_URL, description: subscription.title }
         )
-        window.open(data.confirmationUrl, "_blank", "noopener,noreferrer")
+        const newWindow = window.open(data.confirmationUrl, "_blank", "noopener,noreferrer")
+        if (!newWindow) window.location.href = data.confirmationUrl
     }
 
     return (
