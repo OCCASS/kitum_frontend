@@ -2,10 +2,12 @@
 
 import Link from "next/link"
 import { useEffect, useState } from "react"
+import { useSearchParams } from "next/navigation"
 
-export default function ConfirmMail({ searchParams }: { searchParams: { t: string } }) {
+export default function ConfirmMail() {
     const [status, setStatus] = useState<number>()
     const [isLoading, setIsLoading] = useState(true)
+    const searchParams = useSearchParams()
 
     useEffect(() => {
         const fetchData = async () => {
@@ -13,7 +15,7 @@ export default function ConfirmMail({ searchParams }: { searchParams: { t: strin
                 `${process.env.NEXT_PUBLIC_AUTH_BASE_URL}/confirm_mail/`,
                 {
                     method: "POST",
-                    body: JSON.stringify({ token: searchParams.t }),
+                    body: JSON.stringify({ token: searchParams.get("t") }),
                     headers: {
                         "Content-Type": "application/json"
                     },

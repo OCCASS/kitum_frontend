@@ -29,9 +29,9 @@ const SignIn = () => {
             <h1 className="text-4xl md:text-5xl">Привет,<br />С возвращением!</h1>
             <form action={action} className="space-y-5 flex flex-col">
                 <Input type="email" placeholder="Почта" name="email" />
-                <div className="space-y-1">
+                <div className="flex gap-1 flex-col items-end">
                     <Input type="password" placeholder="Пароль" name="password" className="w-full" />
-                    <Link href="/reset_password" className="block text-right">Забыл пароль?</Link>
+                    <Link href="/reset_password">Забыл пароль?</Link>
                 </div>
                 {
                     state.message &&
