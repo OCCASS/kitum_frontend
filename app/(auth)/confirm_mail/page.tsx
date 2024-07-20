@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { useSearchParams } from "next/navigation"
+import LoadingView from "@/components/LoadingView"
 
 export default function ConfirmMail() {
     const [status, setStatus] = useState<number>()
@@ -25,15 +26,18 @@ export default function ConfirmMail() {
             setIsLoading(false)
             setStatus(response.status)
         }
+
         fetchData()
     }, [])
 
-    if (isLoading) return <p>Loading...</p>
+    if (isLoading) return <LoadingView />
 
-    if (status === 200) return <>
-        <p>Адрес почты подтвержден!</p>
-        <p>Для входа в аккаунт можете перейти на страницу <Link href="/signin" className="text-blue">входа</Link></p>
-    </>
+    if (status === 200) return (
+        <div className="space-y-2">
+            <h2 className="text-center">Адрес почты подтвержден!</h2>
+            <p className="text-center">Для входа в аккаунт можете перейти на страницу <Link href="/signin" className="text-blue">входа</Link></p>
+        </div>
+    )
 
-    return <p>Токен не валидный или просрочен!</p>
+    return <p className="text-center text-gray-500">Токен не валидный или просрочен!</p>
 }
