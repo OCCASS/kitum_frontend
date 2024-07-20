@@ -39,5 +39,10 @@ export default function ConfirmMail() {
         </div>
     )
 
-    return <p className="text-center text-gray-500">Токен не валидный или просрочен!</p>
+    return (
+        <div className="space-y-2">
+            <h2 className="text-center">Токен не валидный или просрочен!</h2>
+            <p className="text-center text-gray-500">Проверьте его корректность или обратитесь в поддержку</p>
+        </div>
+    )
 }
