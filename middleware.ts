@@ -11,7 +11,7 @@ function signinResponse(req: NextRequest): NextResponse {
 
 export default async function middleware(req: NextRequest) {
     const onlyPublicRoutes = ["/signin", "/signup", "/reset_password", "/reset_password/check", "/confirm_mail"]
-    const publicRoutes: Array<string> = []
+    const publicRoutes: Array<string> = ["/favicon.ico", "/icon.ico", "/apple-icon.png"]
     const currentPath = req.nextUrl.pathname
     const isProtectedRoute = !([...onlyPublicRoutes, ...publicRoutes]).includes(currentPath)
 
