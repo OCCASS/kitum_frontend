@@ -1,5 +1,6 @@
 "use client"
 
+import Select from "@/components/ui/Select"
 import SubmitButton from "@/components/ui/SubmitButton"
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid"
 import { useState } from "react"
@@ -13,9 +14,8 @@ export default function SelectVariantSection() {
                 <h2 className="mb-1 flex justify-center gap-2"><MagnifyingGlassIcon className="size-6" />Выбрать варинат</h2>
                 <p className="mb-3 text-sm text-gray-500 text-center">Выбрать вариант прошлых лет</p>
                 <form className="flex flex-col gap-3">
-                    <select
+                    <Select
                         name="period"
-                        className="select"
                         required
                         onChange={(e) => setPeriod(e.target.value)}
                         title="Выберите учебный год"
@@ -26,10 +26,9 @@ export default function SelectVariantSection() {
                         <option>2022/23</option>
                         <option>2021/22</option>
                         <option>2020/21</option>
-                    </select>
-                    <select
+                    </Select>
+                    <Select
                         name="name"
-                        className="select disabled:bg-red"
                         disabled={!period}
                         required
                         title="Выберите волну"
@@ -38,7 +37,7 @@ export default function SelectVariantSection() {
                         <option value="" disabled selected>Волна</option>
                         <option>Основная влона 07.06.2024</option>
                         <option>Досрок 08.06.2024</option>
-                    </select>
+                    </Select>
                 </form>
             </div>
             <SubmitButton className="w-full">Начать</SubmitButton>
