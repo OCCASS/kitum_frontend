@@ -1,7 +1,7 @@
 import Input from "@/components/ui/Input";
 import SubmitButton from "@/components/ui/SubmitButton";
 import { SparklesIcon } from "@heroicons/react/24/outline";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
+import SelectVariantSection from "./components/SelectVariantSection";
 
 
 /*
@@ -37,25 +37,7 @@ export default function Page() {
                         <SubmitButton className="w-full">Начать</SubmitButton>
                     </form>
                 </section>
-                <section className="card flex flex-col justify-between">
-                    <div>
-                        <h2 className="mb-1 flex justify-center gap-2"><MagnifyingGlassIcon className="size-6" />Выбрать варинат</h2>
-                        <p className="mb-3 text-sm text-gray-500 text-center">Выбрать вариант прошлых лет</p>
-                        <form className="flex flex-col gap-3">
-                            <select className="select">
-                                <option selected>2023/24</option>
-                                <option>2022/23</option>
-                                <option>2021/22</option>
-                                <option>2020/21</option>
-                            </select>
-                            <select className="select">
-                                <option selected>Основная влона 07.06.2024</option>
-                                <option>Досрок 08.06.2024</option>
-                            </select>
-                        </form>
-                    </div>
-                    <SubmitButton className="w-full">Начать</SubmitButton>
-                </section>
+                <SelectVariantSection />
             </div>
             <h1>История</h1>
         </div>
