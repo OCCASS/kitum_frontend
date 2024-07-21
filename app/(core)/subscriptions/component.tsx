@@ -10,8 +10,7 @@ export default function Subscription({ subscription }: { subscription: ISubscrip
             `${process.env.NEXT_PUBLIC_API_BASE_URL}/subscriptions/${subscription.id}/order/`,
             { returnUrl: process.env.NEXT_PUBLIC_ROOT_URL, description: subscription.title }
         )
-        const newWindow = window.open(data.confirmationUrl, "_blank", "noopener,noreferrer")
-        if (!newWindow) window.location.href = data.confirmationUrl
+        window.location.href = data.confirmationUrl
     }
 
     return (
