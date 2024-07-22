@@ -1,13 +1,19 @@
+"use client"
+
 import Input from "@/components/ui/Input"
 import SubmitButton from "@/components/ui/SubmitButton"
 import { SparklesIcon } from "@heroicons/react/24/solid"
+import { generateVariant } from "@/app/(core)/training/actions";
+import { useFormState } from "react-dom";
 
 export default function CreateVariantSection() {
+    const [_, action] = useFormState(generateVariant, {})
+
     return (
         <section className="card">
             <h2 className="mb-1 flex justify-center gap-1"><SparklesIcon className="size-6" />Создать вариант</h2>
             <p className="mb-3 text-sm text-gray-500 text-center">Создать вариант выбранной сложности</p>
-            <form className="space-y-3">
+            <form className="space-y-3" action={action}>
                 <Input placeholder="Название" className="w-full" name="name" />
                 <ul className="grid grid-cols-3 gap-2 bg-secondary-bg p-1 rounded border border-primary-border-color">
                     <li>
