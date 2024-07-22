@@ -6,7 +6,7 @@ import { SparklesIcon } from "@heroicons/react/24/solid"
 import { generateVariant } from "@/app/(core)/training/actions";
 import { useFormState } from "react-dom";
 
-export default function CreateVariantSection() {
+export default function GenerateVariantSection() {
     const [_, action] = useFormState(generateVariant, {})
 
     return (
