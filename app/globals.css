@@ -65,8 +65,8 @@
     /* UI */
     --button-outline-hover-bg: rgb(35, 35, 37);
     --button-gray-bg: rgb(56, 60, 64);
-    --button-disabled-bg: rgb(94, 97, 103);
-    --button-disabled-text: rgb(167, 177, 192);
+    --button-disabled-bg: rgb(70, 70, 70);
+    --button-disabled-text: rgb(120, 120, 120);
   }
 
   h1 {
@@ -111,7 +111,7 @@
       0.65em auto,
       100%;
 
-    @apply text-black rounded px-3 py-2 bg-secondary-bg text-primary-text border border-primary-border-color cursor-pointer;
+    @apply text-black rounded pl-3 pr-8 py-2 bg-secondary-bg text-primary-text border border-primary-border-color cursor-pointer;
   }
 
   .select::before {

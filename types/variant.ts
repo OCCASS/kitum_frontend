@@ -9,5 +9,7 @@ export default interface IVariant {
     isStarted: boolean
     startedAt: string
     completedAt: string
+    generated: boolean
+    complexity: number
 }
 
