@@ -111,7 +111,7 @@
       0.65em auto,
       100%;
 
-    @apply text-black rounded px-3 py-2 bg-secondary-bg text-primary-text border border-primary-border-color cursor-pointer;
+    @apply text-black rounded pl-3 pr-8 py-2 bg-secondary-bg text-primary-text border border-primary-border-color cursor-pointer;
   }
 
   .select::before {
