@@ -15,4 +15,5 @@ export default interface ILesson {
     updatedAt: string
     completeTasksDeadline: string
     opensAt: string
+    result: number | null
 }

@@ -21,7 +21,7 @@ export default function LessonCard({ lesson }: { lesson: ILesson }) {
             <div className="flex-1 space-y-1">
                 <LessonCardStatusBar lesson={lesson} />
                 <h2 className={`line-clamp-2 ${disabled && "text-gray-500/50"}`}><Link href={`/lessons/${lesson.id}`}>{lesson.title}</Link></h2>
-                {lesson.isTasksCompleted && <p>Результат выполнения: 54</p>}
+                {lesson.isTasksCompleted && <p>Результат выполнения: {lesson.result}</p>}
             </div>
             {/* Footer */}
             <div className="space-y-2">
