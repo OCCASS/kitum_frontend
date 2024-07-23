@@ -97,4 +97,3 @@ export default function DesktopPaginator({ tasks, selected, setSelected }: TTask
         </ul>
     )
 }
-

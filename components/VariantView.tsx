@@ -7,7 +7,7 @@ import { useState } from "react"
 import TasksView from "@/components/TasksView"
 import Link from "next/link"
 import { ArrowLeftIcon } from "@heroicons/react/24/outline"
-import {TTaskAnswer} from "@/types/task";
+import { TTaskAnswer } from "@/types/task";
 
 export default function VariantView({ data }: { data: IVariant }) {
     const [variant, setVariant] = useState<IVariant>(data)
@@ -42,9 +42,10 @@ export default function VariantView({ data }: { data: IVariant }) {
             <div className="w-full flex justify-between md:items-center flex-col md:flex-row gap-3 md:gap-0">
                 <h1>{variant.title}</h1>
                 {(variant.isStarted && !variant.isCompleted) && <Button onClick={complete} disabled={variant.isCompleted} variant="outline" className="md:text-sm">Завершить</Button>}
+                {variant.isCompleted && <p><span className="font-semibold">Результат выполнения:</span> {variant.result}</p>}
             </div>
             {
-                variant.isStarted ?
+                variant.isStarted || variant.isCompleted ?
                     <TasksView
                         tasks={variant.tasks}
                         disabled={variant.isCompleted || !variant.isStarted}

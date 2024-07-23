@@ -17,7 +17,7 @@ export default function VariantCard({ variant }: TVariantItemProps) {
                 {variant.isCompleted && <p className="flex items-center gap-2 text-green"><CheckBadgeIcon className="size-5" /> Выполнено</p>}
                 {(variant.isStarted && !variant.isCompleted) && <p className="flex items-center gap-2 text-blue-500"><ClockIcon className="size-5" /> Начат в {formattedDatetime(startedAt)}</p>}
                 <h2 className="line-clamp-2">{variant.title}</h2>
-                {variant.isCompleted && <p>Результат выполнения: 54</p>}
+                {variant.isCompleted && <p>Результат выполнения: {variant.result}</p>}
             </div>
             {/* Footer */}
             <div>

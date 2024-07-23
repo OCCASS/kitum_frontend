@@ -11,5 +11,5 @@ export default interface IVariant {
     completedAt: string
     generated: boolean
     complexity: number
+    result: number | null
 }
-
