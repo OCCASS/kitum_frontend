@@ -1,9 +1,6 @@
 "use server"
 
-import { Suspense } from "react"
-import SubscriptionsFeed from "@/components/SubscriptionsFeed"
-import { EditUserAvatarForm, EditUserForm, Greeting } from "./components"
-import SubscriptionsFeedSkeleton from "@/components/SubscriptionsFeed/Skeleton"
+import {EditUserAvatarForm, EditUserForm, Greeting, Subscription} from "./components"
 
 export default async function Me() {
     return (
@@ -16,10 +13,8 @@ export default async function Me() {
                 <EditUserForm />
             </section>
             <section id="subscription">
-                <h1 className="mb-5">Текущие подписки</h1>
-                <Suspense fallback={<SubscriptionsFeedSkeleton />}>
-                    <SubscriptionsFeed />
-                </Suspense>
+                <h1 className="mb-5">Текушая подписка</h1>
+                <Subscription />
             </section>
         </div>
     )

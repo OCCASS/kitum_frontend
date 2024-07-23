@@ -1,3 +1,5 @@
+import IUserSubscription from "@/types/user_subscription";
+
 export default interface IUser {
     id: string
     email: string
@@ -5,4 +7,5 @@ export default interface IUser {
     lastName: string
     createdAt: string
     avatar: string
+    subscription: IUserSubscription | null
 }

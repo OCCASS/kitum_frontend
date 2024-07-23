@@ -1,23 +1,39 @@
 "use client"
 
-import { useUser } from "@/lib/providers/user"
-import { useFormState, useFormStatus } from "react-dom"
-import { editUser, editUserAvatar } from "./actions"
-import { ChangeEvent, useEffect, useRef, useState } from "react"
+import {useUser} from "@/lib/providers/user"
+import {useFormState} from "react-dom"
+import {editUser, editUserAvatar} from "./actions"
+import {ChangeEvent, useEffect, useRef, useState} from "react"
 import Input from "@/components/ui/Input"
 import SubmitButton from "@/components/ui/SubmitButton"
 import Button from "@/components/ui/Button"
-import { CameraIcon } from "@heroicons/react/24/outline"
+import {CameraIcon} from "@heroicons/react/24/outline"
 import UserProfileImage from "@/components/ui/UserProfileImage"
+import {formattedDate} from "@/utils/date";
+import LoadingView from "@/components/LoadingView";
 
 export function Greeting() {
-    const { user } = useUser()
+    const {user} = useUser()
     return (<h1>Привет, {user?.firstName} {user?.lastName}</h1>)
 }
 
+export function Subscription() {
+    const {user} = useUser()
+    if (!user) return <LoadingView/>
+    if (!user.subscription) return <p className="text-center text-gray-500">У вас нет подписок!</p>
+
+    const activeBefore: Date = new Date(Date.parse(user.subscription.activeBefore))
+    return (
+        <article className="card space-y-3">
+            <h2>{user.subscription.title}</h2>
+            <p className="text-gray-500">Активна до: {formattedDate(activeBefore)}</p>
+        </article>
+    )
+}
+
 export function EditUserForm() {
-    const { user, setUser } = useUser()
-    const [state, action] = useFormState(editUser, { message: "", user: null })
+    const {user, setUser} = useUser()
+    const [state, action] = useFormState(editUser, {message: "", user: null})
 
     useEffect(() => {
         if (state.user) setUser(state.user)
@@ -26,8 +42,8 @@ export function EditUserForm() {
     return (
         <form action={action} className="flex gap-3 flex-col md:flex-row">
             <div className="flex gap-2 md:gap-3 flex-col md:flex-row">
-                <Input placeholder="Имя" defaultValue={user?.firstName} className="flex-1" name="firstName" />
-                <Input placeholder="Фамилия" defaultValue={user?.lastName} className="flex-1" name="lastName" />
+                <Input placeholder="Имя" defaultValue={user?.firstName} className="flex-1" name="firstName"/>
+                <Input placeholder="Фамилия" defaultValue={user?.lastName} className="flex-1" name="lastName"/>
             </div>
             <SubmitButton>Изменить</SubmitButton>
         </form>
@@ -35,8 +51,8 @@ export function EditUserForm() {
 }
 
 export function EditUserAvatarForm() {
-    const { user, setUser } = useUser()
-    const [editUserAvatarState, editUserAvatarAction] = useFormState(editUserAvatar, { message: "", user: null })
+    const {user, setUser} = useUser()
+    const [editUserAvatarState, editUserAvatarAction] = useFormState(editUserAvatar, {message: "", user: null})
     const [file, setFile] = useState<File | null>(null)
     const [image, setImage] = useState<string | null>(null)
     const fileInputRef = useRef<HTMLInputElement>(null)
@@ -64,7 +80,7 @@ export function EditUserAvatarForm() {
         setImage(null)
     }
 
-    if (!user) return "Loading..."
+    if (!user) return <LoadingView />
 
     return (
         <>
@@ -74,17 +90,20 @@ export function EditUserAvatarForm() {
                     src={image ?? ""}
                     size={96}
                 />
-                <Button variant="none" className="bg-camera-button-bg p-3 rounded-full absolute right-0 bottom-0 transform translate-x-1/3 translate-y-1/3" onClick={openFileInput}>
-                    <CameraIcon className="size-5" strokeWidth="2" />
+                <Button variant="none"
+                        className="bg-camera-button-bg p-3 rounded-full absolute right-0 bottom-0 transform translate-x-1/3 translate-y-1/3"
+                        onClick={openFileInput}>
+                    <CameraIcon className="size-5" strokeWidth="2"/>
                 </Button>
             </div>
             <form action={editUserAvatarAction}>
-                <Input type="file" name="avatar" className="hidden" accept="image/*" innerRef={fileInputRef} onChange={onFileChange} />
+                <Input type="file" name="avatar" className="hidden" accept="image/*" innerRef={fileInputRef}
+                       onChange={onFileChange}/>
                 {
                     file && <div className="flex flex-col md:flex-row gap-2">
-                        <SubmitButton variant="outline" className="text-sm">Изменить</SubmitButton>
-                        <Button className="text-sm" onClick={reset}>Отменить</Button>
-                    </div>
+                    <SubmitButton variant="outline" className="text-sm">Изменить</SubmitButton>
+                    <Button className="text-sm" onClick={reset}>Отменить</Button>
+                  </div>
                 }
             </form>
         </>

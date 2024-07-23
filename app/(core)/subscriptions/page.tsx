@@ -5,7 +5,7 @@ import ISubscription from "@/types/subscription";
 import { get } from "@/lib/fetch";
 
 export default async function Page() {
-    const { data } = await get<ISubscription[]>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/subscriptions/unpurchased/`)
+    const { data } = await get<ISubscription[]>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/subscriptions/`)
 
     return (
         <div className="space-y-3">
