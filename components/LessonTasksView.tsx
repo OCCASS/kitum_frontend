@@ -56,7 +56,7 @@ export default function LessonTasksView({ data }: { data: ILesson }) {
                 {!lesson.isTasksCompleted &&
                     <Button onClick={complete} disabled={lesson.isTasksCompleted} variant="outline"
                         className="md:text-sm">Завершить</Button>}
-                {lesson.isTasksCompleted && <p><b>Резльтат выполнения:</b> {lesson.result}</p>}
+                {lesson.isTasksCompleted && <p><span className="font-semibold">Резльтат выполнения:</span> {lesson.result}</p>}
             </div>
             {/* Content */}
             <TasksView
