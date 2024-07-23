@@ -18,10 +18,11 @@ export default function SelectVariantSection() {
                     name="period"
                     required
                     onChange={(e) => setPeriod(e.target.value)}
+                    value={period}
                     title="Выберите учебный год"
                     aria-label="Выберите учебный год"
                 >
-                    <option value="" disabled selected>Учебный год</option>
+                    <option value="" disabled>Учебный год</option>
                     <option value="2023/24">2023/24</option>
                     <option value="2022/23">2022/23</option>
                     <option value="2021/22">2021/22</option>
@@ -34,8 +35,9 @@ export default function SelectVariantSection() {
                     title="Выберите волну"
                     aria-label="Выберите волну"
                     onChange={(e) => setName(e.target.value)}
+                    value={name}
                 >
-                    <option value="" disabled selected>Волна</option>
+                    <option value="" disabled>Волна</option>
                     <option value="1">Основная влона 07.06.2024</option>
                     <option value="2">Досрок 08.06.2024</option>
                 </Select>
