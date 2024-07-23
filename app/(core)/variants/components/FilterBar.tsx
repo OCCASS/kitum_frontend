@@ -8,8 +8,8 @@ import {getVariantsUrlParams} from "@/app/(core)/variants/utils";
 
 export default function FilterBar() {
     const router = useRouter()
-    const [generated, setGenerated] = useState("all")
-    const [status, setStatus] = useState("all")
+    const [generated, setGenerated] = useState("false")
+    const [status, setStatus] = useState("")
 
     useEffect(() => {
         router.push(`/variants?${getVariantsUrlParams(status, generated)}`)
@@ -20,13 +20,13 @@ export default function FilterBar() {
                 <span className="p-2 border rounded border-primary-border-color text-gray-400">
                     <FunnelIcon className="size-5"/>
                 </span>
-            <Select className="text-sm" onChange={(e) => setGenerated(e.target.value)}>
-                <option selected value="false">По программе</option>
+            <Select className="text-sm" onChange={(e) => setGenerated(e.target.value)} value={generated}>
+                <option value="false">По программе</option>
                 <option value="true">Сгенерированные</option>
                 <option value="all">Все</option>
             </Select>
-            <Select className="text-sm" onChange={(e) => setStatus(e.target.value)}>
-                <option selected disabled value="">Статус</option>
+            <Select className="text-sm" onChange={(e) => setStatus(e.target.value)} value={status}>
+                <option disabled value="">Статус</option>
                 <option value="all">Все</option>
                 <option value="completed">Пройден</option>
                 <option value="in_progress">В процессе</option>
