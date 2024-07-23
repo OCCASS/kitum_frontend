@@ -8,9 +8,13 @@ import TasksView from "@/components/TasksView"
 import Link from "next/link"
 import { ArrowLeftIcon } from "@heroicons/react/24/outline"
 import { TTaskAnswer } from "@/types/task";
+import dynamic from "next/dynamic";
+
+const Fireworks = dynamic(() => import("react-canvas-confetti/dist/presets/fireworks"))
 
 export default function VariantView({ data }: { data: IVariant }) {
     const [variant, setVariant] = useState<IVariant>(data)
+    const [showConfetti, setShowConfetti] = useState(false)
 
     const start = async () => {
         if (confirm("Start variant?")) {
@@ -22,7 +26,10 @@ export default function VariantView({ data }: { data: IVariant }) {
     const complete = async () => {
         if (confirm("Complete variant?")) {
             const { data, status } = await post<IVariant>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/variants/${variant?.id}/complete/`)
-            if (status === 200) setVariant(data)
+            if (status === 200) {
+                setVariant(data)
+                setShowConfetti(data.result !== null && data.result >= 90)
+            }
         }
     }
 
@@ -38,6 +45,7 @@ export default function VariantView({ data }: { data: IVariant }) {
 
     return (
         <div className="space-y-3 max-w-prose m-auto">
+            {showConfetti && <Fireworks autorun={{ speed: 2, duration: 5000 }} />}
             <Link href="/variants" className="flex gap-2 items-center"><ArrowLeftIcon className="size-5" />Назад к вариантам</Link>
             <div className="w-full flex justify-between md:items-center flex-col md:flex-row gap-3 md:gap-0">
                 <h1>{variant.title}</h1>
