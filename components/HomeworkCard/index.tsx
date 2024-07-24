@@ -13,15 +13,15 @@ export default function HomeworkCard({ lesson }: { lesson: ILesson }) {
         <article className="card flex flex-col gap-3">
             {/* Content */}
             <div className="flex-1 space-y-1">
-                {lesson.isTasksCompleted && <p className="flex items-center gap-2 text-green"><CheckBadgeIcon className="size-5" /> Выполнено</p>}
+                {lesson.status === "tasks_completed" && <p className="flex items-center gap-2 text-green"><CheckBadgeIcon className="size-5" /> Выполнено</p>}
                 <h2 className="line-clamp-2"><Link href={`/lessons/${lesson.id}`}>{lesson.title}</Link></h2>
-                {!lesson.isTasksCompleted && <p className={`flex items-center gap-2 ${deadlineIsSoon && "text-red"}`}><ClockIcon className="size-5" /> Дедлайн: {formattedDatetime(deadline)}</p>}
-                {lesson.isTasksCompleted && <p>Результат выполнения: 54</p>}
+                {lesson.status !== "tasks_completed" && <p className={`flex items-center gap-2 ${deadlineIsSoon && "text-red"}`}><ClockIcon className="size-5" /> Дедлайн: {formattedDatetime(deadline)}</p>}
+                {lesson.status === "tasks_completed" && <p>Результат выполнения: 54</p>}
             </div>
             {/* Footer */}
             <div>
                 {
-                    lesson.isTasksCompleted ?
+                    lesson.status === "tasks_completed" ?
                         <LinkButton href={`/lessons/${lesson.id}/tasks`} variant="outline">Результаты</LinkButton>
                         :
                         <LinkButton href={`/lessons/${lesson.id}/tasks`}>Домашнее задание</LinkButton>
