@@ -64,7 +64,7 @@
 
     /* UI */
     --button-outline-hover-bg: rgb(35, 35, 37);
-    --button-gray-bg: rgb(56, 60, 64);
+    --button-gray-bg: rgb(70, 70, 70);
     --button-disabled-bg: rgb(70, 70, 70);
     --button-disabled-text: rgb(120, 120, 120);
   }
