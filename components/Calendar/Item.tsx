@@ -2,11 +2,11 @@ import Link from "next/link";
 import IEvent from "@/types/event";
 import { cva } from "class-variance-authority";
 import cn from "@/utils/cn";
-import { AcademicCapIcon, DocumentDuplicateIcon, CheckIcon } from "@heroicons/react/16/solid";
+import { AcademicCapIcon, CheckIcon, DocumentDuplicateIcon } from "@heroicons/react/16/solid";
 import { twMerge } from "tailwind-merge";
-import { FolderOpenIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import Button from "../ui/Button";
-import { useState } from "react";
+import { FolderOpenIcon } from "@heroicons/react/24/outline";
+import { Dispatch, SetStateAction, useState } from "react";
+import Modal from "@/components/ui/Modal";
 
 const MONTHS = ["Января", "Февраля", "Марта", "Апреля", "Мая", "Июня", "Июля", "Августа", "Сентября", "Октября", "Ноября", "Декабря"]
 const EVENT_TYPE_NAME = { "lesson": "Урок", "homework": "Домашняя работа" }
@@ -74,7 +74,13 @@ const calendarTableItemEvent = cva("flex items-center gap-1 rounded px-2 py-0.5 
     }
 })
 
-function DetailPopup({ day, month, events, show, close }: { day: number, month: number, events: IEvent[], show: boolean, close: () => void }) {
+function DetailPopup({
+    day,
+    month,
+    events,
+    show,
+    setShow
+}: { day: number, month: number, events: IEvent[], show: boolean, setShow: Dispatch<SetStateAction<boolean>> }) {
     const getEventHref = (event: IEvent) => {
         switch (event.type) {
             case "lesson":
@@ -87,37 +93,35 @@ function DetailPopup({ day, month, events, show, close }: { day: number, month: 
     }
 
     return (
-        <div className={`${show ? "visible opacity-100" : "invisible opacity-0"} transition-all overlay`} onClick={close}>
-            <div className={`popup bg-secondary-bg space-y-5`}>
-                {/* Header */}
-                <div className="flex items-center justify-between">
-                    <h2>{day} {MONTHS.at(month)}</h2>
-                    <Button variant="none" onClick={close}><XMarkIcon className="size-6" /></Button>
-                </div>
-                {/* Content */}
-                <ul className="space-y-3">
-                    {
-                        events.map(item => {
-                            return <li key={item.id}>
-                                <p className="text-gray-400">{EVENT_TYPE_NAME[item.type]}</p>
-                                {item.isAvailable ?
-                                    <Link href={getEventHref(item)} className="text-blue">
-                                        {item.name}
-                                    </Link> :
-                                    <p>
-                                        {item.name}
-                                    </p>
-                                }
-                            </li>
-                        })
-                    }
-                </ul>
-            </div>
-        </div>
+        <Modal title={`${day} ${MONTHS.at(month)}`} show={show} setShow={setShow}>
+            <ul className="space-y-3">
+                {
+                    events.map(item => {
+                        return <li key={item.id}>
+                            <p className="text-gray-400">{EVENT_TYPE_NAME[item.type]}</p>
+                            {item.isAvailable ?
+                                <Link href={getEventHref(item)} className="text-blue">
+                                    {item.name}
+                                </Link> :
+                                <p>
+                                    {item.name}
+                                </p>
+                            }
+                        </li>
+                    })
+                }
+            </ul>
+        </Modal>
     )
 }
 
-export default function CalendarTableItem({ day, month, variant, isHoliday, events }: { day: number, month: number, variant: "primary" | "secondary", isHoliday: boolean, events: IEvent[] }) {
+export default function CalendarTableItem({
+    day,
+    month,
+    variant,
+    isHoliday,
+    events
+}: { day: number, month: number, variant: "primary" | "secondary", isHoliday: boolean, events: IEvent[] }) {
     const [showDetail, setShowDetail] = useState(false)
 
     const onClick = () => {
@@ -139,7 +143,8 @@ export default function CalendarTableItem({ day, month, variant, isHoliday, even
                 {/* Content */}
                 <div className="overflow-auto h-full">
                     {/* Desktop */}
-                    <ul className="hidden md:flex md:flex-col gap-1 h-full">{events.map(item => <CalendarTableItemEvent key={item.id} event={item} />)}</ul>
+                    <ul className="hidden md:flex md:flex-col gap-1 h-full">{events.map(item => <CalendarTableItemEvent
+                        key={item.id} event={item} />)}</ul>
                     {/* Mobile */}
                     {
                         events.length > 0 &&
@@ -154,7 +159,7 @@ export default function CalendarTableItem({ day, month, variant, isHoliday, even
                 month={month}
                 events={events}
                 show={showDetail}
-                close={() => setShowDetail(false)}
+                setShow={setShowDetail}
             />
         </td>
     )
