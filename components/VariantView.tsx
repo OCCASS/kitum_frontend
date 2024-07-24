@@ -34,6 +34,8 @@ export default function VariantView({ data }: { data: IVariant }) {
     }
 
     const answer = async (taskId: string, answer: TTaskAnswer) => {
+        if (answer.length === 0 || answer.includes("")) return
+
         const { data, status } = await post<IVariant>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/variants/${variant?.id}/${taskId}/answer/`, { answer })
         if (status === 200) setVariant(data)
     }

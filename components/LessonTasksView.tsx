@@ -38,6 +38,8 @@ export default function LessonTasksView({ data }: { data: ILesson }) {
     }
 
     const answer = async (taskId: string, answer: TTaskAnswer) => {
+        if (answer.length === 0 || answer.includes("")) return
+
         const {
             data,
             status
