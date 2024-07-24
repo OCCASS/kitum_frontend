@@ -29,6 +29,7 @@ const config: Config = {
             "tertiary-bg": "var(--bg-tertiary)",
             "codeblock-bg": "var(--bg-codeblock)",
             "primary-text": "var(--text-primary)",
+            "gray-text": "var(--text-gray)",
             "primary-border-color": "var(--primary-border-color)",
             "skeleton-bg": "var(--skeleton-bg)",
 
