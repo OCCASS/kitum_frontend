@@ -55,15 +55,15 @@ export default function LessonTasksView({ data }: { data: ILesson }) {
             {/* Header */}
             <div className="flex justify-between md:items-center flex-col md:flex-row gap-3 md:gap-0">
                 <h1>Домашнее задание</h1>
-                {!lesson.isTasksCompleted &&
-                    <Button onClick={complete} disabled={lesson.isTasksCompleted} variant="outline"
+                {lesson.status !== "tasks_completed" &&
+                    <Button onClick={complete} disabled={lesson.status === "tasks_completed"} variant="outline"
                         className="md:text-sm">Завершить</Button>}
-                {lesson.isTasksCompleted && <p><span className="font-semibold">Резльтат выполнения:</span> {lesson.result}</p>}
+                {lesson.status === "tasks_completed" && <p><span className="font-semibold">Резльтат выполнения:</span> {lesson.result}</p>}
             </div>
             {/* Content */}
             <TasksView
                 tasks={lesson?.tasks ?? []}
-                disabled={lesson.isTasksCompleted}
+                disabled={lesson.status === "tasks_completed"}
                 answerTask={answer}
                 skipTask={skip}
             />
