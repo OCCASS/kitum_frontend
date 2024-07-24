@@ -3,13 +3,11 @@ import GenerateVariantSection from "./components/GenerateVariantSection";
 import History from "./components/History"
 import {Suspense} from "react";
 import LoadingView from "@/components/LoadingView";
+import {Metadata} from "next";
 
-
-/*
- * TODO: add data loading
- * TODO: add history loading
- * TODO: handle variant start
-*/
+export const metadata: Metadata = {
+    title: "KITUM – тренировка"
+}
 
 export default function Page() {
     return (

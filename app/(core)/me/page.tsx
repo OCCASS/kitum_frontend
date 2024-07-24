@@ -1,6 +1,9 @@
-"use server"
-
 import {EditUserAvatarForm, EditUserForm, Greeting, Subscription} from "./components"
+import {Metadata} from "next";
+
+export const metadata: Metadata = {
+    title: "KITUM – профиль"
+}
 
 export default async function Me() {
     return (
