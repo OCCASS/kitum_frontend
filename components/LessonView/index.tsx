@@ -22,17 +22,12 @@ export default function LessonView({ data }: { data: ILesson }) {
         if (status === 200) setLesson(data)
     }
 
-    async function skip() {
-        const { data, status } = await post<ILesson>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/lessons/${lesson.id}/skip/`)
-        if (status === 200) setLesson(data)
-    }
-
     return (
         <div className="space-y-2 max-w-prose m-auto">
             <Link href="/lessons" className="flex gap-2 items-center"><ArrowLeftIcon className="size-5" />Назад к урокам</Link>
             <h1>{lesson.title}</h1>
             <DynamicMarkdownView content={lesson.content} />
-            <LessonViewFooter lesson={lesson} complete={complete} skip={skip} />
+            <LessonViewFooter lesson={lesson} complete={complete} />
         </div>
     )
 }
