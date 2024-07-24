@@ -9,5 +9,6 @@ export default function UserProfileImage({ user, src, size }: { user: IUser, src
         height="128"
         className={"rounded-full object-cover"}
         style={{ width: size, height: size }}
+        priority
     />
 }
