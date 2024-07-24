@@ -9,27 +9,27 @@ import Link from "next/link"
 import { ArrowLeftIcon } from "@heroicons/react/24/outline"
 import { TTaskAnswer } from "@/types/task";
 import dynamic from "next/dynamic";
+import Modal from "./ui/Modal"
 
 const Fireworks = dynamic(() => import("react-canvas-confetti/dist/presets/fireworks"))
 
 export default function VariantView({ data }: { data: IVariant }) {
     const [variant, setVariant] = useState<IVariant>(data)
     const [showConfetti, setShowConfetti] = useState(false)
+    const [showStartModal, setShowStartModal] = useState(false)
+    const [showCompleteModal, setShowCompleteModal] = useState(false)
 
     const start = async () => {
-        if (confirm("Start variant?")) {
-            const { data, status } = await post<IVariant>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/variants/${variant?.id}/start/`)
-            if (status === 200) setVariant(data)
-        }
+        const { data, status } = await post<IVariant>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/variants/${variant?.id}/start/`)
+        if (status === 200) setVariant(data)
     }
 
     const complete = async () => {
-        if (confirm("Complete variant?")) {
-            const { data, status } = await post<IVariant>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/variants/${variant?.id}/complete/`)
-            if (status === 200) {
-                setVariant(data)
-                setShowConfetti(data.result !== null && data.result >= 90)
-            }
+        const { data, status } = await post<IVariant>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/variants/${variant?.id}/complete/`)
+        if (status === 200) {
+            setVariant(data)
+            setShowCompleteModal(false)
+            setShowConfetti(data.result !== null && data.result >= 90)
         }
     }
 
@@ -48,10 +48,17 @@ export default function VariantView({ data }: { data: IVariant }) {
     return (
         <div className="space-y-3 max-w-prose m-auto">
             {showConfetti && <Fireworks autorun={{ speed: 2, duration: 5000 }} />}
+            <Modal title="Уверены?" show={showCompleteModal} setShow={setShowCompleteModal} closable={false}>
+                <p>Вы уверены, что хотите завершить выполнение варианата?</p>
+                <div className="w-full flex justify-between flex-col md:flex-row gap-2">
+                    <Button className="text-sm" onClick={complete} variant="gray">Да, завершить</Button>
+                    <Button className="text-sm" onClick={() => setShowCompleteModal(false)} variant="outline">Нет, продолжить</Button>
+                </div>
+            </Modal>
             <Link href="/variants" className="flex gap-2 items-center"><ArrowLeftIcon className="size-5" />Назад к вариантам</Link>
             <div className="w-full flex justify-between md:items-center flex-col md:flex-row gap-3 md:gap-0">
                 <h1>{variant.title}</h1>
-                {(variant.isStarted && !variant.isCompleted) && <Button onClick={complete} disabled={variant.isCompleted} variant="outline" className="md:text-sm">Завершить</Button>}
+                {(variant.isStarted && !variant.isCompleted) && <Button onClick={() => setShowCompleteModal(true)} disabled={variant.isCompleted} variant="outline" className="md:text-sm">Завершить</Button>}
                 {variant.isCompleted && <p><span className="font-semibold">Результат выполнения:</span> {variant.result}</p>}
             </div>
             {
@@ -63,7 +70,16 @@ export default function VariantView({ data }: { data: IVariant }) {
                         skipTask={skip}
                     />
                     :
-                    <Button onClick={start} disabled={variant.isCompleted}>Начать</Button>
+                    <div>
+                        <Modal title="Начать вариант?" show={showStartModal} setShow={setShowStartModal} closable={false}>
+                            <p>Начать вариант?</p>
+                            <div className="w-full flex justify-between gap-2">
+                                <Button className="text-sm" onClick={start}>Начать</Button>
+                                <Button className="text-sm" variant="outline" onClick={() => setShowStartModal(false)}>Отмена</Button>
+                            </div>
+                        </Modal>
+                        <Button onClick={() => setShowStartModal(true)} disabled={variant.isCompleted}>Начать</Button>
+                    </div>
             }
         </div>
     )
