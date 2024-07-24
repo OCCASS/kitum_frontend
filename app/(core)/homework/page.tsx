@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default async function Page() {
     return (
         <div className="space-y-3">
-            <h1>Домашняя работа</h1>
+            <h1>Домашнее задание</h1>
             <Suspense fallback={<HomeworkSkeleton />}>
                 <Homework />
             </Suspense>
