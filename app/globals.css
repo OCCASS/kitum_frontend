@@ -94,9 +94,10 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: calc(100% - 16px);
+    max-width: 380px;
     z-index: 110;
 
-    @apply px-6 py-5 rounded-lg md:max-w-96;
+    @apply px-6 py-5 rounded-lg;
   }
 
   .select {
