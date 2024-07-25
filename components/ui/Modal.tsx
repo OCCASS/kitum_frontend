@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, {Dispatch, SetStateAction, useEffect} from "react";
 import Button from "@/components/ui/Button";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 
@@ -12,6 +12,11 @@ export default function Modal({
     const close = () => {
         if (closable) setShow(false)
     }
+
+    useEffect(() => {
+        if (show) document.body.classList.add("overflow-hidden")
+        else document.body.classList.remove("overflow-hidden")
+    }, [show])
 
     return (
         <div className={`${show ? "visible opacity-100" : "invisible opacity-0"} transition-all overlay overflow-auto`}
