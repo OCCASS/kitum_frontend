@@ -89,15 +89,36 @@
   }
 
   .popup {
+    --popup-header-height: 40px;
+    --popup-margin-bottom: 8px;
+    --outer-padding: 16px;
+
+    display: block;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: calc(100% - 16px);
+    width: calc(100% - var(--outer-padding));
     max-width: 380px;
+    height: calc(100% - var(--outer-padding));
+    max-height: 520px;
     z-index: 110;
 
     @apply px-6 py-5 rounded-lg;
+  }
+
+  .popup__header {
+    height: var(--popup-header-height);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--popup-margin-bottom);
+  }
+
+  .popup__content {
+    max-height: calc(100% - var(--popup-header-height) - var(--popup-margin-bottom));
+    overflow-y: scroll;
+    overflow-x: hidden;
   }
 
   .select {
