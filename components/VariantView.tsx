@@ -49,7 +49,7 @@ export default function VariantView({ data }: { data: IVariant }) {
         <div className="space-y-3 max-w-prose m-auto">
             {showConfetti && <Fireworks autorun={{ speed: 2, duration: 5000 }} />}
             <Modal title="Уверены?" show={showCompleteModal} setShow={setShowCompleteModal} closable={false}>
-                <p>Вы уверены, что хотите завершить выполнение варианата?</p>
+                <p className="mb-5">Вы уверены, что хотите завершить выполнение варианата?</p>
                 <div className="w-full flex justify-between flex-col md:flex-row gap-2">
                     <Button className="text-sm" onClick={complete} variant="gray">Да, завершить</Button>
                     <Button className="text-sm" onClick={() => setShowCompleteModal(false)} variant="outline">Нет, продолжить</Button>
@@ -72,7 +72,7 @@ export default function VariantView({ data }: { data: IVariant }) {
                     :
                     <div>
                         <Modal title="Начать вариант?" show={showStartModal} setShow={setShowStartModal} closable={false}>
-                            <p>Начать вариант?</p>
+                            <p className="mb-5">Начать вариант?</p>
                             <div className="w-full flex justify-between gap-2 flex-col md:flex-row">
                                 <Button className="text-sm" onClick={start} variant="gray">Начать</Button>
                                 <Button className="text-sm" variant="outline" onClick={() => setShowStartModal(false)}>Отмена</Button>
