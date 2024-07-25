@@ -73,8 +73,8 @@ export default function VariantView({ data }: { data: IVariant }) {
                     <div>
                         <Modal title="Начать вариант?" show={showStartModal} setShow={setShowStartModal} closable={false}>
                             <p>Начать вариант?</p>
-                            <div className="w-full flex justify-between gap-2">
-                                <Button className="text-sm" onClick={start}>Начать</Button>
+                            <div className="w-full flex justify-between gap-2 flex-col md:flex-row">
+                                <Button className="text-sm" onClick={start} variant="gray">Начать</Button>
                                 <Button className="text-sm" variant="outline" onClick={() => setShowStartModal(false)}>Отмена</Button>
                             </div>
                         </Modal>
