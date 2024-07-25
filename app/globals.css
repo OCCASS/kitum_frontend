@@ -89,36 +89,31 @@
   }
 
   .popup {
-    --popup-header-height: 40px;
+    --popup-header-height: 62px;
     --popup-margin-bottom: 8px;
     --outer-padding: 16px;
 
-    display: block;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: calc(100% - var(--outer-padding));
     max-width: 380px;
-    height: calc(100% - var(--outer-padding));
-    max-height: 520px;
+    max-height: calc(100% - var(--outer-padding));
+    overflow-y: scroll;
     z-index: 110;
+    background: var(--bg-secondary);
 
-    @apply px-6 py-5 rounded-lg;
+    @apply rounded-lg;
   }
 
   .popup__header {
+    position: sticky;
+    top: -1px;
+    left: 0;
     height: var(--popup-header-height);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: var(--popup-margin-bottom);
-  }
-
-  .popup__content {
-    max-height: calc(100% - var(--popup-header-height) - var(--popup-margin-bottom));
-    overflow-y: scroll;
-    overflow-x: hidden;
+    background: var(--bg-secondary);
+    padding: 0 24px;
   }
 
   .select {
