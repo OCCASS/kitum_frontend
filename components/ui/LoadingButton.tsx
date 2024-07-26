@@ -2,7 +2,6 @@ import cn from "@/utils/cn"
 import { cva } from "class-variance-authority"
 import React, { FC } from "react"
 import Spinner from "./Spinner"
-import { twMerge } from "tailwind-merge"
 
 export type TLoadingButtonProps = React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> & {
     variant?: "primary" | "outline" | "gray" | "none",
@@ -28,12 +27,7 @@ const LoadingButton: FC<TLoadingButtonProps> = ({ className, isLoading, children
     return (
         <button className={cn(button({ variant, className }))} disabled={disabled} {...props}>
             <div className={isLoading ? "invisible" : "visible"}>{children}</div>
-            <Spinner className={
-                twMerge(
-                    "absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2",
-                    isLoading ? "block" : "hidden"
-                )
-            } />
+            {isLoading && <Spinner className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2" />}
         </button>
     )
 }
