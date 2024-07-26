@@ -12,7 +12,7 @@
     --bg-codeblock: rgb(245, 242, 240);
     --primary-border-color: rgb(229, 231, 235);
     --text-primary: rgb(0, 0, 0);
-    --text-gray: rgb(133, 133, 133);
+    --text-gray: rgb(145, 145, 145);
     --skeleton-bg: rgb(209, 213, 219);
 
     /* Calendar colors */
@@ -37,6 +37,11 @@
     --button-gray-bg: rgb(209, 213, 219);
     --button-disabled-bg: rgb(203, 206, 212);
     --button-disabled-text: rgb(93, 102, 115);
+
+    /* Whale icons */
+    --whale-body-color: rgb(145, 145, 145);
+    --whale-belly-color: rgb(195, 195, 195);
+    --whale-belly-lines-color: rgb(221, 221, 221);
   }
 
   :root[class~="dark"] {
@@ -46,6 +51,7 @@
     --bg-codeblock: rgb(245, 242, 240);
     --primary-border-color: rgb(45, 45, 45);
     --text-primary: rgb(255, 255, 255);
+    --text-gray: rgb(133, 133, 133);
     --skeleton-bg: rgb(44, 46, 48);
 
     /* Calendar colors */
@@ -68,6 +74,11 @@
     --button-gray-bg: rgb(70, 70, 70);
     --button-disabled-bg: rgb(70, 70, 70);
     --button-disabled-text: rgb(120, 120, 120);
+
+    /* Whale icons */
+    --whale-body-color: rgb(133, 133, 133);
+    --whale-belly-color: rgb(187, 187, 187);
+    --whale-belly-lines-color: rgb(221, 221, 221);
   }
 
   h1 {
