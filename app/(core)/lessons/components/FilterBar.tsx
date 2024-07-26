@@ -4,7 +4,7 @@ import Select from "@/components/ui/Select";
 import { FunnelIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import {getLessonsUrlParams} from "@/app/(core)/lessons/utils";
+import { getLessonsUrlParams } from "@/app/(core)/lessons/utils";
 
 export default function FilterBar() {
     const router = useRouter()
@@ -15,7 +15,7 @@ export default function FilterBar() {
     }, [router, status])
 
     return (
-        <section className="w-full flex gap-2 items-center border-b pb-2 border-primary-border-color">
+        <section className="w-full flex gap-2 items-center border-b pb-2 border-primary-border-color overflow-x-auto">
             <span className="p-2 border rounded border-primary-border-color text-gray-400">
                 <FunnelIcon className="size-5" />
             </span>

@@ -16,7 +16,7 @@ export default function FilterBar() {
     }, [router, generated, status])
 
     return (
-        <section className="w-full flex gap-2 items-center border-b pb-2 border-primary-border-color">
+        <section className="w-full flex gap-2 items-center border-b pb-2 border-primary-border-color overflow-x-auto">
             <span className="p-2 border rounded border-primary-border-color text-gray-400">
                 <FunnelIcon className="size-5" />
             </span>
