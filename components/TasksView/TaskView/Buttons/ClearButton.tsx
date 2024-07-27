@@ -1,5 +1,5 @@
 import Button from "@/components/ui/Button";
-import { TrashIcon } from "@heroicons/react/24/solid";
+import { TrashIcon } from "@heroicons/react/24/outline";
 
 const ClearButton = ({ disabled, onClick }: { disabled: boolean, onClick: () => void }) => {
     return <Button
