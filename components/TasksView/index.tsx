@@ -9,10 +9,11 @@ type TTasksViewProps = {
     disabled: boolean
     answerTask: (taskId: string, answer: TTaskAnswer) => Promise<void>
     skipTask: (taskId: string) => Promise<void>
+    showAnswer: boolean
     className?: string
 }
 
-export default function TasksView({ tasks, disabled, answerTask, skipTask, className }: TTasksViewProps) {
+export default function TasksView({ tasks, disabled, answerTask, skipTask, showAnswer, className }: TTasksViewProps) {
     const [currentTaskIndex, setCurrentTaskIndex] = useState(0)
     const [currentTask, setCurrentTask] = useState<ITask>(tasks[0])
     const [currentAnswer, setCurrentAnswer] = useState<TTaskAnswer>([])
@@ -44,6 +45,7 @@ export default function TasksView({ tasks, disabled, answerTask, skipTask, class
                 skipAction={skipTask}
                 nextTask={nextTask}
                 isLast={currentTaskIndex === tasks.length - 1}
+                showAnswer={showAnswer}
             />
         </div>
     )

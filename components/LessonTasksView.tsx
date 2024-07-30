@@ -65,6 +65,7 @@ export default function LessonTasksView({ data }: { data: ILesson }) {
                 disabled={lesson.status === "tasks_completed"}
                 answerTask={answer}
                 skipTask={skip}
+                showAnswer={lesson.status === "tasks_completed"}
             />
         </div>
     )

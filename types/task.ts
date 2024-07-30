@@ -14,5 +14,6 @@ export default interface ITask {
     answer: TTaskAnswer | null
     type: "A" | "T"
     files: ITaskFile[]
+    correctAnswer: string[] | null
 }
 

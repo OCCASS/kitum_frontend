@@ -68,6 +68,7 @@ export default function VariantView({ data }: { data: IVariant }) {
                         disabled={variant.isCompleted || !variant.isStarted}
                         answerTask={answer}
                         skipTask={skip}
+                        showAnswer={variant.isCompleted}
                     />
                     :
                     <div>
