@@ -11,7 +11,7 @@ function LessonCardStatusBar({ lesson }: { lesson: ILesson }) {
 }
 
 export default function LessonCard({ lesson }: { lesson: ILesson }) {
-    const createdAt = new Date(Date.parse(lesson.createdAt))
+    const opensAt = new Date(Date.parse(lesson.opensAt))
     const disabled = lesson.isClosed
 
     return (
@@ -29,7 +29,7 @@ export default function LessonCard({ lesson }: { lesson: ILesson }) {
                     :
                     <LinkButton href={`/lessons/${lesson.id}`} className={`${disabled && "bg-gray-400/50 text-gray-600"}`}>Перейти</LinkButton>
                 }
-                <p className="text-sm text-gray-500">Урок от: {formattedDate(createdAt)}</p>
+                <p className="text-sm text-gray-500">Урок от: {formattedDate(opensAt)}</p>
             </div>
         </article>
     )
