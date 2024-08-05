@@ -27,6 +27,9 @@ export default function LessonView({ data }: { data: ILesson }) {
             <Link href="/lessons" className="flex gap-2 items-center"><ArrowLeftIcon className="size-5" />Назад к урокам</Link>
             <h1>{lesson.title}</h1>
             <DynamicMarkdownView content={lesson.content} />
+            <video controls className="rounded">
+                <source src={lesson.video} />
+            </video>
             <LessonViewFooter lesson={lesson} complete={complete} />
         </div>
     )
