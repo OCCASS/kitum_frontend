@@ -40,11 +40,12 @@ export function EditUserForm() {
     }, [state, setUser])
 
     return (
-        <form action={action} className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <Input placeholder="Имя" defaultValue={user?.firstName} className="flex-1" name="firstName"/>
-            <Input placeholder="Фамилия" defaultValue={user?.lastName} className="flex-1" name="lastName"/>
-            <Input placeholder="дд.мм.гггг" type="date" name="birthday" defaultValue={user?.birthday} />
-            <SubmitButton className="md:col-span-3">Изменить</SubmitButton>
+        <form action={action} className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <Input placeholder="Имя" defaultValue={user?.firstName} name="firstName"/>
+            <Input placeholder="Фамилия" defaultValue={user?.lastName} name="lastName"/>
+            <Input placeholder="дд.мм.гггг" type="date" defaultValue={user?.birthday} name="birthday"/>
+            <Input placeholder="Email" defaultValue={user?.email} disabled/>
+            <SubmitButton className="md:col-span-2">Изменить</SubmitButton>
         </form>
     )
 }
