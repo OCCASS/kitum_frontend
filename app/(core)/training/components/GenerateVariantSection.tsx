@@ -54,7 +54,10 @@ export default function GenerateVariantSection() {
             {
                 !user?.subscription &&
                 <div
-                    className="absolute inset-x-0 inset-y-0 z-10 bg-gray-300 bg-opacity-70 flex flex-col items-center justify-center gap-2 text-gray-500 p-5 cursor-not-allowed"
+                    className="absolute inset-x-0 inset-y-0 z-10 bg-gray-300/70
+                    flex flex-col items-center justify-center gap-2 text-gray-500 p-5 cursor-not-allowed
+                    dark:bg-gray-700/70 dark:text-gray-400
+                    "
                 >
                     <LockClosedIcon className="size-8"/>
                     <p className="text-center">Для использования этой функции нужна подписка</p>
