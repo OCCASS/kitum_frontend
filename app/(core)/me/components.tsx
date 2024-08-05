@@ -40,12 +40,11 @@ export function EditUserForm() {
     }, [state, setUser])
 
     return (
-        <form action={action} className="flex gap-3 flex-col md:flex-row">
-            <div className="flex gap-2 md:gap-3 flex-col md:flex-row">
-                <Input placeholder="Имя" defaultValue={user?.firstName} className="flex-1" name="firstName"/>
-                <Input placeholder="Фамилия" defaultValue={user?.lastName} className="flex-1" name="lastName"/>
-            </div>
-            <SubmitButton>Изменить</SubmitButton>
+        <form action={action} className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <Input placeholder="Имя" defaultValue={user?.firstName} className="flex-1" name="firstName"/>
+            <Input placeholder="Фамилия" defaultValue={user?.lastName} className="flex-1" name="lastName"/>
+            <Input placeholder="дд.мм.гггг" type="date" name="birthday" defaultValue={user?.birthday} />
+            <SubmitButton className="md:col-span-3">Изменить</SubmitButton>
         </form>
     )
 }
@@ -80,7 +79,7 @@ export function EditUserAvatarForm() {
         setImage(null)
     }
 
-    if (!user) return <LoadingView />
+    if (!user) return <LoadingView/>
 
     return (
         <>
@@ -101,9 +100,9 @@ export function EditUserAvatarForm() {
                        onChange={onFileChange}/>
                 {
                     file && <div className="flex flex-col md:flex-row gap-2">
-                    <SubmitButton variant="outline" className="text-sm">Изменить</SubmitButton>
-                    <Button className="text-sm" onClick={reset}>Отменить</Button>
-                  </div>
+                        <SubmitButton variant="outline" className="text-sm">Изменить</SubmitButton>
+                        <Button className="text-sm" onClick={reset}>Отменить</Button>
+                    </div>
                 }
             </form>
         </>
