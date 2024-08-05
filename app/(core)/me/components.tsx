@@ -24,9 +24,12 @@ export function Subscription() {
 
     const activeBefore: Date = new Date(Date.parse(user.subscription.activeBefore))
     return (
-        <article className="card space-y-3">
-            <h2>{user.subscription.title}</h2>
-            <p className="text-gray-500">Активна до: {formattedDate(activeBefore)}</p>
+        <article className="card flex flex-col md:flex-row gap-3 justify-between items-start md:items-center min-h-0">
+            <div className="h-full space-y-3">
+                <h2>{user.subscription.title}</h2>
+                <p className="text-gray-500">Активна до: {formattedDate(activeBefore)}</p>
+            </div>
+            <Button variant="outline">Отменить подписку</Button>
         </article>
     )
 }
