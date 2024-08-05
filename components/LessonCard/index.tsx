@@ -15,7 +15,7 @@ export default function LessonCard({ lesson }: { lesson: ILesson }) {
     const disabled = lesson.isClosed
 
     return (
-        <article className={`card flex flex-col gap-3 ${disabled && "pointer-events-none"} min-w-80`}>
+        <article className={`card flex flex-col gap-3 ${disabled && "pointer-events-none"}`}>
             {/* Content */}
             <div className="flex-1 space-y-1">
                 <LessonCardStatusBar lesson={lesson} />
