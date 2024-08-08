@@ -1,3 +1,3 @@
-import {notFound} from "next/navigation";
+import NotFound from "@/app/(core)/not-found";
 
-export default notFound
+export default NotFound
