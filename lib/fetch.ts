@@ -1,8 +1,8 @@
 "use server"
 
-import { cookies } from "next/headers"
-import { createSession, deleteSession } from "./session"
-import { refresh } from "@/app/actions"
+import {cookies} from "next/headers"
+import {createSession, deleteSession} from "./session"
+import {refresh} from "@/app/actions"
 
 
 async function signout() {
@@ -50,7 +50,7 @@ export async function post<T>(url: string, body?: any, ...params: any) {
     }
     const response = await interceptor(await fetch(url, requestOptions))
     const data: T = await response.json()
-    return { data, status: response.status }
+    return {data, status: response.status}
 }
 
 export async function postFormData<T>(url: string, body: FormData) {
@@ -64,5 +64,5 @@ export async function postFormData<T>(url: string, body: FormData) {
     }
     const response = await interceptor(await fetch(url, requestOptions))
     const data: T = await response.json()
-    return { data, status: response.status }
+    return {data, status: response.status}
 }
