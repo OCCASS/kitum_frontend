@@ -9,7 +9,7 @@ import Link from "next/link";
 
 export default function ResetPassword() {
     const [state, action] = useFormState(requestResetPassword, {status: false})
-    const [email, setEmail] = useState("pavlov.timur556@yandex.ru")
+    const [email, setEmail] = useState("")
     const [sent, setSent] = useState(false)
 
     useEffect(() => {
