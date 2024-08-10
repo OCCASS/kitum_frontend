@@ -11,10 +11,18 @@ import {CameraIcon} from "@heroicons/react/24/outline"
 import UserProfileImage from "@/components/ui/UserProfileImage"
 import {formattedDate} from "@/utils/date";
 import LoadingView from "@/components/LoadingView";
+import {PSkeleton} from "@/components/Skeleton";
 
 export function Greeting() {
     const {user} = useUser()
-    return (<h1>Привет, {user?.firstName} {user?.lastName}</h1>)
+    if (!user) return (
+        <div className="flex items-center gap-3">
+            <h1>Привет, </h1>
+            <PSkeleton className="h-8"/>
+            <PSkeleton className="h-8"/>
+        </div>
+    )
+    return (<h1>Привет, {user.firstName} {user.lastName}</h1>)
 }
 
 export function Subscription() {
