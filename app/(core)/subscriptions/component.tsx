@@ -19,12 +19,17 @@ export default function Subscription({subscription}: { subscription: ISubscripti
     }
 
     return (
-        <article className="card space-y-3 flex flex-col items-start" key={subscription.id}>
+        <article className="card flex flex-col items-start gap-5" key={subscription.id}>
             <div className="flex-1 space-y-3">
                 <h2>{subscription.title}</h2>
-                <p>Цена: <b>{subscription.price}/месяц</b></p>
+                <ul className="list-inside list-disc">
+                    {subscription.advantages.map((item, index) => <li key={index}>{item}</li>)}
+                </ul>
             </div>
-            <LoadingButton className="inline" onClick={onClick} isLoading={isLoading}>Купить</LoadingButton>
+            <div className="w-full flex justify-between items-center">
+                <LoadingButton className="bg-blue px-6" onClick={onClick} isLoading={isLoading}>Купить</LoadingButton>
+                <h2>{subscription.price}₽ /мес</h2>
+            </div>
         </article>
     )
 }
