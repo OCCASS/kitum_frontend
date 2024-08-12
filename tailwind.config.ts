@@ -32,6 +32,7 @@ const config: Config = {
             "gray-text": "var(--text-gray)",
             "primary-border-color": "var(--primary-border-color)",
             "skeleton-bg": "var(--skeleton-bg)",
+            "placeholder-color": "rgb(200, 200, 200)",
 
             "red": "rgb(220, 38, 38)",
             "blue": "#3285ff",
