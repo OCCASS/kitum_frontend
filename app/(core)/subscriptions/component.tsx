@@ -27,7 +27,7 @@ export default function Subscription({subscription}: { subscription: ISubscripti
                 </ul>
             </div>
             <div className="w-full flex justify-between items-center">
-                <LoadingButton className="bg-blue px-6" onClick={onClick} isLoading={isLoading}>Купить</LoadingButton>
+                <LoadingButton className="px-6" onClick={onClick} isLoading={isLoading}>Купить</LoadingButton>
                 <h2>{subscription.price}₽ /мес</h2>
             </div>
         </article>
