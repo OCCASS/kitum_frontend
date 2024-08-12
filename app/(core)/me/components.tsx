@@ -12,6 +12,10 @@ import UserProfileImage from "@/components/ui/UserProfileImage"
 import {formattedDate} from "@/utils/date";
 import LoadingView from "@/components/LoadingView";
 import {PSkeleton} from "@/components/Skeleton";
+import Modal from "@/components/ui/Modal";
+import LoadingButton from "@/components/ui/LoadingButton";
+import {proc} from "vfile/do-not-use-conditional-minproc";
+import {post} from "@/lib/fetch";
 
 export function Greeting() {
     const {user} = useUser()
@@ -26,18 +30,36 @@ export function Greeting() {
 }
 
 export function Subscription() {
-    const {user} = useUser()
+    const {user, setUser} = useUser()
+    const [showConfirm, setShowConfirm] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
     if (!user) return <LoadingView/>
     if (!user.subscription) return <p className="text-center text-gray-500">У вас нет подписок!</p>
 
-    const activeBefore: Date = new Date(Date.parse(user.subscription.activeBefore))
+    const cancel = async () => {
+        setIsLoading(true)
+        const {status} = await post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/subscriptions/cancel/`)
+        if (status === 200) setUser({...user, subscription: null})
+        setIsLoading(false)
+        setShowConfirm(false)
+    }
+
+    const expiresAt: Date = new Date(Date.parse(user.subscription.expiresAt))
     return (
         <article className="card flex flex-col md:flex-row gap-3 justify-between items-start md:items-center min-h-0">
             <div className="h-full space-y-3">
                 <h2>{user.subscription.title}</h2>
-                <p className="text-gray-500">Активна до: {formattedDate(activeBefore)}</p>
+                <p className="text-gray-500">Активна до: {formattedDate(expiresAt)}</p>
             </div>
-            <Button variant="outline">Отменить подписку</Button>
+            <Button onClick={() => setShowConfirm(true)} variant="outline">Отменить подписку</Button>
+            <Modal title="Уверены?" show={showConfirm} setShow={setShowConfirm}>
+                <p className="mb-1">Вы уверены, что хотите отменить подписку?</p>
+                <p className="text-sm text-gray-500 mb-4">После отмены подписки все купленные уроки сохраняются</p>
+                <div className="w-full flex justify-between">
+                    <LoadingButton isLoading={isLoading} onClick={cancel} variant="outline">Да, отменить</LoadingButton>
+                    <Button onClick={() => setShowConfirm(false)}>Закрыть</Button>
+                </div>
+            </Modal>
         </article>
     )
 }

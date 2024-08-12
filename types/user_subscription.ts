@@ -4,5 +4,5 @@ export default interface IUserSubscription {
     price: number
     createdAt: string
     updatedAt: string
-    activeBefore: string
+    expiresAt: string
 }
