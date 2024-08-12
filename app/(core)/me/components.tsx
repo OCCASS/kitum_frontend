@@ -14,8 +14,8 @@ import LoadingView from "@/components/LoadingView";
 import {PSkeleton} from "@/components/Skeleton";
 import Modal from "@/components/ui/Modal";
 import LoadingButton from "@/components/ui/LoadingButton";
-import {proc} from "vfile/do-not-use-conditional-minproc";
 import {post} from "@/lib/fetch";
+import DateInput from "@/components/ui/DateInput";
 
 export function Greeting() {
     const {user} = useUser()
@@ -76,7 +76,7 @@ export function EditUserForm() {
         <form action={action} className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <Input placeholder="Имя" defaultValue={user?.firstName} name="firstName"/>
             <Input placeholder="Фамилия" defaultValue={user?.lastName} name="lastName"/>
-            <Input placeholder="дд.мм.гггг" type="date" defaultValue={user?.birthday} name="birthday"/>
+            <DateInput name="birthday" initialDate={user?.birthday ? new Date(user.birthday) : null}/>
             <Input placeholder="Email" defaultValue={user?.email} disabled/>
             <SubmitButton className="md:col-span-2">Изменить</SubmitButton>
         </form>
