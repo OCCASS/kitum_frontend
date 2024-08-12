@@ -1,4 +1,4 @@
-import React, {FC} from "react"
+import React, {FC, MouseEventHandler} from "react"
 import Spinner from "./Spinner"
 import Button from "@/components/ui/Button";
 import {twMerge} from "tailwind-merge";
@@ -11,7 +11,7 @@ export type TLoadingButtonProps =
 }
 
 const LoadingButton: FC<TLoadingButtonProps> = ({className, isLoading, children, disabled, variant, onClick, ...props}) => {
-    const onClickWrapper = (e: React.MouseEventHandler<HTMLButtonElement, MouseEvent>) => {
+    const onClickWrapper = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         if (disabled || isLoading) return
         if (onClick) onClick(e)
     }
