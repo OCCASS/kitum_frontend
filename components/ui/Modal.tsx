@@ -3,14 +3,7 @@ import Button from "@/components/ui/Button";
 import {XMarkIcon} from "@heroicons/react/24/outline";
 import {twMerge} from "tailwind-merge";
 
-export default function Modal({
-                                  title,
-                                  show,
-                                  setShow,
-                                  closable = true,
-                                  className,
-                                  children
-                              }: {
+export default function Modal({title, show, setShow, closable = true, className, children}: {
     title: string,
     show: boolean,
     setShow: Dispatch<SetStateAction<boolean>>,
@@ -29,7 +22,7 @@ export default function Modal({
 
     return (
         <div
-            className={twMerge("transition-all overlay overflow-auto", show ? "visible opacity-100" : "invisible opacity-0")}
+            className={twMerge("overlay overflow-auto", show ? "block" : "hidden")}
             onClick={close}>
             <div className="popup" onClick={e => e.stopPropagation()}>
                 <div className="popup__header">
