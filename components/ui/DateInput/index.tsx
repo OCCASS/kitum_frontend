@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {cva} from "class-variance-authority";
 import cn from "@/utils/cn";
 import EditableSegment from "./EditableSegment";
@@ -20,13 +20,15 @@ const dateInput = cva(defaultClassName, {
     }
 })
 
-export default function DateInput({name, initialDate = null}: TDateInputProps) {
-    console.log(initialDate)
+export default function DateInput({name, initialDate = null, variant, className, segmentClassName}: TDateInputProps) {
     // TODO: fix initialDate working, should work without useEffect. Problem may be in parent component
     const [value, setValue] = useState<{ day: number | null, month: number | null, year: number | null }>({
         day: null, month: null, year: null
     })
     const [dateValue, setDateValue] = useState<Date | null>(null)
+    const dayRef = useRef<HTMLSpanElement>(null)
+    const monthRef = useRef<HTMLSpanElement>(null)
+    const yearRef = useRef<HTMLSpanElement>(null)
 
     const isValueEmpty = () => {
         return !value.day || !value.month || !value.year
@@ -47,7 +49,7 @@ export default function DateInput({name, initialDate = null}: TDateInputProps) {
     }, [value]);
 
     return (
-        <div className={cn(dateInput({variant: "primary"}))} tabIndex={-1} role="group">
+        <div className={cn(dateInput({variant: variant, className}))} tabIndex={-1} role="group">
             <EditableSegment
                 key="day"
                 minValue={1}
@@ -59,6 +61,9 @@ export default function DateInput({name, initialDate = null}: TDateInputProps) {
                 initialValue={value.day}
                 placeholder="дд"
                 label="День"
+                innerRef={dayRef}
+                focusNext={() => monthRef.current?.focus()}
+                className={segmentClassName}
             />
             <span aria-hidden="true">.</span>
             <EditableSegment
@@ -72,11 +77,14 @@ export default function DateInput({name, initialDate = null}: TDateInputProps) {
                 initialValue={value.month}
                 placeholder="мм"
                 label="Месяц"
+                innerRef={monthRef}
+                focusNext={() => yearRef.current?.focus()}
+                className={segmentClassName}
             />
             <span aria-hidden="true">.</span>
             <EditableSegment
                 key="year"
-                minValue={1900}
+                minValue={1}
                 maxValue={9999}
                 maxLength={4}
                 setValue={(newValue: number) => {
@@ -85,6 +93,8 @@ export default function DateInput({name, initialDate = null}: TDateInputProps) {
                 initialValue={value.year}
                 placeholder="гггг"
                 label="Год"
+                innerRef={yearRef}
+                className={segmentClassName}
             />
             <input name={name} type="hidden" defaultValue={dateValue ? formatDateToYYYYMMDD(dateValue) : ""}/>
         </div>
