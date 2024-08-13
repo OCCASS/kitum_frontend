@@ -1,6 +1,6 @@
-import type { Config } from "tailwindcss";
-import { black, gray, orange, transparent, white } from "tailwindcss/colors"
-import { default as typographyPlugin } from "@tailwindcss/typography"
+import type {Config} from "tailwindcss";
+import {black, gray, orange, transparent, white} from "tailwindcss/colors"
+import {default as typographyPlugin} from "@tailwindcss/typography"
 
 const config: Config = {
     darkMode: "selector",
@@ -36,6 +36,7 @@ const config: Config = {
 
             "red": "rgb(220, 38, 38)",
             "blue": "#3285ff",
+            "dark-blue": "#215ab2",
             "green": "#16A34A",
 
             // Calendar colors
@@ -73,6 +74,14 @@ const config: Config = {
             },
             boxShadow: {
                 "top": "0px -1px 3px 0px rgba(0, 0, 0, 0.1)"
+            },
+            animation: {
+                "gradient": "gradient 3s linear infinite"
+            },
+            keyframes: {
+                "gradient": {
+                    "to": {"background-position": "200% center"}
+                }
             }
         },
     },
