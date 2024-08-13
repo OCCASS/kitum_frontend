@@ -48,8 +48,19 @@ export default function DateInput({name, initialDate = null, variant, className,
         setDateValue(new Date(value.year, value.month - 1, value.day))
     }, [value]);
 
+    const onClick = (e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>) => {
+        e.preventDefault()
+        dayRef.current?.focus()
+    }
+
     return (
-        <div className={cn(dateInput({variant: variant, className}))} tabIndex={-1} role="group">
+        <div
+            className={cn(dateInput({variant: variant, className}))}
+            tabIndex={-1}
+            role="group"
+            onMouseDown={onClick}
+            onTouchStart={onClick}
+        >
             <EditableSegment
                 key="day"
                 minValue={1}
