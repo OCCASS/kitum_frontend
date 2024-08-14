@@ -5,6 +5,8 @@ import {createSession, deleteSession} from "./session"
 import {refresh} from "@/app/actions"
 
 
+const ERROR_RESPONSE = {data: null, status: 500}
+
 async function signout() {
     await deleteSession()
 }
@@ -14,8 +16,7 @@ async function interceptor(r: Response) {
     if (r.status === 401) {
         await signout()
         return r
-    }
-    else if (r.status === 403) {
+    } else if (r.status === 403) {
         const tokens = await refresh()
         if (!tokens) await signout()
         await createSession(tokens.access, tokens.refresh)
@@ -32,9 +33,13 @@ export async function get<T>(url: string) {
             Authorization: `Bearer ${access}`
         }
     }
-    const response = await interceptor(await fetch(url, requestOptions))
-    const data: T = await response.json()
-    return { data, status: response.status }
+    try {
+        const response = await interceptor(await fetch(url, requestOptions))
+        const data: T = await response.json()
+        return {data, status: response.status}
+    } catch {
+        return ERROR_RESPONSE
+    }
 }
 
 export async function post<T>(url: string, body?: any, ...params: any) {
@@ -48,9 +53,13 @@ export async function post<T>(url: string, body?: any, ...params: any) {
         body: JSON.stringify(body),
         ...params
     }
-    const response = await interceptor(await fetch(url, requestOptions))
-    const data: T = await response.json()
-    return {data, status: response.status}
+    try {
+        const response = await interceptor(await fetch(url, requestOptions))
+        const data: T = await response.json()
+        return {data, status: response.status}
+    } catch {
+        return ERROR_RESPONSE
+    }
 }
 
 export async function postFormData<T>(url: string, body: FormData) {
@@ -62,7 +71,11 @@ export async function postFormData<T>(url: string, body: FormData) {
         },
         body: body
     }
-    const response = await interceptor(await fetch(url, requestOptions))
-    const data: T = await response.json()
-    return {data, status: response.status}
+    try {
+        const response = await interceptor(await fetch(url, requestOptions))
+        const data: T = await response.json()
+        return {data, status: response.status}
+    } catch {
+        return ERROR_RESPONSE
+    }
 }
