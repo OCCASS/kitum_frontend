@@ -4,9 +4,6 @@ import {cookies} from "next/headers"
 import {createSession, deleteSession} from "./session"
 import {refresh} from "@/app/actions"
 
-
-const ERROR_RESPONSE = {data: null, status: 500}
-
 async function signout() {
     await deleteSession()
 }
@@ -35,10 +32,11 @@ export async function get<T>(url: string) {
     }
     try {
         const response = await interceptor(await fetch(url, requestOptions))
-        const data: T = await response.json()
+        const data: T = await response.json().catch(() => null) as T
         return {data, status: response.status}
     } catch {
-        return ERROR_RESPONSE
+        const data = {} as T
+        return {data, status: 500}
     }
 }
 
@@ -55,10 +53,11 @@ export async function post<T>(url: string, body?: any, ...params: any) {
     }
     try {
         const response = await interceptor(await fetch(url, requestOptions))
-        const data: T = await response.json()
+        const data: T = await response.json().catch(() => null) as T
         return {data, status: response.status}
     } catch {
-        return ERROR_RESPONSE
+        const data = {} as T
+        return {data, status: 500}
     }
 }
 
@@ -73,9 +72,10 @@ export async function postFormData<T>(url: string, body: FormData) {
     }
     try {
         const response = await interceptor(await fetch(url, requestOptions))
-        const data: T = await response.json()
+        const data: T = await response.json().catch(() => null) as T
         return {data, status: response.status}
     } catch {
-        return ERROR_RESPONSE
+        const data = {} as T
+        return {data, status: 500}
     }
 }
