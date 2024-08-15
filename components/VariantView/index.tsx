@@ -9,7 +9,8 @@ import Link from "next/link"
 import { ArrowLeftIcon } from "@heroicons/react/24/outline"
 import { TTaskAnswer } from "@/types/task";
 import dynamic from "next/dynamic";
-import Modal from "./ui/Modal"
+import Modal from "../ui/Modal"
+import StartVariantText from "@/components/VariantView/StartVariantText";
 
 const Fireworks = dynamic(() => import("react-canvas-confetti/dist/presets/fireworks"))
 
@@ -71,7 +72,7 @@ export default function VariantView({ data }: { data: IUserVariant }) {
                         showAnswer={variant.isCompleted}
                     />
                     :
-                    <div>
+                    <div className="space-y-3">
                         <Modal title="Начать вариант?" show={showStartModal} setShow={setShowStartModal} closable={false}>
                             <p className="mb-5">Начать вариант?</p>
                             <div className="w-full flex justify-between gap-2 flex-col md:flex-row">
@@ -79,7 +80,8 @@ export default function VariantView({ data }: { data: IUserVariant }) {
                                 <Button className="text-sm" variant="outline" onClick={() => setShowStartModal(false)}>Отмена</Button>
                             </div>
                         </Modal>
-                        <Button onClick={() => setShowStartModal(true)} disabled={variant.isCompleted}>Начать</Button>
+                        <StartVariantText />
+                        <Button className="w-full" onClick={() => setShowStartModal(true)} disabled={variant.isCompleted}>Начать</Button>
                     </div>
             }
         </div>
