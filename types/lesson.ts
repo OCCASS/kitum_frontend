@@ -16,5 +16,5 @@ export default interface ILesson {
     completeTasksDeadline: string
     opensAt: string
     result: number | null
-    videoUrl: string
+    kinescopeVideoId: string
 }

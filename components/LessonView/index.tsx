@@ -2,12 +2,13 @@
 
 import ILesson from "@/types/lesson";
 import LessonViewFooter from "./Footer";
-import {useState} from "react";
+import {createRef, useEffect, useRef, useState} from "react";
 import {post} from "@/lib/fetch";
 import Link from "next/link";
 import {ArrowLeftIcon} from "@heroicons/react/24/outline";
 import dynamic from "next/dynamic";
 import {MarkdownViewSkeleton} from "@/components/Markdown";
+import Player from "@/components/Player";
 
 
 const DynamicMarkdownView = dynamic(() => import("@/components/Markdown"), {
@@ -30,14 +31,7 @@ export default function LessonView({data}: { data: ILesson }) {
             <Link href="/lessons" className="flex gap-2 items-center"><ArrowLeftIcon className="size-5"/>Назад к урокам</Link>
             <h1>{lesson.title}</h1>
             <DynamicMarkdownView content={lesson.content}/>
-            <div style={{position: "relative", paddingTop: "56.82%", width: "100%"}}>
-                <iframe
-                    src={lesson.videoUrl}
-                    allowFullScreen frameBorder="0"
-                    allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write;"
-                    className="absolute w-full h-full top-0 left-0"
-                ></iframe>
-            </div>
+            <Player title={lesson.title} videoId={lesson.kinescopeVideoId} />
             <LessonViewFooter lesson={lesson} complete={complete}/>
         </div>
     )

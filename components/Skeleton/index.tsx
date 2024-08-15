@@ -20,7 +20,7 @@ export function H2Skeleton({ className }: { className?: string }) {
 
 export function PSkeleton({ className }: { className?: string }) {
     const cn = () => {
-        return twMerge(baseClassName, "h-3 w-40", className)
+        return twMerge(baseClassName, "h-4 w-40", className)
     }
 
     return <div className={cn()}></div>
