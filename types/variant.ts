@@ -1,15 +1,10 @@
-import ITask from "./task"
+export type TVariantType = "school" | "exam"
 
 export default interface IVariant {
     id: string
     title: string
-    tasks: ITask[]
+    type: TVariantType
+    year: number | null  // only if type === "exam"
     createdAt: string
-    isCompleted: boolean
-    isStarted: boolean
-    startedAt: string
-    completedAt: string
-    generated: boolean
-    complexity: number
-    result: number | null
+    updatedAt: string
 }

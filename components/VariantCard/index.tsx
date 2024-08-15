@@ -1,10 +1,10 @@
-import IVariant from "@/types/variant";
+import IUserVariant from "@/types/user_variant";
 import LinkButton from "../ui/LinkButton";
 import { CheckBadgeIcon, ClockIcon } from "@heroicons/react/24/outline";
 import { formattedDatetime } from "@/utils/date";
 
 type TVariantItemProps = {
-    variant: IVariant
+    variant: IUserVariant
 }
 
 export default function VariantCard({ variant }: TVariantItemProps) {

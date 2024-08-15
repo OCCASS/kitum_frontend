@@ -2,7 +2,7 @@
 
 import Button from "@/components/ui/Button"
 import { post } from "@/lib/fetch"
-import IVariant from "@/types/variant"
+import IUserVariant from "@/types/user_variant"
 import { useState } from "react"
 import TasksView from "@/components/TasksView"
 import Link from "next/link"
@@ -13,19 +13,19 @@ import Modal from "./ui/Modal"
 
 const Fireworks = dynamic(() => import("react-canvas-confetti/dist/presets/fireworks"))
 
-export default function VariantView({ data }: { data: IVariant }) {
-    const [variant, setVariant] = useState<IVariant>(data)
+export default function VariantView({ data }: { data: IUserVariant }) {
+    const [variant, setVariant] = useState<IUserVariant>(data)
     const [showConfetti, setShowConfetti] = useState(false)
     const [showStartModal, setShowStartModal] = useState(false)
     const [showCompleteModal, setShowCompleteModal] = useState(false)
 
     const start = async () => {
-        const { data, status } = await post<IVariant>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/variants/${variant?.id}/start/`)
+        const { data, status } = await post<IUserVariant>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/variants/my/${variant?.id}/start/`)
         if (status === 200) setVariant(data)
     }
 
     const complete = async () => {
-        const { data, status } = await post<IVariant>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/variants/${variant?.id}/complete/`)
+        const { data, status } = await post<IUserVariant>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/variants/my/${variant?.id}/complete/`)
         if (status === 200) {
             setVariant(data)
             setShowCompleteModal(false)
@@ -36,12 +36,12 @@ export default function VariantView({ data }: { data: IVariant }) {
     const answer = async (taskId: string, answer: TTaskAnswer) => {
         if (answer.length === 0 || answer.includes("")) return
 
-        const { data, status } = await post<IVariant>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/variants/${variant?.id}/${taskId}/answer/`, { answer })
+        const { data, status } = await post<IUserVariant>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/variants/my/${variant?.id}/${taskId}/answer/`, { answer })
         if (status === 200) setVariant(data)
     }
 
     const skip = async (taskId: string) => {
-        const { data, status } = await post<IVariant>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/variants/${variant?.id}/${taskId}/skip/`)
+        const { data, status } = await post<IUserVariant>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/variants/my/${variant?.id}/${taskId}/skip/`)
         if (status === 200) setVariant(data)
     }
 
