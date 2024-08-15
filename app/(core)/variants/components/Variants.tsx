@@ -7,7 +7,7 @@ import {getVariantsUrlParams} from "@/app/(core)/variants/utils";
 import EmptyListPlug from "@/components/EmptyListPlug";
 
 export default async function Variants({status, generated}: { status: string, generated: string }) {
-    const {data: variants} = await get<IVariant[]>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/variants/?${getVariantsUrlParams(status, generated)}`)
+    const {data: variants} = await get<IVariant[]>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/variants/my/?${getVariantsUrlParams(status, generated)}`)
 
     if (variants.length === 0)
         return <EmptyListPlug text="Список вариантов пуст" />
