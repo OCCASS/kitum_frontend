@@ -22,7 +22,7 @@ export default function VariantCard({ variant }: TVariantItemProps) {
             {/* Footer */}
             <div>
                 {variant.isCompleted ?
-                    <LinkButton href={`/variants/${variant.id}`} variant="outline">Результаты</LinkButton>
+                    <LinkButton href={`/variants/${variant.id}`}>Результаты</LinkButton>
                     :
                     (
                         variant.isStarted ?
