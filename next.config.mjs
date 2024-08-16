@@ -12,6 +12,11 @@ const mdx = withMdx()
 
 const nextConfig = {
     pageExtensions: ["js", "jsx", "ts", "tsx", "mdx"],
+    logging: {
+        fetches: {
+            fullUrl: true
+        }
+    },
     images: {
         remotePatterns: [
             {
@@ -25,18 +30,8 @@ const nextConfig = {
                 pathname: "/media/**"
             },
             {
-                protocol: "https",
-                hostname: "dropify.ru",
-                pathname: "/media/**"
-            },
-            {
-                protocol: "https",
-                hostname: "kitumapi.serveo.net",
-                pathname: "/media/**"
-            },
-            {
                 protocol: "http",
-                hostname: "kitumapi.serveo.net",
+                hostname: "api.kitum.net",
                 pathname: "/media/**"
             }
         ]
@@ -44,3 +39,4 @@ const nextConfig = {
 }
 
 export default mdx(bundleAnalyzer(nextConfig));
+
