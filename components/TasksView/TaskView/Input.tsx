@@ -54,18 +54,18 @@ export default function TaskViewInput({ task, answer, disabled, setAnswer }: TTa
         <table className="border-collapse flex-1">
             <thead>
                 <tr>
-                    <th scope="col" className="border border-gray-300 font-normal py-1"></th>
-                    <th scope="col" className="border border-gray-300 font-normal py-1">1</th>
-                    <th scope="col" className="border border-gray-300 font-normal py-1">2</th>
+                    <th scope="col" className="border border-primary-border-color font-normal py-1"></th>
+                    <th scope="col" className="border border-primary-border-color font-normal py-1">1</th>
+                    <th scope="col" className="border border-primary-border-color font-normal py-1">2</th>
                 </tr>
             </thead>
             <tbody>
                 {
                     Array.from({ length: 10 }, (_, index) => (
                         <tr key={index}>
-                            <th className="border border-gray-300 font-normal text-gray-400 px-2">{index + 1}</th>
+                            <th className="border border-primary-border-color font-normal text-gray-400 px-2">{index + 1}</th>
                             {[0, 1].map(colIndex => (
-                                <td key={colIndex} className="border border-gray-300">
+                                <td key={colIndex} className="border border-primary-border-color">
                                     <Input
                                         variant="none"
                                         className="px-2 py-1 w-full"
@@ -84,4 +84,3 @@ export default function TaskViewInput({ task, answer, disabled, setAnswer }: TTa
         </table>
     )
 }
-
