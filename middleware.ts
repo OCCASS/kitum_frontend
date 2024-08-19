@@ -23,10 +23,6 @@ export default async function middleware(req: NextRequest) {
     const { accessVerified, refreshVerified } = verifySession()
     if (isProtectedRoute) {
         const { accessVerified, refreshVerified } = verifySession()
-        if (!accessVerified || !refreshVerified) {
-            return signinResponse(req)
-        }
-
         if (!accessVerified && refreshVerified) {
             const tokens = await refresh()
             if (!tokens) return signinResponse(req)
@@ -39,6 +35,11 @@ export default async function middleware(req: NextRequest) {
                 return signinResponse(req)
             }
         }
+
+        if (!accessVerified || !refreshVerified) {
+            return signinResponse(req)
+        }
+
         return addCors(NextResponse.next())
     } else if (onlyPublicRoutes.includes(currentPath)) {
         if (accessVerified && refreshVerified) {
