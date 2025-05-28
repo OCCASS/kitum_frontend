@@ -37,7 +37,7 @@ const ActionButtons = ({
 
     return (
         <>
-            {task.answer ? (
+            {(task.answer || task.answerFile) ? (
                 <div className="space-x-3">
                     <Button
                         variant="gray"

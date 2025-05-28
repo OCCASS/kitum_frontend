@@ -1,47 +1,68 @@
 "use server"
 
-import {cookies} from "next/headers"
-import {createSession, deleteSession} from "./session"
-import {refresh} from "@/app/actions"
-
-async function signout() {
-    await deleteSession()
-}
+import { cookies } from "next/headers"
+import { createSession } from "./session"
+import { signout } from "@/app/actions"
+import { refreshTokens } from "./auth";
 
 
-async function interceptor(r: Response) {
-    if (r.status === 401) {
-        await signout()
-        return r
-    } else if (r.status === 403) {
-        const tokens = await refresh()
-        if (!tokens) await signout()
-        await createSession(tokens.access, tokens.refresh)
-        return r
+async function $fetch(url: string | URL | Request, init?: RequestInit, afterRefresh = false): Promise<Response> {
+    const cookiesStore = await cookies()
+    const access = cookiesStore.get("access")?.value;
+    const fingerprint = cookiesStore.get("fp")?.value;
+
+    const headers = new Headers({
+        ...(access ? { "Authorization": `Bearer ${access}`, "X-Fingerprint": fingerprint } : {}),
+        ...(init?.headers instanceof Headers ? Object.fromEntries(init.headers.entries()) : init?.headers),
+    });
+
+    const response = await fetch(url, { ...init, headers });
+
+    if (response.status === 401) {
+        if (afterRefresh) {
+            await signout();
+            return response
+        }
+
+        const refreshToken = (await cookies()).get("refresh")?.value;
+        if (!refreshToken) {
+            await signout();
+            return response
+        }
+
+        const tokens = await refreshTokens({ refresh: refreshToken, access });
+        if (!tokens) {
+            await signout();
+            return response
+        }
+
+        await createSession(tokens.access, tokens.refresh);
+        return await $fetch(url, init, true);
     }
-    return r
+
+    return response;
 }
 
 export async function get<T>(url: string) {
-    const access = cookies().get("access")?.value
+    const access = (await cookies()).get("access")?.value
     const requestOptions = {
         method: "GET",
         headers: {
-            Authorization: `Bearer ${access}`
+            Authorization: `Bearer ${access}`,
+            "Content-Type": "application/json",
         }
     }
     try {
-        const response = await interceptor(await fetch(url, requestOptions))
+        const response = await $fetch(url, requestOptions)
         const data: T = await response.json().catch(() => null) as T
-        return {data, status: response.status}
+        return { data, status: response.status }
     } catch {
-        const data = {} as T
-        return {data, status: 500}
+        return { data: null, status: 500 }
     }
 }
 
 export async function post<T>(url: string, body?: any, ...params: any) {
-    const access = cookies().get("access")?.value
+    const access = (await cookies()).get("access")?.value
     const requestOptions = {
         method: "POST",
         headers: {
@@ -52,30 +73,28 @@ export async function post<T>(url: string, body?: any, ...params: any) {
         ...params
     }
     try {
-        const response = await interceptor(await fetch(url, requestOptions))
+        const response = await $fetch(url, requestOptions)
         const data: T = await response.json().catch(() => null) as T
-        return {data, status: response.status}
+        return { data, status: response.status }
     } catch {
-        const data = {} as T
-        return {data, status: 500}
+        return { data: null, status: 500 }
     }
 }
 
 export async function postFormData<T>(url: string, body: FormData) {
-    const access = cookies().get("access")?.value
+    const access = (await cookies()).get("access")?.value
     const requestOptions = {
         method: "POST",
         headers: {
-            Authorization: `Bearer ${access}`,
+            Authorization: `Bearer ${access}`
         },
         body: body
     }
     try {
-        const response = await interceptor(await fetch(url, requestOptions))
+        const response = await $fetch(url, requestOptions)
         const data: T = await response.json().catch(() => null) as T
-        return {data, status: response.status}
+        return { data, status: response.status }
     } catch {
-        const data = {} as T
-        return {data, status: 500}
+        return { data: null, status: 500 }
     }
 }

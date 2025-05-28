@@ -85,18 +85,6 @@ function UserProfileDropdown(
                             </>
                     }
                 </UserProfileDropdownItem>
-                <UserProfileDropdownItem href="/documents">
-                    <DocumentIcon className="size-6" />
-                    Документы
-                </UserProfileDropdownItem>
-                <UserProfileDropdownItem href="/subscriptions">
-                    <CheckCircleIcon className="size-6" />
-                    Подписки
-                </UserProfileDropdownItem>
-                <UserProfileDropdownItem>
-                    <BellAlertIcon className="size-6" />
-                    Уведомления
-                </UserProfileDropdownItem>
                 <UserProfileDropdownItem onClick={onSignoutClick}>
                     <ArrowRightEndOnRectangleIcon className="size-6" />
                     Выйти

@@ -1,4 +1,7 @@
+import IFile from "./file"
+import ISubscription from "./subscription"
 import ITask from "./task"
+import IUser from "./user"
 
 export type TLessonStatus = "not_started" | "started" | "completed" | "tasks_completed"
 
@@ -7,6 +10,7 @@ export default interface ILesson {
     title: string
     content: string
     tasks?: ITask[]
+    files: IFile[]
     isClosed: boolean
     status: TLessonStatus
     startedAt: string | null
@@ -15,6 +19,7 @@ export default interface ILesson {
     updatedAt: string
     completeTasksDeadline: string
     opensAt: string
-    result: number | null
     kinescopeVideoId: string
+    author: IUser | null
+    subscription: ISubscription
 }

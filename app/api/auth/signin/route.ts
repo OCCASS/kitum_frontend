@@ -1,11 +1,14 @@
 import { NextResponse } from "next/server"
 
 export async function POST(request: Request) {
-    const body = await request.json()
+    const { email, password, fingerprint, userAgent } = await request.json()
+
     const response = await fetch(`${process.env.NEXT_PUBLIC_AUTH_BASE_URL}/login/`, {
         method: "POST",
-        body: JSON.stringify(body),
+        body: JSON.stringify({ email, password }),
         headers: {
+            "X-Fingerprint": fingerprint,
+            "User-Agent": userAgent,
             "Content-Type": "application/json"
         }
     })

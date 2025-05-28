@@ -1,5 +1,5 @@
-import {EditUserAvatarForm, EditUserForm, Greeting, Subscription} from "./components"
-import {Metadata} from "next";
+import { EditUserAvatarForm, EditUserForm, Greeting, Subscriptions } from "./components"
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
     title: "KITUM – профиль"
@@ -17,7 +17,7 @@ export default async function Me() {
             </section>
             <section id="subscription">
                 <h1 className="mb-5">Текушая подписка</h1>
-                <Subscription />
+                <Subscriptions />
             </section>
         </div>
     )

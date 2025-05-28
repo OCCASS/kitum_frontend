@@ -5,4 +5,5 @@ export default interface IUserSubscription {
     createdAt: string
     updatedAt: string
     expiresAt: string
+    withHomeWork: boolean
 }

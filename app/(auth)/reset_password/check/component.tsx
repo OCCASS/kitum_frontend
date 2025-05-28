@@ -1,14 +1,14 @@
 "use client"
 
 import { useSearchParams } from "next/navigation";
-import { useFormState } from "react-dom";
 import resetPassword from "./actions";
 import Input from "@/components/ui/Input";
 import SubmitButton from "@/components/ui/SubmitButton";
+import { useActionState } from "react";
 
 const NewPassword = () => {
     const searchParams = useSearchParams()
-    const [state, action] = useFormState(resetPassword, { message: "" })
+    const [, action] = useActionState(resetPassword, { message: "" })
 
     return (
         <div className="w-full h-full flex justify-center items-center">

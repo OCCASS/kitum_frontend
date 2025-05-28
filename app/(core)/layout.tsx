@@ -1,4 +1,5 @@
 import Layout from "@/components/Layout";
+import { NuqsAdapter } from "nuqs/adapters/next";
 
 export default function RootLayout({
     children
@@ -6,10 +7,12 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <Layout>
-            <div className="m-auto h-full max-w-[1200px] p-4 sm:p-6 overflow-auto">
-                {children}
-            </div>
-        </Layout>
+        <NuqsAdapter>
+            <Layout>
+                <div className="m-auto h-full max-w-[1200px] p-4 sm:p-6 overflow-auto">
+                    {children}
+                </div>
+            </Layout>
+        </NuqsAdapter>
     );
 }

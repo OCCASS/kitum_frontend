@@ -1,14 +1,15 @@
 import { NextResponse } from "next/server"
 
 export async function POST(request: Request) {
-    const { access, refresh } = await request.json()
+    const body = await request.json()
     const response = await fetch(`${process.env.NEXT_PUBLIC_AUTH_BASE_URL}/logout/`, {
         method: "POST",
-        body: JSON.stringify({ refresh }),
+        body: JSON.stringify({ refresh: body.refresh }),
         headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${access}`
-        }
+            "Authorization": `Bearer ${body.access}`
+        },
+        cache: "no-cache"
     })
     return NextResponse.json({}, { status: response.status })
 }

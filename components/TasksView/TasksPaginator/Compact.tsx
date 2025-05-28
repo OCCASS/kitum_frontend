@@ -1,8 +1,9 @@
 import { useRef, useState } from "react"
 import { TTasksPaginatorProps } from "."
 import TasksBarItem from "./Item"
+import { twMerge } from "tailwind-merge";
 
-export default function MobilePaginator({ tasks, selected, setSelected }: TTasksPaginatorProps) {
+export default function CompactPaginator({ tasks, selected, setSelected, forceVisible }: TTasksPaginatorProps & { forceVisible: boolean }) {
     const scrollableRef = useRef(null);
     const [isScrolledToLeft, setIsScrolledToLeft] = useState(true);
     const [isScrolledToRight, setIsScrolledToRight] = useState(false);
@@ -17,7 +18,7 @@ export default function MobilePaginator({ tasks, selected, setSelected }: TTasks
 
     return (
         <div className={`inner-x-shadow ${!isScrolledToLeft ? "show-left" : ""} ${isScrolledToRight ? "hide-right" : ""}`}>
-            <ul className="flex md:hidden gap-2 py-2 overflow-y-auto" onScroll={onScroll} ref={scrollableRef}>
+            <ul className={twMerge("flex md:hidden gap-2 py-2 overflow-y-auto", forceVisible && "md:flex")} onScroll={onScroll} ref={scrollableRef}>
                 {tasks.map((task, index) => <TasksBarItem
                     key={index}
                     index={index}

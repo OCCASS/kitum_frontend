@@ -1,11 +1,10 @@
-import { Dispatch, SetStateAction } from "react";
 import { twMerge } from "tailwind-merge";
 
 type TTasksBarItem = {
     index: number
     isSelected: boolean
     isCorrect: boolean | null
-    onClick: Dispatch<SetStateAction<number>>
+    onClick: (index: number) => void
 }
 
 const defaultClassName = "flex flex-auto-0 items-center justify-center size-9 text-xl md:text-lg rounded-lg cursor-pointer select-none"

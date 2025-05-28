@@ -1,72 +1,59 @@
 "use client"
 
-import {useUser} from "@/lib/providers/user"
-import {useFormState} from "react-dom"
-import {editUser, editUserAvatar} from "./actions"
-import {ChangeEvent, useEffect, useRef, useState} from "react"
+import { useUser } from "@/lib/providers/user"
+import { editUser, editUserAvatar } from "./actions"
+import { ChangeEvent, useActionState, useEffect, useRef, useState } from "react"
 import Input from "@/components/ui/Input"
 import SubmitButton from "@/components/ui/SubmitButton"
 import Button from "@/components/ui/Button"
-import {CameraIcon} from "@heroicons/react/24/outline"
+import { CameraIcon } from "@heroicons/react/24/outline"
 import UserProfileImage from "@/components/ui/UserProfileImage"
-import {formattedDate} from "@/utils/date";
+import { formattedDate } from "@/utils/date";
 import LoadingView from "@/components/LoadingView";
-import {PSkeleton} from "@/components/Skeleton";
-import Modal from "@/components/ui/Modal";
-import LoadingButton from "@/components/ui/LoadingButton";
-import {post} from "@/lib/fetch";
+import { PSkeleton } from "@/components/Skeleton";
 import DateInput from "@/components/ui/DateInput";
+import IUserSubscription from "@/types/user_subscription"
 
 export function Greeting() {
-    const {user} = useUser()
+    const { user } = useUser()
     if (!user) return (
         <div className="flex items-center gap-3">
             <h1>Привет, </h1>
-            <PSkeleton className="h-8"/>
-            <PSkeleton className="h-8"/>
+            <PSkeleton className="h-8" />
+            <PSkeleton className="h-8" />
         </div>
     )
     return (<h1>Привет, {user.firstName} {user.lastName}</h1>)
 }
 
-export function Subscription() {
-    const {user, setUser} = useUser()
-    const [showConfirm, setShowConfirm] = useState(false)
-    const [isLoading, setIsLoading] = useState(false)
-    if (!user) return <LoadingView/>
-    if (!user.subscription) return <p className="text-center text-gray-500">У вас нет подписок!</p>
+export function Subscriptions() {
+    const { user } = useUser()
 
-    const cancel = async () => {
-        setIsLoading(true)
-        const {status} = await post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/subscriptions/cancel/`)
-        if (status === 200) setUser({...user, subscription: null})
-        setIsLoading(false)
-        setShowConfirm(false)
-    }
+    if (!user) return <LoadingView />
+    if (user.subscriptions.length === 0) return <p className="text-center text-gray-500">У вас нет подписок!</p>
 
-    const expiresAt: Date = new Date(Date.parse(user.subscription.expiresAt))
     return (
-        <article className="card flex flex-col md:flex-row gap-3 justify-between items-start md:items-center min-h-0">
-            <div className="h-full space-y-3">
-                <h2>{user.subscription.title}</h2>
-                <p className="text-gray-500">Активна до: {formattedDate(expiresAt)}</p>
-            </div>
-            <Button onClick={() => setShowConfirm(true)} variant="outline">Отменить подписку</Button>
-            <Modal title="Уверены?" show={showConfirm} setShow={setShowConfirm}>
-                <p className="mb-1">Вы уверены, что хотите отменить подписку?</p>
-                <p className="text-sm text-gray-500 mb-4">После отмены подписки все купленные уроки сохраняются</p>
-                <div className="w-full flex justify-between">
-                    <LoadingButton isLoading={isLoading} onClick={cancel} variant="outline">Да, отменить</LoadingButton>
-                    <Button onClick={() => setShowConfirm(false)}>Закрыть</Button>
-                </div>
-            </Modal>
-        </article>
+        <div className="space-y-2">
+            {
+                user.subscriptions.map((item: IUserSubscription) => {
+                    const expiresAt: Date = new Date(Date.parse(item.expiresAt))
+                    return (
+                        <article key={item.id} className="card flex flex-col md:flex-row gap-3 justify-between items-start md:items-center min-h-0">
+                            <div className="h-full space-y-3">
+                                <h2>{item.title}</h2>
+                                <p className="text-gray-500">Активна до: {formattedDate(expiresAt)}</p>
+                            </div>
+                        </article>
+                    )
+                })
+            }
+        </div>
     )
 }
 
 export function EditUserForm() {
-    const {user, setUser} = useUser()
-    const [state, action] = useFormState(editUser, {message: "", user: null})
+    const { user, setUser } = useUser()
+    const [state, action] = useActionState(editUser, { message: "", user: null })
 
     useEffect(() => {
         if (state.user) setUser(state.user)
@@ -74,18 +61,18 @@ export function EditUserForm() {
 
     return (
         <form action={action} className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            <Input placeholder="Имя" defaultValue={user?.firstName} name="firstName"/>
-            <Input placeholder="Фамилия" defaultValue={user?.lastName} name="lastName"/>
-            <DateInput name="birthday" initialDate={user?.birthday ? new Date(user.birthday) : null}/>
-            <Input placeholder="Email" defaultValue={user?.email} disabled/>
+            <Input placeholder="Имя" defaultValue={user?.firstName} name="firstName" />
+            <Input placeholder="Фамилия" defaultValue={user?.lastName} name="lastName" />
+            <DateInput name="birthday" initialDate={user?.birthday ? new Date(user.birthday) : null} />
+            <Input placeholder="Email" defaultValue={user?.email} disabled />
             <SubmitButton className="md:col-span-2">Изменить</SubmitButton>
         </form>
     )
 }
 
 export function EditUserAvatarForm() {
-    const {user, setUser} = useUser()
-    const [editUserAvatarState, editUserAvatarAction] = useFormState(editUserAvatar, {message: "", user: null})
+    const { user, setUser } = useUser()
+    const [editUserAvatarState, editUserAvatarAction] = useActionState(editUserAvatar, { message: "", user: null })
     const [file, setFile] = useState<File | null>(null)
     const [image, setImage] = useState<string | null>(null)
     const fileInputRef = useRef<HTMLInputElement>(null)
@@ -113,7 +100,7 @@ export function EditUserAvatarForm() {
         setImage(null)
     }
 
-    if (!user) return <LoadingView/>
+    if (!user) return <LoadingView />
 
     return (
         <>
@@ -124,14 +111,14 @@ export function EditUserAvatarForm() {
                     size={96}
                 />
                 <Button variant="none"
-                        className="bg-camera-button-bg p-3 rounded-full absolute right-0 bottom-0 transform translate-x-1/3 translate-y-1/3"
-                        onClick={openFileInput}>
-                    <CameraIcon className="size-5" strokeWidth="2"/>
+                    className="bg-camera-button-bg p-3 rounded-full absolute right-0 bottom-0 transform translate-x-1/3 translate-y-1/3"
+                    onClick={openFileInput}>
+                    <CameraIcon className="size-5" strokeWidth="2" />
                 </Button>
             </div>
             <form action={editUserAvatarAction}>
                 <Input type="file" name="avatar" className="hidden" accept="image/*" innerRef={fileInputRef}
-                       onChange={onFileChange}/>
+                    onChange={onFileChange} />
                 {
                     file && <div className="flex flex-col md:flex-row gap-2">
                         <SubmitButton variant="outline" className="text-sm">Изменить</SubmitButton>

@@ -1,15 +1,25 @@
-import dynamic from "next/dynamic";
+import { useEffect, useState } from 'react';
+import KinescopePlayer from "@kinescope/react-kinescope-player"
 
-const PlayerSkeleton = () => {
-    return <div className="player bg-skeleton-bg animate-pulse" style={{borderRadius: "8px"}}/>
+export const PlayerSkeleton = () => {
+    return <div className="player bg-skeleton-bg animate-pulse" style={{ borderRadius: "8px" }} />
 }
 
-const KinescopePlayer = dynamic(() => import('@kinescope/react-kinescope-player'), {
-    ssr: false,
-    loading: () => <PlayerSkeleton/>
-});
+function useHasMounted() {
+    const [hasMounted, setHasMounted] = useState(false);
 
-export default function Player({title, videoId}: { title: string, videoId: string }) {
+    useEffect(() => {
+        setHasMounted(true);
+    }, []);
+
+    return hasMounted;
+}
+
+export default function Player({ title, videoId }: { title: string, videoId: string }) {
+    const isMounded = useHasMounted()
+
+    if (!isMounded) return <PlayerSkeleton />
+
     return (
         <KinescopePlayer
             className="player"
@@ -17,6 +27,7 @@ export default function Player({title, videoId}: { title: string, videoId: strin
             language="ru"
             videoId={videoId}
             playsInline={false}
+            preload={true}
         />
     )
 }

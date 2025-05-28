@@ -3,6 +3,7 @@ import TasksBarItem from "./Item"
 import Button from "@/components/ui/Button"
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline"
 import { TTasksPaginatorProps } from "."
+import { twMerge } from "tailwind-merge"
 
 function EllipsisElement() {
     return <li className="align-middle text-gray-400 text-lg">&hellip;</li>
@@ -29,18 +30,18 @@ function calculateTaskLimits(length: number, selected: number, maxTaskCount: num
 }
 
 
-export default function DesktopPaginator({ tasks, selected, setSelected }: TTasksPaginatorProps) {
+export default function WidePaginator({ tasks, selected, setSelected }: TTasksPaginatorProps) {
     const length = tasks.length
     const maxTaskCount = Math.min(5, length - 3)
 
     const [content, setContent] = useState<Array<ReactNode>>([])
 
     const next = useCallback(() => {
-        setSelected(prev => Math.min(prev + 1, length - 1))
+        setSelected(Math.min(selected + 1, length - 1))
     }, [setSelected, length])
 
     const prev = useCallback(() => {
-        setSelected(prev => Math.max(prev - 1, 0))
+        setSelected(Math.max(selected - 1, 0))
     }, [setSelected])
 
     const generateContent = (minTaskLimit: number, maxTaskLimit: number) => {

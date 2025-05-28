@@ -8,7 +8,7 @@ type TLinkButtonProps = LinkProps & {
     children: React.ReactNode
 }
 
-const linkButton = cva("px-5 py-2 rounded inline-block", {
+const linkButton = cva("px-5 py-2 rounded inline-block cursor-pointer", {
     variants: {
         variant: {
             primary: "bg-button-primary-bg text-button-primary-text",

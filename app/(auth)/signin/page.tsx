@@ -1,6 +1,5 @@
 "use client"
 
-import { useFormState } from "react-dom"
 import signin from "./actions"
 import Input from "@/components/ui/Input"
 import Link from "next/link"
@@ -8,13 +7,21 @@ import { redirect, useSearchParams } from "next/navigation"
 import { useUser } from "@/lib/providers/user"
 import SubmitButton from "@/components/ui/SubmitButton"
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline"
+import { useActionState } from "react"
+import {
+    getBrowserFingerprint,
+    getBrowserFingerprintData,
+} from "fingerprint-browser";
+
 
 export default function Page() {
     const searchParms = useSearchParams()
     const { setUser } = useUser()
 
     const signinWrapper = async (prevState: any, formData: FormData) => {
-        const result = await signin(prevState, formData)
+        const fingerprint = getBrowserFingerprint()
+        const fingerprintData = getBrowserFingerprintData()
+        const result = await signin(prevState, formData, fingerprint, fingerprintData.userAgent)
         if (result.success) {
             if (setUser) setUser(result.user)
             redirect(searchParms.get("redirect_to") ?? "/")
@@ -22,7 +29,7 @@ export default function Page() {
         else return result
     }
 
-    const [state, action] = useFormState(signinWrapper, { success: false, message: "", user: undefined })
+    const [state, action] = useActionState(signinWrapper, { success: false, message: "", user: undefined })
 
     return (
         <div className="space-y-10">

@@ -4,7 +4,7 @@ import { cva } from "class-variance-authority";
 import cn from "@/utils/cn";
 import { AcademicCapIcon, CheckIcon, DocumentDuplicateIcon } from "@heroicons/react/16/solid";
 import { twMerge } from "tailwind-merge";
-import { FolderOpenIcon } from "@heroicons/react/24/outline";
+import { FolderOpenIcon } from "@heroicons/react/24/solid";
 import { Dispatch, SetStateAction, useState } from "react";
 import Modal from "@/components/ui/Modal";
 
@@ -96,8 +96,8 @@ function DetailPopup({
         <Modal title={`${day} ${MONTHS.at(month)}`} show={show} setShow={setShow}>
             <ul className="space-y-3">
                 {
-                    events.map(item => {
-                        return <li key={item.id}>
+                    events.map((item, index) => {
+                        return <li key={index}>
                             <p className="text-gray-400">{EVENT_TYPE_NAME[item.type]}</p>
                             {item.isAvailable ?
                                 <Link href={getEventHref(item)} className="text-blue">
@@ -143,8 +143,12 @@ export default function CalendarTableItem({
                 {/* Content */}
                 <div className="overflow-auto h-full">
                     {/* Desktop */}
-                    <ul className="hidden md:flex md:flex-col gap-1 h-full">{events.map(item => <CalendarTableItemEvent
-                        key={item.id} event={item} />)}</ul>
+                    <ul className="hidden md:flex md:flex-col gap-1 h-full">
+                        {
+                            events
+                                .sort((a, b) => (a.isCompleted === b.isCompleted) ? 0 : (a.isCompleted ? 1 : -1))
+                                .map((item, index) => <CalendarTableItemEvent key={index} event={item} />)}
+                    </ul>
                     {/* Mobile */}
                     {
                         events.length > 0 &&

@@ -1,13 +1,13 @@
 "use client"
 
-import { useFormState } from "react-dom"
 import signup from "./actions"
 import Input from "@/components/ui/Input"
 import Link from "next/link"
 import SubmitButton from "@/components/ui/SubmitButton"
+import { useActionState } from "react"
 
 export default function SignUp() {
-    const [state, action] = useFormState(signup, { message: "", email: "", password: "" })
+    const [state, action] = useActionState(signup, { message: "", email: "", password: "" })
 
     return (
         <div className="space-y-10">

@@ -21,8 +21,8 @@ export default function CalendarSkeleton() {
             <table className="w-full border-collapse table-fixed">
                 <thead>
                     <tr>{
-                        Array.from({ length: 7 }, (item: number) =>
-                            <th key={item} className="py-2"><PSkeleton className="m-auto h-4 w-5" /></th>
+                        Array.from({ length: 7 }, (_, index: number) =>
+                            <th key={index} className="py-2"><PSkeleton className="m-auto h-4 w-5" /></th>
                         )
                     }</tr>
                 </thead>

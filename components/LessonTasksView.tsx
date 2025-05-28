@@ -1,6 +1,6 @@
 "use client"
 
-import { post } from "@/lib/fetch";
+import { post, postFormData } from "@/lib/fetch";
 import ILesson from "@/types/lesson";
 import { useState } from "react";
 import TasksView from "@/components/TasksView";
@@ -8,25 +8,18 @@ import Button from "@/components/ui/Button";
 import Link from "next/link";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { TTaskAnswer } from "@/types/task";
-import dynamic from "next/dynamic";
-
-
-const Fireworks = dynamic(() => import("react-canvas-confetti/dist/presets/fireworks"))
 
 
 export default function LessonTasksView({ data }: { data: ILesson }) {
     const [lesson, setLesson] = useState<ILesson>(data)
-    const [showConfetti, setShowConfetti] = useState(false)
 
     const complete = async () => {
         const {
             data,
             status
         } = await post<ILesson>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/lessons/${lesson?.id}/complete_tasks/`)
-        if (status === 200) {
-            setLesson(data)
-            setShowConfetti(data.result !== null && data.result >= 90)
-        }
+
+        if (status === 200) setLesson(data)
     }
 
     const skip = async (taskId: string) => {
@@ -38,18 +31,29 @@ export default function LessonTasksView({ data }: { data: ILesson }) {
     }
 
     const answer = async (taskId: string, answer: TTaskAnswer) => {
-        if (answer.length === 0 || answer.includes("")) return
+        if (Array.isArray(answer) && (answer.length === 0 || answer.includes(""))) return
 
-        const {
-            data,
-            status
-        } = await post<ILesson>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/lessons/${lesson?.id}/${taskId}/answer/`, { answer })
-        if (status === 200) setLesson(data)
+
+        let response;
+        const formData = new FormData()
+        if (Array.isArray(answer)) {
+            formData.append("answer", JSON.stringify(answer))
+            response = await postFormData<ILesson>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/lessons/${lesson?.id}/${taskId}/answer/`, formData)
+        } else {
+            const formData = new FormData()
+            formData.append("answer_file", answer)
+            response = await postFormData<ILesson>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/lessons/${lesson?.id}/${taskId}/answer/`, formData)
+        }
+
+        if (response.status === 200) {
+            setLesson(response.data)
+        } else {
+            console.error("Answer failed", response.data)
+        }
     }
 
     return (
         <div className="space-y-2 max-w-prose m-auto">
-            {showConfetti && <Fireworks autorun={{ speed: 2, duration: 5000 }} />}
             <Link href={`/lessons/${lesson.id}`} className="flex gap-2 items-center"><ArrowLeftIcon className="size-5" />Назад
                 к уроку</Link>
             {/* Header */}
@@ -57,7 +61,6 @@ export default function LessonTasksView({ data }: { data: ILesson }) {
                 <h1>Домашнее задание</h1>
                 {lesson.status !== "tasks_completed" &&
                     <Button onClick={complete} variant="outline" className="md:text-sm">Завершить</Button>}
-                {lesson.status === "tasks_completed" && <p><span className="font-semibold">Резльтат выполнения:</span> {lesson.result}</p>}
             </div>
             {/* Content */}
             <TasksView

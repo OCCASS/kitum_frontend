@@ -1,14 +1,13 @@
 "use client"
 
 import Input from "@/components/ui/Input";
-import {useFormState} from "react-dom";
 import requestResetPassword from "./actions";
 import SubmitButton from "@/components/ui/SubmitButton";
-import {useEffect, useState} from "react";
+import { useActionState, useEffect, useState } from "react";
 import Link from "next/link";
 
 export default function ResetPassword() {
-    const [state, action] = useFormState(requestResetPassword, {status: false})
+    const [state, action] = useActionState(requestResetPassword, { status: false })
     const [email, setEmail] = useState("")
     const [sent, setSent] = useState(false)
 

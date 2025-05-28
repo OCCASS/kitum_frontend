@@ -42,6 +42,8 @@
     --whale-body-color: rgb(145, 145, 145);
     --whale-belly-color: rgb(195, 195, 195);
     --whale-belly-lines-color: rgb(221, 221, 221);
+
+    --inner-bottom-shadow-color: rgba(255, 255, 255, 0.5);
   }
 
   :root[class~="dark"] {
@@ -79,6 +81,8 @@
     --whale-body-color: rgb(133, 133, 133);
     --whale-belly-color: rgb(187, 187, 187);
     --whale-belly-lines-color: rgb(221, 221, 221);
+
+    --inner-bottom-shadow-color: rgba(18, 18, 18, 0.5);
   }
 
   h1 {
@@ -203,7 +207,7 @@
   }
 
   .inner-bottom-shadow::before {
-    box-shadow: inset 0 -10px 8px rgba(255, 255, 255, 0.5);
+    box-shadow: inset 0 -10px 8px var(--inner-bottom-shadow-color);
   }
 
   .inner-bottom-shadow-holiday-table-item-bg::before {

@@ -11,7 +11,7 @@ type TSidebarItemProps = {
 
 export default function SidebarItem({ name, path, icon, close }: TSidebarItemProps) {
     const pathname = usePathname()
-    const selected = path === pathname
+    const selected = path === "/" ? pathname === "/" : pathname.startsWith(path)
 
     return (
         <li className={`px-3 py-2 ${selected ? "bg-tertiary-bg" : ""} hover:bg-tertiary-bg rounded`}>

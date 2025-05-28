@@ -8,5 +8,5 @@ export default interface IUser {
     birthday: string
     createdAt: string
     avatar: string
-    subscription: IUserSubscription | null
+    subscriptions: IUserSubscription[]
 }

@@ -1,5 +1,5 @@
 import ITask, { TTaskAnswer } from "@/types/task";
-import Files from "./Files";
+import Files from "@/components/Files";
 import { Dispatch, SetStateAction } from "react";
 import { twMerge } from "tailwind-merge";
 import Buttons from "./Buttons"
@@ -33,7 +33,7 @@ export default function TaskView({ n, task, disabled, answer, setAnswer, answerA
             <DynamicMarkdownView content={task.content} />
             {task.files.length > 0 && <Files files={task.files} />}
             {(task.correctAnswer && showAnswer) && <CorrectAnswer answer={task.correctAnswer} />}
-            <div className={twMerge("w-full flex flex-col gap-3 md:flex-row", task.type === "T" && "md:flex-col")}>
+            <div className="w-full flex flex-col gap-3 md:flex-row">
                 <TaskViewInput task={task} answer={answer} setAnswer={setAnswer} disabled={disabled} />
                 <Buttons
                     task={task}

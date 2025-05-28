@@ -1,13 +1,13 @@
-import ITaskFile from "@/types/task_file";
+import IFile from "@/types/file";
 import Item from "./Item";
 
 type TFilesProps = {
-    files: ITaskFile[]
+    files: IFile[]
 }
 
 const Files = ({ files }: TFilesProps) => {
     return (
-        <ul className="w-full flex items-center gap-3 py-2">
+        <ul className="w-full flex items-center flex-row gap-3 py-2">
             {files.map((file, index) => <Item key={index} file={file} />)}
         </ul>
     )

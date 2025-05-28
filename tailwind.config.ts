@@ -1,6 +1,6 @@
-import type {Config} from "tailwindcss";
-import {black, gray, orange, transparent, white} from "tailwindcss/colors"
-import {default as typographyPlugin} from "@tailwindcss/typography"
+import type { Config } from "tailwindcss";
+import { black, gray, orange, transparent, white } from "tailwindcss/colors"
+import { default as typographyPlugin } from "@tailwindcss/typography"
 
 const config: Config = {
     darkMode: "selector",
@@ -80,7 +80,7 @@ const config: Config = {
             },
             keyframes: {
                 "gradient": {
-                    "to": {"background-position": "200% center"}
+                    "to": { "background-position": "200% center" }
                 }
             }
         },

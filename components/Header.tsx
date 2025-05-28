@@ -19,7 +19,7 @@ export default function Header({ toggleSidebar, showSidebar }: THeaderProps) {
             <nav className="w-full flex items-center ms-auto justify-between px-4 sm:px-6">
                 <Link href="/"><Logo /></Link>
                 <div className="space-x-5 flex items-center">
-                    {user ? <UserProfile user={user} /> : <LinkButton href="/signin">Login</LinkButton>}
+                    {user ? <UserProfile user={user} /> : <LinkButton href="/signin">Войти</LinkButton>}
                     {
                         showSidebar ?
                             <XMarkIcon onClick={toggleSidebar} className="size-6 cursor-pointer block md:hidden" /> :
