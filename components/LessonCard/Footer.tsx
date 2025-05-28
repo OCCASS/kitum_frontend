@@ -16,7 +16,7 @@ const Footer = ({ lesson }: TFooterProps) => {
     if (!user) return null
 
     const getButton = () => {
-        if (!user.subscription?.withHomeWork || lesson.status !== "completed")
+        if (!user.subscriptions.some(s => lesson.subscription.id === s.id && s.withHomeWork) || lesson.status !== "completed")
             return <LinkButton href={`/lessons/${lesson.id}`} className={`${lesson.isClosed && "bg-gray-400/50 text-gray-600"}`}>Перейти</LinkButton>
         return <LinkButton href={`/lessons/${lesson.id}/tasks`} variant="outline">Домашнее задание</LinkButton>
     }

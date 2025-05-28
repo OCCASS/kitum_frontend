@@ -25,7 +25,7 @@ export default function LessonView({ data }: { data: ILesson }) {
             data,
             status
         } = await post<ILesson>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/lessons/${lesson.id}/complete/`)
-        if (status === 200) setLesson(data)
+        if (data && status === 200) setLesson(data)
     }
 
     const getAuthorName = () => {

@@ -56,7 +56,7 @@ export default function Calendar({ holidays }: { holidays: IHoliday[] | null }) 
             const { data } = await get<IEvent[]>(`
                 ${process.env.NEXT_PUBLIC_API_BASE_URL}/schedule/?from=${from.getTime() / 1000}&to=${to.getTime() / 1000}`
             )
-            setEvents(data)
+            setEvents(data ?? [])
         }
 
         fetchData()

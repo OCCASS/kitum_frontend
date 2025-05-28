@@ -47,9 +47,9 @@ const sidebarItems = [
 ]
 
 const Sidebar = ({ show, close }: ISidebarProps) => {
-    const ref = useRef(null)
+    const ref = useRef<HTMLElement>(null)
     const { user } = useUser()
-    useOutsideClick(ref, close)
+    useOutsideClick(ref as React.RefObject<HTMLElement>, close)
 
     let withHomeWork = false;
     if (user) withHomeWork = user.subscriptions.some(s => s.withHomeWork)

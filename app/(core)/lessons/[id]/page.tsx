@@ -23,7 +23,7 @@ export default async function Page(props: TLessonProps) {
     const params = await props.params;
     const { data: lesson, status } = await get<ILesson>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/lessons/${params.id}/`)
 
-    if (status !== 200) notFound()
+    if (!lesson || status !== 200) notFound()
 
     return <LessonView data={lesson} />
 }

@@ -12,7 +12,7 @@ const StatusBar = ({ lesson }: { lesson: ILesson }) => {
     const defaultClassName = "flex items-center gap-1"
     if (lesson.isClosed)
         return <p className={`${defaultClassName} text-gray-500/50`}><XMarkIcon className="size-5" /> Урок закрыт</p>
-    if (!user.subscription?.withHomeWork && lesson.status === "completed")
+    if (!user.subscriptions.some(s => lesson.subscription.id === s.id && s.withHomeWork) && lesson.status === "completed")
         return <p className={`${defaultClassName} text-green`}><CheckBadgeIcon className="size-5" /> Урок пройден</p>
     if (lesson.status === "tasks_completed")
         return <p className={`${defaultClassName} text-green`}><CheckBadgeIcon className="size-5" /> Урок пройден</p>

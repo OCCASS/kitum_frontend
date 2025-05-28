@@ -48,8 +48,8 @@ function UserProfileDropdown(
 ) {
     const { theme, setTheme } = useTheme()
 
-    const ref = useRef(null)
-    useOutsideClick(ref, close)
+    const ref = useRef<HTMLDivElement>(null)
+    useOutsideClick(ref as React.RefObject<HTMLDivElement>, close)
 
     const onSignoutClick = async () => {
         await signout()

@@ -16,7 +16,7 @@ export default function TaskViewInput({ task, answer, disabled, setAnswer }: TTa
             <Input
                 placeholder="Введите ответ"
                 className="flex-1"
-                value={answer || ""}
+                value={typeof answer === "string" ? answer : ""}
                 onChange={(e) => setAnswer(e.target.value)}
                 disabled={disabled}
                 variant="gray"
@@ -36,7 +36,7 @@ export default function TaskViewInput({ task, answer, disabled, setAnswer }: TTa
                 disabled={disabled}
                 variant="gray"
             />
-            {answer &&
+            {typeof answer === "string" &&
                 <Link className="text-blue underline" href={answer} target="_blank" rel="noopener noreferer">Текущий ответ</Link>
             }
         </div>

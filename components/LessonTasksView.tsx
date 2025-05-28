@@ -19,7 +19,7 @@ export default function LessonTasksView({ data }: { data: ILesson }) {
             status
         } = await post<ILesson>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/lessons/${lesson?.id}/complete_tasks/`)
 
-        if (status === 200) setLesson(data)
+        if (data && status === 200) setLesson(data)
     }
 
     const skip = async (taskId: string) => {
@@ -27,7 +27,7 @@ export default function LessonTasksView({ data }: { data: ILesson }) {
             data,
             status
         } = await post<ILesson>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/lessons/${lesson?.id}/${taskId}/skip/`)
-        if (status === 200) setLesson(data)
+        if (data && status === 200) setLesson(data)
     }
 
     const answer = async (taskId: string, answer: TTaskAnswer) => {
@@ -39,13 +39,16 @@ export default function LessonTasksView({ data }: { data: ILesson }) {
         if (Array.isArray(answer)) {
             formData.append("answer", JSON.stringify(answer))
             response = await postFormData<ILesson>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/lessons/${lesson?.id}/${taskId}/answer/`, formData)
-        } else {
+        } else if (answer) {
             const formData = new FormData()
             formData.append("answer_file", answer)
             response = await postFormData<ILesson>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/lessons/${lesson?.id}/${taskId}/answer/`, formData)
+        } else {
+            console.error("Answer failed")
+            return
         }
 
-        if (response.status === 200) {
+        if (response.data && response.status === 200) {
             setLesson(response.data)
         } else {
             console.error("Answer failed", response.data)
