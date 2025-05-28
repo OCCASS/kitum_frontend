@@ -15,7 +15,7 @@ function useHasMounted() {
     return hasMounted;
 }
 
-export default function Player({ title, videoId }: { title: string, videoId: string }) {
+export default function Player({ title, subtitle, videoId, watermark }: { title: string, subtitle: string, videoId: string, watermark: string }) {
     const isMounded = useHasMounted()
 
     if (!isMounded) return <PlayerSkeleton />
@@ -24,10 +24,12 @@ export default function Player({ title, videoId }: { title: string, videoId: str
         <KinescopePlayer
             className="player"
             title={title}
+            subtitle={subtitle}
             language="ru"
             videoId={videoId}
             playsInline={false}
             preload={true}
+            watermark={{ text: watermark }}
         />
     )
 }

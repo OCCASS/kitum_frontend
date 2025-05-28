@@ -11,6 +11,7 @@ import { MarkdownViewSkeleton } from "@/components/Markdown";
 import Player from "@/components/Player";
 import { formattedDate } from "@/utils/date";
 import { CalendarIcon, UserIcon } from "@heroicons/react/24/solid";
+import { useUser } from "@/lib/providers/user";
 
 
 const DynamicMarkdownView = dynamic(() => import("@/components/Markdown"), {
@@ -18,6 +19,7 @@ const DynamicMarkdownView = dynamic(() => import("@/components/Markdown"), {
 })
 
 export default function LessonView({ data }: { data: ILesson }) {
+    const { user } = useUser()
     const [lesson, setLesson] = useState<ILesson>(data)
 
     async function complete() {
@@ -38,7 +40,7 @@ export default function LessonView({ data }: { data: ILesson }) {
         <div className="space-y-2 max-w-prose m-auto">
             <Link href="/lessons" className="flex gap-2 items-center"><ArrowLeftIcon className="size-5" />Назад к урокам</Link>
             <h1>{lesson.title}</h1>
-            <Player title={lesson.title} videoId={lesson.kinescopeVideoId} />
+            <Player title={lesson.title} subtitle={lesson.subscription.title} videoId={lesson.kinescopeVideoId} watermark={user?.email ?? ""} />
             <div className="text-gray-text border-b border-b-1 py-1  flex justify-between">
                 <p className="flex items-center gap-2">
                     <UserIcon className="size-5" /> {getAuthorName()}
