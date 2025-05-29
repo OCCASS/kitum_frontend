@@ -35,7 +35,6 @@ const nextConfig = {
       },
     ],
   },
-  output: "standalone",
 };
 
 export default mdx(bundleAnalyzer(nextConfig));
