@@ -10,17 +10,22 @@ type TLessonFooterProps = {
 
 const Buttons = ({ lesson, complete }: TLessonFooterProps) => {
     if (["completed", "tasks_completed"].includes(lesson.status)) {
-        return (
-            <div className="flex justify-end">
-                <Link
-                    type="button"
-                    href={`/lessons/${lesson.id}/tasks`}
-                    className="px-5 py-2 rounded border border-gray-300 inline-block"
-                >
-                    Домашнее задание
-                </Link>
-            </div>
-        )
+        if (lesson.subscription.withHomeWork) {
+            return (
+                <div className="flex justify-end">
+                    <Link
+                        type="button"
+                        href={`/lessons/${lesson.id}/tasks`}
+                        className="px-5 py-2 rounded border border-gray-300 inline-block"
+                    >
+                        Домашнее задание
+                    </Link>
+                </div>
+            )
+        }
+        else {
+            return null
+        }
     }
 
     return (

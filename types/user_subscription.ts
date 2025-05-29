@@ -4,6 +4,5 @@ export default interface IUserSubscription {
     price: number
     createdAt: string
     updatedAt: string
-    expiresAt: string
     withHomeWork: boolean
 }

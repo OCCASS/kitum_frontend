@@ -16,7 +16,7 @@ export default async function Me() {
                 <EditUserForm />
             </section>
             <section id="subscription">
-                <h1 className="mb-5">Текушая подписка</h1>
+                <h1 className="mb-5">Купленные курсы</h1>
                 <Subscriptions />
             </section>
         </div>

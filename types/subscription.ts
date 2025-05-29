@@ -3,4 +3,5 @@ export default interface ISubscription {
     title: string
     price: number
     advantages: string[]
+    withHomeWork: boolean
 }

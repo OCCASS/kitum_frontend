@@ -36,7 +36,7 @@ export default function LessonTasksView({ data }: { data: ILesson }) {
 
         let response;
         const formData = new FormData()
-        if (Array.isArray(answer)) {
+        if (typeof answer === "string") {
             formData.append("answer", JSON.stringify(answer))
             response = await postFormData<ILesson>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/lessons/${lesson?.id}/${taskId}/answer/`, formData)
         } else if (answer) {

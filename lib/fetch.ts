@@ -5,9 +5,10 @@ import { createSession } from "./session"
 import { signout } from "@/app/actions"
 import { refreshTokens } from "./auth";
 
+let refreshPromise: Promise<void> | null = null;
 
 async function $fetch(url: string | URL | Request, init?: RequestInit, afterRefresh = false): Promise<Response> {
-    const cookiesStore = await cookies()
+    const cookiesStore = await cookies();
     const access = cookiesStore.get("access")?.value;
     const fingerprint = cookiesStore.get("fp")?.value;
 
@@ -16,27 +17,41 @@ async function $fetch(url: string | URL | Request, init?: RequestInit, afterRefr
         ...(init?.headers instanceof Headers ? Object.fromEntries(init.headers.entries()) : init?.headers),
     });
 
-    const response = await fetch(url, { ...init, headers });
+    let response = await fetch(url, { ...init, headers });
 
     if (response.status === 401) {
         if (afterRefresh) {
             await signout();
-            return response
+            return response;
         }
 
-        const refreshToken = (await cookies()).get("refresh")?.value;
-        if (!refreshToken) {
-            await signout();
-            return response
+        if (refreshPromise) {
+            await refreshPromise;
+        } else {
+            const refresh = (await cookies()).get("refresh")?.value;
+            if (!refresh) {
+                await signout();
+                return response;
+            }
+
+            refreshPromise = (async () => {
+                const tokens = await refreshTokens({ refresh, access });
+                if (!tokens) {
+                    await signout();
+                    return;
+                }
+                await createSession(tokens.access, tokens.refresh);
+            })();
+
+            try {
+                await refreshPromise;
+            } finally {
+                // Убираем блокировку
+                refreshPromise = null;
+            }
         }
 
-        const tokens = await refreshTokens({ refresh: refreshToken, access });
-        if (!tokens) {
-            await signout();
-            return response
-        }
-
-        await createSession(tokens.access, tokens.refresh);
+        // Повторяем исходный запрос после обновления токена
         return await $fetch(url, init, true);
     }
 
@@ -44,57 +59,49 @@ async function $fetch(url: string | URL | Request, init?: RequestInit, afterRefr
 }
 
 export async function get<T>(url: string) {
-    const access = (await cookies()).get("access")?.value
     const requestOptions = {
         method: "GET",
         headers: {
-            Authorization: `Bearer ${access}`,
             "Content-Type": "application/json",
         }
-    }
+    };
     try {
-        const response = await $fetch(url, requestOptions)
-        const data: T = await response.json().catch(() => null) as T
-        return { data, status: response.status }
+        const response = await $fetch(url, requestOptions);
+        const data: T = await response.json().catch(() => null) as T;
+        return { data, status: response.status };
     } catch {
-        return { data: null, status: 500 }
+        return { data: null, status: 500 };
     }
 }
 
 export async function post<T>(url: string, body?: any, ...params: any) {
-    const access = (await cookies()).get("access")?.value
     const requestOptions = {
         method: "POST",
         headers: {
-            Authorization: `Bearer ${access}`,
             "Content-Type": "application/json",
         },
         body: JSON.stringify(body),
         ...params
-    }
+    };
     try {
-        const response = await $fetch(url, requestOptions)
-        const data: T = await response.json().catch(() => null) as T
-        return { data, status: response.status }
+        const response = await $fetch(url, requestOptions);
+        const data: T = await response.json().catch(() => null) as T;
+        return { data, status: response.status };
     } catch {
-        return { data: null, status: 500 }
+        return { data: null, status: 500 };
     }
 }
 
 export async function postFormData<T>(url: string, body: FormData) {
-    const access = (await cookies()).get("access")?.value
     const requestOptions = {
         method: "POST",
-        headers: {
-            Authorization: `Bearer ${access}`
-        },
         body: body
-    }
+    };
     try {
-        const response = await $fetch(url, requestOptions)
-        const data: T = await response.json().catch(() => null) as T
-        return { data, status: response.status }
+        const response = await $fetch(url, requestOptions);
+        const data: T = await response.json().catch(() => null) as T;
+        return { data, status: response.status };
     } catch {
-        return { data: null, status: 500 }
+        return { data: null, status: 500 };
     }
 }

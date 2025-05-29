@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { refreshTokens } from "@/lib/auth"
-import { getTokenCookie, verifySessionFromRequest } from "./lib/session1"
+import { verifySessionFromRequest } from "./lib/session1"
+import { deleteSession } from "./lib/session"
 
 function addCors(res: NextResponse): NextResponse {
     res.headers.set("Access-Control-Allow-Credentials", "true")
@@ -27,24 +27,8 @@ export default async function middleware(req: NextRequest) {
 
     const { accessVerified, refreshVerified } = await verifySessionFromRequest(req)
     if (isProtectedRoute) {
-        if (!accessVerified && refreshVerified) {
-            const access = req.cookies.get("access")?.value
-            const refresh = req.cookies.get("refresh")?.value
-
-            const tokens = await refreshTokens({ access, refresh })
-            if (!tokens) return signinResponse(req)
-
-            try {
-                const response = NextResponse.next()
-                response.cookies.set("access", tokens.access, await getTokenCookie(tokens.access))
-                response.cookies.set("refresh", tokens.refresh, await getTokenCookie(tokens.refresh))
-                return addCors(response)
-            } catch {
-                return signinResponse(req)
-            }
-        }
-
         if (!accessVerified || !refreshVerified) {
+            await deleteSession()
             return signinResponse(req)
         }
 

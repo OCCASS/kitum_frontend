@@ -8,7 +8,6 @@ import SubmitButton from "@/components/ui/SubmitButton"
 import Button from "@/components/ui/Button"
 import { CameraIcon } from "@heroicons/react/24/outline"
 import UserProfileImage from "@/components/ui/UserProfileImage"
-import { formattedDate } from "@/utils/date";
 import LoadingView from "@/components/LoadingView";
 import { PSkeleton } from "@/components/Skeleton";
 import DateInput from "@/components/ui/DateInput";
@@ -30,18 +29,16 @@ export function Subscriptions() {
     const { user } = useUser()
 
     if (!user) return <LoadingView />
-    if (user.subscriptions.length === 0) return <p className="text-center text-gray-500">У вас нет подписок!</p>
+    if (user.subscriptions.length === 0) return <p className="text-center text-gray-500">У вас нет купленных курсов!</p>
 
     return (
         <div className="space-y-2">
             {
                 user.subscriptions.map((item: IUserSubscription) => {
-                    const expiresAt: Date = new Date(Date.parse(item.expiresAt))
                     return (
                         <article key={item.id} className="card flex flex-col md:flex-row gap-3 justify-between items-start md:items-center min-h-0">
                             <div className="h-full space-y-3">
                                 <h2>{item.title}</h2>
-                                <p className="text-gray-500">Активна до: {formattedDate(expiresAt)}</p>
                             </div>
                         </article>
                     )
