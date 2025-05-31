@@ -24,7 +24,7 @@ export default function Page() {
         const result = await signin(prevState, formData, fingerprint, fingerprintData.userAgent)
         if (result.success) {
             if (setUser) setUser(result.user)
-            redirect(searchParms.get("redirect_to") ?? "/")
+            redirect(searchParms.get("redirect_to") ?? "")
         }
         else return result
     }
