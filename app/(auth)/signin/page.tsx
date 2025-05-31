@@ -38,7 +38,6 @@ export default function Page() {
                 <Input type="email" placeholder="Почта" name="email" />
                 <div className="flex gap-1 flex-col items-end">
                     <Input type="password" placeholder="Пароль" name="password" className="w-full" />
-                    <Link href="/reset_password">Забыл пароль?</Link>
                 </div>
                 {
                     state.message &&
@@ -47,10 +46,7 @@ export default function Page() {
                         {state.message}
                     </section>
                 }
-                <div className="space-y-2 flex flex-col">
-                    <SubmitButton className="px-10">Войти</SubmitButton>
-                    <p className="text-center">Нет аккаунта? <Link href="/signup" className="text-blue-500">Давай создадим!</Link></p>
-                </div>
+                <SubmitButton className="px-10">Войти</SubmitButton>
             </form>
         </div>
     )
