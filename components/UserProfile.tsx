@@ -1,6 +1,6 @@
 import IUser from "@/types/user";
 import { ReactNode, useCallback, useRef, useState } from "react";
-import { ArrowRightEndOnRectangleIcon, MoonIcon, DocumentIcon, CheckCircleIcon, BellAlertIcon, SunIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
+import { ArrowRightEndOnRectangleIcon, MoonIcon, SunIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import { signout } from "@/app/actions";
 import useOutsideClick from "@/lib/hooks/useOutsideClick";
 import Link from "next/link";

@@ -5,9 +5,9 @@ import { get } from "@/lib/fetch"
 import ILesson from "@/types/lesson"
 
 export default async function Page() {
-    const { data: lessons } = await get<ILesson[]>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/lessons/homework/not_completed/`)
+    const { data: lessons, ok } = await get<ILesson[]>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/lessons/homework/not_completed/`)
 
-    if (!lessons || lessons.length === 0) return <p className="text-gray-500">Список домшней работы пуст!</p>
+    if (!ok || !lessons || lessons.length === 0) return <p className="text-gray-500">Список домшней работы пуст!</p>
 
     return (
         <div className="flex gap-3 overflow-auto">

@@ -4,6 +4,7 @@ import Image from "next/image";
 export default function UserProfileImage({ user, src, size = 128 }: { user: IUser, src?: string, size?: number }) {
     if (src)
         return <Image
+            className="rounded-full"
             src={src}
             alt={`${user.firstName} ${user.lastName}`}
             width={size}
@@ -13,6 +14,7 @@ export default function UserProfileImage({ user, src, size = 128 }: { user: IUse
 
     if (user.avatar)
         return <img
+            className="rounded-full"
             src={user.avatar}
             alt={`${user.firstName} ${user.lastName}`}
             width={size}

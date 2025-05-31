@@ -68,7 +68,7 @@ export async function get<T>(url: string) {
     try {
         const response = await $fetch(url, requestOptions);
         const data: T = await response.json().catch(() => null) as T;
-        return { data, status: response.status };
+        return { data, status: response.status, ok: response.ok };
     } catch {
         return { data: null, status: 500 };
     }
@@ -86,7 +86,7 @@ export async function post<T>(url: string, body?: any, ...params: any) {
     try {
         const response = await $fetch(url, requestOptions);
         const data: T = await response.json().catch(() => null) as T;
-        return { data, status: response.status };
+        return { data, status: response.status, ok: response.ok };
     } catch {
         return { data: null, status: 500 };
     }
@@ -100,7 +100,7 @@ export async function postFormData<T>(url: string, body: FormData) {
     try {
         const response = await $fetch(url, requestOptions);
         const data: T = await response.json().catch(() => null) as T;
-        return { data, status: response.status };
+        return { data, status: response.status, ok: response.ok };
     } catch {
         return { data: null, status: 500 };
     }

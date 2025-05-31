@@ -7,9 +7,9 @@ import EmptyListPlug from "@/components/EmptyListPlug";
 import { notFound } from "next/navigation";
 
 export default async function Homework() {
-    const { data: lessons, status } = await get<ILesson[]>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/lessons/homework/`)
+    const { data: lessons, ok } = await get<ILesson[]>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/lessons/homework/`)
 
-    if (status !== 200) notFound()
+    if (!ok) notFound()
 
     if (!lessons || lessons.length === 0) {
         return <EmptyListPlug text="Список домашнего задания пуст" />
